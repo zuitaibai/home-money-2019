@@ -51,6 +51,7 @@ textarea{width:400px;height:40px;}
 .td-active, .tb tbody tr.checked td.td-active{background: rgba(176, 229, 255, .5);}
 
 .tb tbody tr:hover td.red{}
+.tb .del{color:#999;}
 .fix:after{content:'';clear: both;display:table;visibility:hidden;}
 a{text-decoration:none;}
 a:hover{text-decoration:underline;}

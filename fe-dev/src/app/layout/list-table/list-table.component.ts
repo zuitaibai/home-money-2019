@@ -5,6 +5,7 @@ import { ModalService } from '../../service/modal.service';
 import { map2Cn } from '../../util/local';
 import { ApiService } from '../../service/api.service';
 import { ForDetailBackSessionMngService } from '../../service/for-detail-back-session-mng.service';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 @Component({
     selector: 'app-list-table',
     templateUrl: './list-table.component.html',
@@ -13,6 +14,7 @@ import { ForDetailBackSessionMngService } from '../../service/for-detail-back-se
 export class ListTableComponent implements OnInit, OnChanges {
 
     ifSelectAllFlag: boolean;
+    tempCalcNum = { sum: 0, len: 0 };
 
     @Input() columns: ThObjType[];
     @Input() dataSource: TdObjType[][];
@@ -31,6 +33,12 @@ export class ListTableComponent implements OnInit, OnChanges {
         private fds: ForDetailBackSessionMngService) { }
 
     ngOnInit() { }
+    doTempCalc() {
+        const m = this.dataSource.map((v: TdObjType[]) => v[0].ifTrChecked ? +v[1].text : 0).filter((v: number) => v !== 0);
+        const sum = m.reduce((x: number, y: number) => x + +y, 0);
+        const len = m.length;
+        this.tempCalcNum = { sum, len };
+    }
     ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
         if (changes.pageNums && changes.pageNums.currentValue && changes.pageNums.previousValue) {
             if (changes.pageNums.currentValue.currentPage !== changes.pageNums.previousValue.currentPage) {
@@ -46,6 +54,7 @@ export class ListTableComponent implements OnInit, OnChanges {
         tr[0].ifTrChecked = !tr[0].ifTrChecked;
         tr[tr.length - 1].checked = !tr[tr.length - 1].checked;
         this.evSelectingRow();
+        this.doTempCalc();
     }
     evSelectingRow() {
         this.ifSelectAllFlag = this.dataSource.every(item => item[item.length - 1].checked);
@@ -56,6 +65,7 @@ export class ListTableComponent implements OnInit, OnChanges {
             item[item.length - 1].checked = this.ifSelectAllFlag;
             item[0].ifTrChecked = ifAll;
         });
+        this.doTempCalc();
     }
     evDelItem(id: number, index: number) {
         if (!confirm('确认要删？')) { return; }

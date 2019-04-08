@@ -1,9 +1,11 @@
 <div class="paylist max1300">
 
-    <div style="text-align:right;" class="max1300">
-        <a href="javascript:;" (click)="evDelAll()">批量删除</a>
+    <div style="text-align:right;margin-bottom:4px;" class="max1300">
+        <span style="margin-right:30px;" [hidden]="tempCalcNum.sum===0||tempCalcNum.len<=1">
+            [ 已选求和: <span class="red">{{tempCalcNum.sum}}</span> ]
+        </span>
+        <a href="javascript:;" (click)="evDelAll()" style="color:#666;">批量删除</a>
     </div>
-
     <table class="tb" width="100%">
         <thead>
             <tr>
@@ -48,7 +50,8 @@
                                 {{ele.split(':')[1].split('|')[1] ||'detail'}}
                             </a>
                             <ng-container *ngIf="ele.split(':')[0]==='ckbx'">
-                                <input type="checkbox" [(ngModel)]="td.checked" (change)="evSelectingRow();" title="单击所在行也可选中">
+                                <input type="checkbox" [(ngModel)]="td.checked"
+                                    (change)="evSelectingRow()" title="单击所在行也可选中" />
                             </ng-container>
                         </ng-container>
                     </div>
