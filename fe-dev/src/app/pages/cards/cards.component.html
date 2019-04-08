@@ -1,0 +1,182 @@
+<h3>卡号</h3>
+
+<div class="paylist max1300" style="margin-top:20px">
+    <div style="margin:0 1em;">
+        <table class="tb tc" id="tb1" width="100%">
+            <thead>
+            <tr>
+                <th width="7%">成员</th>
+                <th width="7%">卡种</th>
+                <th width="7%">银行</th>
+                <th width="9%">别名</th>
+                <th width="33%">卡号</th>
+                <th width="5%">有效期</th>
+                <th width="5%" title="卡背三位数">背3数</th>
+                <th width="17%">其它</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+                <!--
+                    {
+                        "list": {
+                            "2": {
+                                "2": [
+                                    {
+                                        "id": 1, "num": "6225880162057823", "sname": "招行卡", "memberKey": 2, "bankTypeKey": 2, "bankKey": 1, "cungen": 0, "income": 0, "pay": 0, "yu_e": 0,
+                                        "validityPeriod": "", "other": "", "threeNum": "", "if_show": 0, "bankName": "招商", "memberName": "老公", "bankTypeName": "借记卡", "num2": "6225 8801 6205 7823 "
+                                    }, 
+                                    {
+                                        "id": 2, "num": "6225683721003149608", "sname": "广发卡", "memberKey": 2, "bankTypeKey": 2, "bankKey": 2, "cungen": 0, "income": 0, "pay": 0, "yu_e": 0,
+                                        "validityPeriod": "", "other": "", "threeNum": "", "if_show": 0, "bankName": "广发", "memberName": "老公", "bankTypeName": "借记卡", "num2": "6225 6837 2100 3149 608"
+                                    }
+                                ],
+                                "3": [
+                                    { 
+                                        "id": 10, "num": "4392250808857212", "sname": "招信卡", "memberKey": 2, "bankTypeKey": 3, "bankKey": 1, "cungen": 0, "income": 0, "pay": 0, "yu_e": 0, "validityPeriod": "07/20",
+                                        "other": "", "threeNum": "", "if_show": 1, "bankName": "招商", "memberName": "老公", "bankTypeName": "信用卡", "num2": "4392 2508 0885 7212 "
+                                    }, 
+                                    {
+                                        "id": 11, "num": "4581240918395584", "sname": "交信卡", "memberKey": 2, "bankTypeKey": 3, "bankKey": 4, "cungen": 0, "income": 0, "pay": 0, "yu_e": 0, "validityPeriod": "04/21",
+                                        "other": "", "threeNum": "", "if_show": 1, "bankName": "交通", "memberName": "老公", "bankTypeName": "信用卡", "num2": "4581 2409 1839 5584 "
+                                    }
+                                ]
+                            },
+                            "3": {
+                                "2": [
+                                    { 
+                                        "id": 19, "num": "6222600910072961673", "sname": "交通卡[公积金]", "memberKey": 3, "bankTypeKey": 2, "bankKey": 4, "cungen": 0, "income": 0, "pay": 0, "yu_e": 0, "validityPeriod": "",
+                                        "other": "", "threeNum": "", "if_show": 0, "bankName": "交通", "memberName": "老婆", "bankTypeName": "借记卡", "num2": "6222 6009 1007 2961 673"
+                                    }, 
+                                    {
+                                        "id": 20, "num": "6226220136814398", "sname": "民生卡", "memberKey": 3, "bankTypeKey": 2, "bankKey": 7, "cungen": 0, "income": 0, "pay": 0, "yu_e": 0, "validityPeriod": "12/28",
+                                        "other": "", "threeNum": "931", "if_show": 0, "bankName": "民生", "memberName": "老婆", "bankTypeName": "借记卡", "num2": "6226 2201 3681 4398 "
+                                    }
+                                ],
+                                "3": [
+                                    { 
+                                        "id": 21, "num": "6227521122773384", "sname": "中信卡", "memberKey": 3, "bankTypeKey": 3, "bankKey": 5, "cungen": 0, "income": 0, "pay": 0, "yu_e": 0, "validityPeriod": "11/25",
+                                        "other": "好像是借记信用两用", "threeNum": "125", "if_show": 0, "bankName": "中行", "memberName": "老婆", "bankTypeName": "信用卡", "num2": "6227 5211 2277 3384 "
+                                    }
+                                ]
+                            }
+                        },
+                        "banktypes": {"2": "借记卡", "3": "信用卡", "5": "其它"},
+                        "members": {"1": "公共", "2": "老公", "3": "老婆", "4": "老大", "5": "老二"},
+                        "banks": { "1": "招商", "2": "广发", "3": "工商", "4": "交通", "5": "中行", "6": "建行", "7": "民生", "8": "北京", "9": "农商", "10": "农业", "11": "邮政", "12": "人民", "13": "其它", "22": "平安"}
+                    }
+                -->
+                <ng-container *ngFor="let i of pageData.list | keyvalue">
+                    <tr *ngIf="tmpNotFirstItem(pageData.list,i.key)">
+                        <td style="height:0;background:rgba(145,216,232,0.2);" colspan="9"></td>
+                    </tr>
+                    <ng-container *ngFor="let ii of i.value | keyvalue">
+                        <tr *ngIf="tmpNotFirstItem(i.value,ii.key)"> 
+                            <td style="height:1px;padding:0;border-color:rgba(145,216,232,0.9);" colspan="9"></td>
+                        </tr>
+                        <tr *ngFor="let iii of ii.value; index as $index">
+                            <td>
+                                <select [hidden]="!iii.editSt" [(ngModel)]="iii.memberKey">
+                                    <option *ngFor="let aaa of pageData.members | keyvalue" [value]="aaa.key">{{aaa.value}}</option>
+                                </select>
+                                <span [hidden]="iii.editSt" class="sw hastxt">{{iii.memberName}}</span>
+                            </td>
+                            <td>
+                                <select [hidden]="!iii.editSt" [(ngModel)]="iii.bankTypeKey">
+                                    <option *ngFor="let aaa of pageData.banktypes | keyvalue" [value]="aaa.key">{{aaa.value}}</option>
+                                </select>
+                                <span [hidden]="iii.editSt" class="sw hastxt">{{iii.bankTypeName}}</span>
+                            </td>
+                            <td>
+                                <select [hidden]="!iii.editSt" [(ngModel)]="iii.bankKey">
+                                    <option *ngFor="let aaa of pageData.banks | keyvalue" [value]="aaa.key">{{aaa.value}}</option>
+                                </select>
+                                <span [hidden]="iii.editSt" class="sw hastxt">{{iii.bankName}}</span>
+                            </td>
+                            <td>
+                                <input [hidden]="!iii.editSt" class="ctrnam" [(ngModel)]="iii.sname" style="width:90px;">
+                                <span [hidden]="iii.editSt" class="sw hastxt">{{iii.sname ? '('+iii.sname+')' : ''}}</span>
+                            </td>
+                            <td style="padding-right:0;">
+                                <input [hidden]="!iii.editSt" class="ctrnum" [(ngModel)]="iii.num" style="width:350px;">
+                                <span [hidden]="iii.editSt" class="sw" style="white-space: nowrap;">
+                                    <span class="bss hastxt">{{iii.num2}}</span>
+                                    <span class="bss hastxt">（{{iii.num}}）</span>
+                                </span>
+                            </td>
+                            <td>
+                                <input [hidden]="!iii.editSt" class="ctrvp" [(ngModel)]="iii.validityPeriod" style="width:55px;">
+                                <span [hidden]="iii.editSt" class="sw hastxt">{{iii.validityPeriod}}</span>
+                            </td>
+                            <td>
+                                <input [hidden]="!iii.editSt" class="ctrthr" [(ngModel)]="iii.threeNum" style="width:55px;">
+                                <span [hidden]="iii.editSt" class="sw hastxt">{{iii.threeNum}}</span>
+                            </td>
+                            <td>
+                                <input [hidden]="!iii.editSt" class="ctroth" [(ngModel)]="iii.other" style="width:90px;">
+                                <span [hidden]="iii.editSt" class="sw hastxt">{{iii.other}}</span>
+                            </td>
+                            <td style="white-space: nowrap;">
+                                <span [hidden]="!iii.editSt">
+                                    <button class="bt save" (click)="eidtSure(iii)">提交</button>&nbsp;
+                                    <button class="bt channel" (click)="eidtCanel(i.key,ii.key,$index)">取消</button>
+                                </span>
+                                <span [hidden]="iii.editSt" class="sw">
+                                    <a href="javascript:;" class="edit" (click)="gotoEdit(i.key,ii.key,$index,iii)">编辑</a> | 
+                                    <a href="javascript:;" class="del" (click)="delItem(iii.id)">删除</a>
+                                </span>
+                            </td>
+                        </tr>
+                    </ng-container>
+                </ng-container>
+                <tr *ngIf="addSt"> 
+                    <td style="height:20px;background:rgba(204, 204, 204, 0.4);" colspan="9"></td>
+                </tr>
+                <tr class="nohover" *ngIf="addSt">
+                        <td>
+                            <select [(ngModel)]="addModel.memberKey">
+                                <option *ngFor="let aaa of pageData.members | keyvalue" [value]="aaa.key">{{aaa.value}}</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select [(ngModel)]="addModel.bankTypeKey">
+                                <option *ngFor="let aaa of pageData.banktypes | keyvalue" [value]="aaa.key">{{aaa.value}}</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select [(ngModel)]="addModel.bankKey">
+                                <option *ngFor="let aaa of pageData.banks | keyvalue" [value]="aaa.key">{{aaa.value}}</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input class="ctrnam" [(ngModel)]="addModel.sname" style="width:90px;">
+                        </td>
+                        <td style="padding-right:0;">
+                            <input class="ctrnum" [(ngModel)]="addModel.num" style="width:350px;">
+                        </td>
+                        <td>
+                            <input class="ctrvp" [(ngModel)]="addModel.validityPeriod" style="width:55px;">
+                        </td>
+                        <td>
+                            <input class="ctrthr" [(ngModel)]="addModel.threeNum" style="width:55px;">
+                        </td>
+                        <td>
+                            <input class="ctroth" [(ngModel)]="addModel.other" style="width:90px;">
+                        </td>
+                        <td style="white-space: nowrap;">
+                            <span>
+                                <button class="bt save" (click)="addSure()">保存</button>&nbsp;
+                                <button class="bt channel" (click)="addSt=false;addCanel()">取消</button>
+                            </span>
+                        </td>
+                    </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="max1300" style="margin-top:20px">
+    <div style="margin:0 1em;text-align:right;"><button
+         style="padding:3px 14px;font-size:14px;font-weight:normal;"
+         (click)="addSt=true"
+         >新 建</button></div>
+</div>

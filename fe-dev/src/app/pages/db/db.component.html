@@ -1,0 +1,44 @@
+
+<h3>
+    DB操作
+</h3>
+
+<section style="margin:66px 0 30px 100px;">
+    <p style="color:#ccc;padding-bottom:36px;">约定：data_ser/writeSql.txt&nbsp;&nbsp;data_ser/S_2010-08-27_11-29-06.sql</p>
+    <button type="button" (click)="backup()">备 份</button>&nbsp;&nbsp;
+    <span class="red">{{infos.backupInfo}}</span>
+</section>
+<section style="margin:0 100px 0 100px;">
+    <button type="button" (click)="restore()">还 原</button>&nbsp;&nbsp;
+    <span class="red">{{infos.restoreInfo}}</span>&nbsp;&nbsp;&nbsp;
+    <span style="color:#ccc;">{{infos.delsInfo}}</span>
+    <div style="border:1px solid #ccc;padding:20px 5px 20px 20px;margin-top:-1px;" class="fordel-w">
+        <div style="overflow: hidden;position:relative;">
+            <a href="javascript:;" class="fordel fordelm fdelete" (click)="delSqlFiles()">删 除</a>
+            <div style="overflow-y:auto;max-height:333px;">
+                <ul>
+                    <li style="margin-bottom:5px;" *ngFor="let item of arr; index as $index">
+                        <label><input type="radio" (click)="changeOk($index)" [checked]="item.ok" name="dbn" style="margin:0;"> {{item.name}}</label>
+                        &nbsp;&nbsp;
+                        <input type="checkbox" [(ngModel)]="item.check" class="fordel fordels" style="margin-left:118px;">
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section style="margin:30px 0 0 100px;">
+    <button type="button" (click)="refreshList()" style="margin-right:50px;">刷新序列</button>
+    <button type="button" (click)="startStopLog()" style="padding:8px 38px;">{{ifOpen?'停止起录':'开始起录'}}</button>
+    &nbsp;&nbsp;<span class="red"></span>
+</section>
+<section style="margin:30px 100px 0 100px;">
+    <button type="button" (click)="runSql()">执 行</button>&nbsp;&nbsp;
+    <span class="red">{{infos.runSqlInfo}}</span>
+    <div style="border:1px solid #ccc;padding:20px;margin-top:-1px;" class="fordel-w">
+        <textarea [(ngModel)]="sqlTxt" style="height:150px;width:100%;"></textarea>
+    </div>
+</section>
+
+

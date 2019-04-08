@@ -1,0 +1,219 @@
+<div style="max-width:1200px;min-width:850px;">
+    <h3>类目编辑</h3>
+    <div class="fx" [class.hides]="hidesO.hides1">
+        <span class="fxbef fxbefs" *ngIf="!hidesO.hides1" title="收起此行类别" (click)="hides(1)">收起 ↑</span>
+        <span class="fxbef" *ngIf="hidesO.hides1" title="展开此行类别" (click)="hides(1)">展开 ↓</span>
+        <div class="ptt">
+            <h3 class="tc">支出二级类别</h3>
+            <table width="100%">
+                <tr>
+                    <th>父id</th>
+                    <th style="color:#aaa;">id</th>
+                    <th>名称</th>
+                    <th>排序</th>
+                    <th>操作</th>
+                </tr>
+                <tr *ngFor="let item of outtype2; index as $index">
+                    <td style="color:#aaa;">{{pid}}</td>
+                    <td style="color:#aaa;">{{item.id}}</td>
+                    <td>
+                        <span *ngIf="!item.showEdit" class="ttxt">{{item.name}}</span>
+                        <input *ngIf="item.showEdit" class=" sttt" type="text" [(ngModel)]="item.name">
+                    </td>
+                    <td>
+                        <span *ngIf="!item.showEdit" class="ttxt">{{item.orderd}}</span>
+                        <input *ngIf="item.showEdit" class=" st" type="number" [(ngModel)]="item.orderd">
+                    </td>
+                    <td class="tc">
+                        <span class="" *ngIf="item.showEdit">
+                            <button type="button" (click)="edit('outtype2',item.id,item.name,item.orderd)">确认</button>
+                            <a class="canelLink" href="javascript:;" style="color:#666;margin-left:4px;" (click)="bstore2($index);item.showEdit=!item.showEdit">取消</a>
+                        </span>
+                        <a *ngIf="!item.showEdit" class="editLink ttxt" href="javascript:;" title="编辑" (click)="item.showEdit=!item.showEdit"><span class="edit"></span></a>
+                        <a *ngIf="!item.showEdit" class="btnDel" href="javascript:;" title="删除" (click)="del('outtype2',item.id)"><span class="cha ttxt"></span></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:#aaa;"></td>
+                    <td></td>
+                    <td><input class="sttt" type="text" [(ngModel)]="mdsO.a2" #sa2="ngModel"></td>
+                    <td><input class="st" type="number" [(ngModel)]="mdsO.b2" #sb2="ngModel"></td>
+                    <td class="tc"><a class="btnAdd" href="javascript:;" (click)="add('outtype2',sa2.value,sb2.value)">新增</a></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="ptt">
+            <h3 class="tc">支出一级类别</h3>
+            <table width="100%" class="out1table">
+                <tr>
+                    <th style="color:#aaa;">id</th>
+                    <th>名称</th>
+                    <th>排序</th>
+                    <th>操作</th>
+                </tr>
+                <tr [class.cur]="pid===item.id" *ngFor="let item of outtype1; index as $index">
+                    <td><a href="javascript:;" class="baa" style="color:#aaa;" (click)="changePid(item.id)">
+                        <span>{{item.id}}</span>
+                    </a></td>
+                    <td>
+                        <span *ngIf="!item.showEdit" class="ttxt">{{item.name}}</span>
+                        <input *ngIf="item.showEdit" class=" sttt" [(ngModel)]="item.name">
+                    </td>
+                    <td>
+                        <span *ngIf="!item.showEdit" class="ttxt">{{item.orderd}}</span>
+                        <input *ngIf="item.showEdit" class=" st" type="number" [(ngModel)]="item.orderd">
+                    </td>
+                    <td class="tc">
+                        <span class="" *ngIf="item.showEdit">
+                            <button type="button" (click)="edit('outtype1',item.id,item.name,item.orderd)">确认</button>
+                            <a class="canelLink" href="javascript:;" style="color:#666;margin-left:4px;" (click)="bstore1($index);item.showEdit=!item.showEdit">取消</a>
+                        </span>
+                        <a *ngIf="!item.showEdit" class="editLink ttxt" href="javascript:;" title="编辑" (click)="item.showEdit=!item.showEdit"><span class="edit"></span></a>
+                        <a *ngIf="!item.showEdit" class="btnDel" href="javascript:;" title="删除" (click)="del('outtype1',item.id)"><span class="cha ttxt"></span></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input class="sttt" type="text" [(ngModel)]="mdsO.a1"  #sa1="ngModel"></td>
+                    <td><input class="st" type="number" [(ngModel)]="mdsO.b1"  #sb1="ngModel"></td>
+                    <td class="tc"><a class="btnAdd" href="javascript:;" (click)="add('outtype1',sa1.value,sb1.value)">新增</a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div *ngIf="hidesO.hides1" style="height:1px;background:#ccc;margin:0 8% 0 4%;"></div>
+
+    <div class="fx" [class.hides]="hidesO.hides2">
+        <span class="fxbef fxbefs" *ngIf="!hidesO.hides2" title="收起此行类别" (click)="hides(2)">收起 ↑</span>
+        <span class="fxbef" *ngIf="hidesO.hides2" title="展开此行类别" (click)="hides(2)">展开 ↓</span>
+        <div class="ptt">
+            <h3 class="tc">收入类别</h3>
+            <table width="100%">
+                <tr>
+                    <th style="color:#aaa;">id</th>
+                    <th>名称</th>
+                    <th>排序</th>
+                    <th>操作</th>
+                </tr>
+                <tr *ngFor="let item of intype; index as $index">
+                    <td style="color:#aaa;">{{item.id}}</td>
+                    <td>
+                        <span *ngIf="!item.showEdit" class="ttxt">{{item.name}}</span>
+                        <input *ngIf="item.showEdit" class=" sttt" type="text" [(ngModel)]="item.name">
+                    </td>
+                    <td>
+                        <span *ngIf="!item.showEdit" class="ttxt">{{item.orderd}}</span>
+                        <input *ngIf="item.showEdit" class=" st" type="number" [(ngModel)]="item.orderd">
+                    </td>
+                    <td class="tc">
+                        <span *ngIf="item.showEdit" class="">
+                            <button type="button" (click)="edit('intype',item.id,item.name,item.orderd)">确认</button>
+                            <a class="canelLink" href="javascript:;" style="color:#666;margin-left:4px;" (click)="bstore3($index);item.showEdit=!item.showEdit">取消</a>
+                        </span>
+                        <a *ngIf="!item.showEdit" class="editLink ttxt" href="javascript:;" title="编辑" (click)="item.showEdit=!item.showEdit"><span class="edit"></span></a>
+                        <a *ngIf="!item.showEdit" class="btnDel" href="javascript:;" title="删除" (click)="del('intype',item.id)"><span class="cha ttxt"></span></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input class="sttt" type="text" [(ngModel)]="mdsO.a3"  #sa3="ngModel"></td>
+                    <td><input class="st" type="number" [(ngModel)]="mdsO.b3"  #sb3="ngModel"></td>
+                    <td class="tc"><a class="btnAdd" href="javascript:;" (click)="add('intype',sa3.value,sb3.value)">新增</a></td>
+                </tr>
+            </table>
+        </div>
+        <div class="ptt">
+            <h3 class="tc">银行编辑</h3>
+            <table width="100%">
+                <tr>
+                    <th style="color:#aaa;">id</th>
+                    <th>名称</th>
+                    <th>排序</th>
+                    <th>操作</th>
+                </tr>
+                <tr *ngFor="let item of banks; index as $index">
+                    <td style="color:#aaa;">{{item.id}}</td>
+                    <td>
+                        <span *ngIf="!item.showEdit" class="ttxt">{{item.name}}</span>
+                        <input *ngIf="item.showEdit" class=" sttt" type="text" [(ngModel)]="item.name">
+                    </td>
+                    <td>
+                        <span *ngIf="!item.showEdit" class="ttxt">{{item.orderd}}</span>
+                        <input *ngIf="item.showEdit" class=" st" type="number" [(ngModel)]="item.orderd">
+                    </td>
+                    <td class="tc">
+                        <span *ngIf="item.showEdit" class="">
+                            <button type="button" (click)="edit('bank',item.id,item.name,item.orderd)">确认</button>
+                            <a class="canelLink" href="javascript:;" style="color:#666;margin-left:4px;" (click)="bstore4($index);item.showEdit=!item.showEdit">取消</a>
+                        </span>
+                        <a *ngIf="!item.showEdit" class="editLink ttxt" href="javascript:;" title="编辑" (click)="item.showEdit=!item.showEdit"><span class="edit"></span></a>
+                        <a *ngIf="!item.showEdit" class="btnDel" href="javascript:;" title="删除" (click)="del('bank',item.id)"><span class="cha ttxt"></span></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input class="sttt" type="text" [(ngModel)]="mdsO.a4"  #sa4="ngModel"></td>
+                    <td><input class="st" type="number" [(ngModel)]="mdsO.b4"  #sb4="ngModel"></td>
+                    <td class="tc"><a class="btnAdd" href="javascript:;" (click)="add('bank',sa4.value,sb4.value)">新增</a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div *ngIf="hidesO.hides2" style="height:1px;background:#ccc;margin:0 8% 0 4%;"></div>
+
+    <div class="fx" [class.hides]="hidesO.hides3" [style.margin-bottom.px]="hidesO.hides3?0:50">
+        <span class="fxbef fxbefs" *ngIf="!hidesO.hides3" title="收起此行类别" (click)="hides(3)">收起 ↑</span>
+        <span class="fxbef" *ngIf="hidesO.hides3" title="展开此行类别" (click)="hides(3)">展开 ↓</span>
+        <div class="ptt"><h3 class="tc">成员编辑</h3></div>
+        <div style="margin-left:40px;clear:both;">
+            <table class="rowtb">
+                <tr>
+                    <th style="color:#aaa;width:60px;">i d</th>
+                    <td *ngFor="let item of members" style="color:#aaa;">{{item.id}}</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>名 称</th>
+                    <td *ngFor="let item of members">
+                        <span *ngIf="!item.showEdit" class="ttxt">{{item.name}}</span>
+                        <input *ngIf="item.showEdit" class=" st" type="text" [(ngModel)]="item.name">
+                    </td>
+                    <td><input class="st" type="text" [(ngModel)]="mdsO.a5"  #sa5="ngModel"></td>
+                </tr>
+                <tr>
+                    <th>排 序</th>
+                    <td *ngFor="let item of members">
+                        <span *ngIf="!item.showEdit" class="ttxt">{{item.orderd}}</span>
+                        <input *ngIf="item.showEdit" class=" st" type="number"  [(ngModel)]="item.orderd">
+                    </td>
+                    <td><input class="st" type="number" [(ngModel)]="mdsO.b5"  #sb5="ngModel"></td>
+                </tr>
+                <tr>
+                    <th>家 成</th>
+                    <td *ngFor="let item of members">
+                        <span *ngIf="!item.showEdit"  class="ttxt" [class.ifhome]="item.ifhome==1"></span>
+                        <input *ngIf="item.showEdit" class="" type="checkbox" [(ngModel)]="item.ifhome">
+                    </td>
+                    <td><input type="checkbox" [(ngModel)]="mdsO.c5" #sc5="ngModel"></td>
+                </tr>
+                <tr>
+                    <th>操 作</th>
+                    <td *ngFor="let item of members; index as $index">
+                        <span *ngIf="item.showEdit" class="">
+                            <button type="button" (click)="edit('member',item.id,item.name,item.orderd,item.ifhome)">确认</button><br><a class="canelLink2" 
+                                (click)="bstore5($index);item.showEdit=!item.showEdit" 
+                                href="javascript:;" style="color:#666;margin-left:4px;">取消</a>
+                        </span>
+                        <a *ngIf="!item.showEdit" class="editLink2 ttxt" href="javascript:;" (click)="item.showEdit=!item.showEdit" title="编辑">
+                            <span class="edit" style="left:9px;"></span>
+                        </a><br><a *ngIf="!item.showEdit" class="btnDel" href="javascript:;" title="删除" 
+                                (click)="del('member',item.id)"><span class="cha ttxt"></span></a>
+                    </td>
+                    <td><a class="btnAdd" href="javascript:;" (click)="add('member',sa5.value,sb5.value,sc5.value)">新增</a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div *ngIf="hidesO.hides3" style="height:1px;background:#ccc;margin:0 8% 0 4%;"></div>
+</div>

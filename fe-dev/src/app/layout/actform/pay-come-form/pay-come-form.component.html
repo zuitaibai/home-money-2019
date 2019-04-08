@@ -1,0 +1,113 @@
+<form [formGroup]="sForm" (ngSubmit)="submits()">
+    <table>
+        
+        <tr>
+            <td width="50">名称</td>
+            <td class="red">*</td>
+            <td>
+                <input formControlName="name" required autofocus #nameCtrRef />
+            </td>
+        </tr>
+        <tr>
+            <td>金额</td>
+            <td class="red">*</td>
+            <td>
+                <input required type="number" min="0" autocomplete="off" formControlName="money" required
+                    placeholder="不接受小数">
+                <span class="red" style="margin-left:10px;"
+                    *ngIf="money.invalid && (money.dirty || money.touched) && money.errors.forbidden">（不能接受小数）</span>
+            </td>
+        </tr>
+        <tr>
+            <td><span style="color:#ff6900;">类别</span></td>
+            <td></td>
+            <td>
+                <ng-container *ngIf="payOrCome==='pay'">
+                    <ng-container *ngFor="let item of outtype1KeyData; last as ifLast">
+                        <label><input type="radio" name="outtype1Key" formControlName="outtype1Key" [value]="item.id"
+                                (change)="changeOut1(item.id)">{{item.name}}</label>
+                        <ng-container *ngIf="!ifLast">&nbsp;</ng-container>
+                    </ng-container>
+                    <p style="border-bottom:1px dashed #ccc;margin:8px 0 8px 10px;"></p>
+                    <ng-container *ngFor="let item of outtype2KeyData; last as ifLast">
+                        <label><input type="radio" name="outtype2Key" formControlName="outtype2Key"
+                                [value]="item.id">{{item.name}}</label>
+                        <ng-container *ngIf="!ifLast">&nbsp;</ng-container>
+                    </ng-container>
+                </ng-container>
+
+                <ng-container *ngIf="payOrCome==='come'">
+                    <ng-container *ngFor="let item of intypeKeyData; last as ifLast">
+                        <label><input type="radio" name="intypeKey" formControlName="intypeKey"
+                                [value]="item.id">{{item.name}}</label>
+                        <ng-container *ngIf="!ifLast">&nbsp;</ng-container>
+                    </ng-container>
+                </ng-container>
+            </td>
+        </tr>
+        <tr>
+            <td><span style="color:#00d3ff;">账户</span></td>
+            <td></td>
+            <td>
+                <app-member-type
+                    formControlName="memberKey"
+                    [ifShowAll]="false"
+                    [addOrEdit]="addOrEdit"
+                    fbug="1">
+                </app-member-type>
+            </td>
+        </tr>
+        <tr>
+            <td><span style="color:#ff6900">币种</span></td>
+            <td></td>
+            <td>
+                <app-money-type1 formControlName="bankTypeKey" (ngModelChange)="onMoneyType1Change($event)"
+                    [addOrEdit]="addOrEdit"></app-money-type1>
+                <p style="border-bottom:1px dashed #ccc;margin:8px 0 8px 10px;"></p>
+                <app-money-type2 formControlName="bankKey" [bkList]="bankKeyListData"></app-money-type2>
+
+            </td>
+        </tr>
+        <tr>
+            <td>时间</td>
+            <td></td>
+            <td>
+                <app-date-ctr formControlName="date_sign"></app-date-ctr>
+            </td>
+        </tr>
+        <tr>
+            <td>花给谁</td>
+            <td></td>
+            <td>
+                <app-member-type
+                    formControlName="for_from_memberKey"
+                    [ifShowAll]="ifMemberShowAll"
+                    [addOrEdit]="addOrEdit"
+                    fbug="2">
+                </app-member-type>
+            </td>
+        </tr>
+        <tr>
+            <td>自分类</td>
+            <td></td>
+            <td>
+                <input formControlName="dtype">
+            </td>
+        </tr>
+        <tr>
+            <td>备注{{isOughtNotPayStr}}</td>
+            <td></td>
+            <td>
+                <textarea formControlName="other"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>
+                <button type="submit" [disabled]="!sForm.valid">提 交</button>
+            </td>
+        </tr>
+    </table>
+    <!-- {{sForm.value | json}} -->
+</form>

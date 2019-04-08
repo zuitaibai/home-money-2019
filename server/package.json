@@ -1,0 +1,23 @@
+{
+    "name": "server",
+    "version": "1.0.0",
+    "main": "rootBoot.js",
+    "license": "MIT",
+    "scripts": {
+        "start": "node ./boot/index.js",
+        "dev": "nodemon ./boot/index.js"
+    },
+    "dependencies": {
+        "glob": "^7.1.3",
+        "koa": "^2.7.0",
+        "koa-body": "^4.1.0",
+        "koa-compose": "^4.1.0",
+        "koa-router": "^7.4.0",
+        "koa-session2": "^2.2.10",
+        "mime": "^2.4.0",
+        "mysql": "^2.16.0"
+    },
+    "devDependencies": {
+        "nodemon": "^1.18.10"
+    }
+}

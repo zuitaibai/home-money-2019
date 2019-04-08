@@ -1,0 +1,76 @@
+<app-list-form 
+    [routerPageType]="routerPageType" 
+    (onFormChange)="onFormChange($event)"
+    [inits]="formInits"
+    ></app-list-form>
+
+<div class="paylist max1300" style="margin-top:14px;">
+    <table class="tb tc" id="tb1" width="100%">
+        <thead>
+        <tr>
+            <th>{{th1Name}} 份</th>
+            <th>存根</th>
+            <th>借入/借出</th>
+            <th>还入/还出</th>
+            <th>生意(入/出)</th>
+            <th style="background:rgba(171,138,74,0.1);padding-left:35px;padding-right:35px;">收 入</th>
+            <th style="background:rgba(191,49,137,0.1);padding-left:35px;padding-right:35px;">支 出</th>
+            <th>收支差</th>
+            <th>账户差额</th>
+            <th style="padding-left:10px;padding-right:10px;">账户余额</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of pageData.listArr"
+                [class.isRowZhuncun]="item.cungen==0&&item.jieru==0&&item.jiechu==0&&item.huanru==0&&item.huanchu==0&&item.shengyi_shouru==0&&item.shengyi_touzi==0&&item.shouru==0&&item.zhichu==0"
+            >
+                <td height="23">{{item.datefmt}}</td>
+                <td><span class="color_ru">{{item.cungen}}</span></td>
+                <td><span class="color_ru">{{item.jieru}}</span>&emsp;/&emsp;<span class="color_chu">{{item.jiechu}}</span></td>
+                <td><span class="color_ru">{{item.huanru}}</span>&emsp;/&emsp;<span class="color_chu">{{item.huanchu}}</span></td>
+                <td><span class="color_ru">{{item.shengyi_shouru}}</span>&emsp;/&emsp;<span class="color_chu">{{item.shengyi_touzi}}</span></td>
+                <td class="td_neirong td_shouzhi"><span class="color_ru">{{item.shouru}}</span><em></em><button type="button" 
+                    (click)="evClickDetail('come',item.date,item.shouru)">都什么</button></td>
+                <td class="td_neirong td_shouzhi"><span class="color_chu">{{item.zhichu}}</span><em></em><button type="button"
+                    (click)="evClickDetail('pay',item.date,item.zhichu)"
+                    >都什么</button></td>
+                <td><span [class.color_ru]="item.cha_e>0">{{item.cha_e}}</span></td>
+                <td class="td_neirong" [class.color_ru]="item.z_cha_e>0"><span>{{item.z_cha_e}}</span><em></em><button type="button"
+                    (click)="evClickDetail('resumm',item.date,item.z_cha_e)"
+                    >都什么</button></td>
+                <td class="td_neirong">{{item.yu_e}}<em></em><button type="button"
+                    (click)="evClickDetail('resum',item.date,item.yu_e)"
+                    >都什么</button></td>
+            </tr>
+        </tbody>
+        <tfoot>
+        <tr style="background: rgba(204,204,204,0.4);color: #8d8d8d;">
+            <td class="tc" style="color:lightslategray;">总计：</td>
+            <td><span>{{pageData.total?.cungen}}</span></td>
+            <td><span>{{pageData.total?.jieru}}</span>&emsp;/&emsp;<span>{{pageData.total?.jiechu}}</span></td>
+            <td><span>{{pageData.total?.huanru}}</span>&emsp;/&emsp;<span>{{pageData.total?.huanchu}}</span></td>
+            <td><span>{{pageData.total?.shengyi_shouru}}</span>&emsp;/&emsp;<span>{{pageData.total?.shengyi_touzi}}</span></td>
+            <td style="background:rgba(171,138,74,0.1);">{{pageData.total?.shouru}}</td>
+            <td style="background:rgba(191,49,137,0.1);">{{pageData.total?.zhichu}}</td>
+            <td>{{+pageData.total?.cha_e   > 0 ? '+'+pageData.total?.cha_e   : pageData.total?.cha_e}}</td>
+            <td>{{+pageData.total?.z_cha_e > 0 ? '+'+pageData.total?.z_cha_e : pageData.total?.z_cha_e}}</td>
+            <td></td>
+        </tr>
+        </tfoot>
+    </table>
+</div>
+
+<app-paging-data
+    (onPagingChange)="onPagingChange($event)"
+    [pCurP]="storePageOptions.currentPage"
+    [pSize]="pageData.page?.pageSize"
+    [pTotal]="pageData.page?.totalRecord"
+    [pShowInfo]="true"
+    ></app-paging-data>
+<!-- <app-paging-dom
+    (onPagingChange)="onPagingChange($event)"
+    [pCurP]="storePageOptions.currentPage"
+    [pSize]="pageData.page?.pageSize"
+    [pTotal]="pageData.page?.totalRecord"
+    [pShowInfo]="true"
+    ></app-paging-dom> -->

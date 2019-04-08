@@ -1,0 +1,92 @@
+<section class="srch_">
+    <form (ngSubmit)="evFormSubmit()" #form1="ngForm">
+        <span style="color:red;font-weight:bold;">{{pageCnName}}：</span>
+        <ng-container *ngIf="routerPageType!=='listStatistics'">
+            <input name="name" [(ngModel)]="fmOpts.VTname" type="text" class="short" placeholder="名 称">
+        </ng-container>
+        <input name="date_sign_start" [(ngModel)]="fmOpts.VTdateSt" type="date" class="sshort" placeholder="起始时间">
+        -<input name="date_sign_end" [(ngModel)]="fmOpts.VTdateEd" type="date" class="sshort" placeholder="结束时间">
+        <ng-container *ngIf="routerPageType==='listPay'">
+            <select name="outtype1Key" [(ngModel)]="fmOpts.VSout1" (change)="evOuttype1KeyChange(outtype1Key.value)" #outtype1Key>
+                <option value="all">--类别--</option>
+                <option *ngFor="let item of pageObj?.outtype1Key" [value]="item.id">{{item.name}}</option>
+            </select>
+            <select name="outtype2Key" [(ngModel)]="fmOpts.VSout2">
+                <option value="all">--子类别--</option>
+                <option *ngFor="let item of pageObj?.outtype2Key" [value]="item.id">{{item.name}}</option>
+            </select>
+            <select name="for_from_memberKey" [(ngModel)]="fmOpts.VSmemberB">
+                <option value="all">--消费对象--</option>
+                <option *ngFor="let item of pageObj?.for_from_memberKey" [value]="item.id">{{item.name}}</option>
+            </select>
+        </ng-container>
+        <ng-container *ngIf="routerPageType==='listCome'">
+            <select name="intypeKey" [(ngModel)]="fmOpts.VSintype">
+                <option value="all">--收入类别--</option>
+                <option *ngFor="let item of pageObj?.intypeKey" [value]="item.id">{{item.name}}</option>
+            </select>
+        </ng-container>
+        <ng-container *ngIf="routerPageType==='listCome' || routerPageType==='listPay'">
+            <select name="bankTypeKey" [(ngModel)]="fmOpts.VSbank1" (change)="evBankTypeKeyChange(bankTypeKey.value)" #bankTypeKey>
+                <option value="all">--币种--</option>
+                <option *ngFor="let item of pageObj?.bankTypeKey" [value]="item.id" [attr.data-type]="item.type">{{item.name}}</option>
+            </select>
+            <select name="bankKey" [(ngModel)]="fmOpts.VSbank2">
+                <option value="all">--币种子类--</option>
+                <option *ngFor="let item of pageObj?.bankKey" [value]="item.id">{{item.name}}</option>
+            </select>
+            <select name="memberKey" [(ngModel)]="fmOpts.VSmember">
+                <option value="all">--账户--</option>
+                <option *ngFor="let item of pageObj?.memberKey" [value]="item.id">{{item.name}}</option>
+            </select>
+        </ng-container>
+        <ng-container *ngIf="routerPageType==='listAccounts'">
+            <select name="type" [(ngModel)]="fmOpts.VStype">
+                <option value="all" data-type="all">-- 账目类型 --</option>
+                <optgroup label=""> 
+                    <option value="100">转存</option>
+                    <option value="-100000">非转存</option>
+                </optgroup>
+                    <optgroup label=""> 
+                    <option value="0">存根</option>
+                    <option value="1">借入</option>
+                    <option value="-1">借出</option>
+                    <option value="2">还入</option>
+                    <option value="-2">还出</option>
+                    <option value="3">生意收入</option>
+                    <option value="-3">生意投资</option>
+                </optgroup>
+            </select>
+        </ng-container>
+        <ng-container *ngIf="routerPageType==='listStatistics'">
+            <span style="margin-left:30px;"></span>统计单位:
+            <select name="tongjidw" style="margin-right:30px;" [(ngModel)]="fmOpts.VSdw">
+                <option value="year">-- 年 --</option>
+                <option value="month">-- 月 --</option>
+                <option value="day">-- 天 --</option>
+            </select>
+        </ng-container>
+        <ng-container *ngIf="routerPageType!=='listStatistics'">
+            <input name="dtype" [(ngModel)]="fmOpts.VTdtype" class="cshort" type="text" placeholder="自分类" value="">
+            <input name="other" [(ngModel)]="fmOpts.VTother" type="text" class="short" placeholder="备注" value="">
+        </ng-container>
+        <input name="pageSize" [(ngModel)]="fmOpts.VTpgSize" class="vshort" min="1" type="number" placeholder="条/页" value="">
+        <button type="button" (click)="evFormReset()" style="margin-left:5px;">重置</button>
+        <button type="submit" style="margin-left:5px;" (click)="qkSearchClass=''">查询</button>
+    
+        <div class="bsss" [ngStyle]="{display:routerPageType==='listStatistics'?'inline-block':'', margin:routerPageType==='listStatistics'?'0 0 0 36px':'5px 0 0', verticalAlign: routerPageType==='listStatistics'?'middle':''}">
+            <span>快捷查询：</span>
+            <a href="javascript:;" [ngClass]="{red:qkSearchClass==='-year',unline:qkSearchClass==='-year'}"  (click)="evQuickSubmit('-year');"
+                [style.marginLeft]="routerPageType==='listStatistics'?0:''"
+                >去年</a>
+            <a href="javascript:;" [ngClass]="{red:qkSearchClass==='year',unline:qkSearchClass==='year'}" (click)="evQuickSubmit('year')">本年</a>
+            <a href="javascript:;" [ngClass]="{red:qkSearchClass==='quarter',unline:qkSearchClass==='quarter'}" (click)="evQuickSubmit('quarter')">本季度</a>
+            <a href="javascript:;" [ngClass]="{red:qkSearchClass==='month',unline:qkSearchClass==='month'}" (click)="evQuickSubmit('month')">本月</a>
+            <a href="javascript:;" [ngClass]="{red:qkSearchClass==='-month',unline:qkSearchClass==='-month'}" (click)="evQuickSubmit('-month');">上个月</a>
+            <a href="javascript:;" [ngClass]="{red:qkSearchClass==='week',unline:qkSearchClass==='week'}" (click)="evQuickSubmit('week')">本周</a>
+            <a href="javascript:;" [ngClass]="{red:qkSearchClass==='-day',unline:qkSearchClass==='-day'}" (click)="evQuickSubmit('-day')">昨天</a>
+            <a href="javascript:;" [ngClass]="{red:qkSearchClass==='day',unline:qkSearchClass==='day'}" (click)="evQuickSubmit('day')">今天</a>
+        </div>
+        <!-- <div>{{form1.value | json}}</div> -->
+    </form>
+</section>

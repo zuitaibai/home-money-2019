@@ -1,0 +1,122 @@
+<!-- pay -->
+<table *ngIf="compName==='pay'" class="tb_normal" width="100%" cellpadding="0" border="0" cellspacing="0">
+    <tbody>
+    <tr>
+        <td class="tdhasins">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <thead>
+                <tr>
+                    <th>类别</th>
+                    <th>支出账户</th>
+                    <th>&emsp;消费对象&emsp;</th>
+                    <th>&emsp;虚拟&emsp;</th>
+                    <th>&emsp;现金&emsp;</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr *ngFor="let item of pgObj.pay.typeList">
+                                <td class="ofstd">{{item.id==-100?'[':''}}{{item.name}}{{item.id==-100?']':''}}{{item.id==-100?'':':'}}</td>
+                                <td class="lowtd">{{item.money}}</td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr *ngFor="let item of pgObj.pay.bizhongList">
+                                <td class="ofstd">{{item.bankName}}</td>
+                                <td class="ofstd">{{item.banktypeName}}</td>
+                                <td class="ofstd">{{item.memberName}}</td>
+                                <td>:</td>
+                                <td class="lowtd">{{item.money}}</td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr *ngFor="let item of pgObj.pay.forMemberList">
+                                <td class="ofstd">{{item.forMemberName}}:</td>
+                                <td class="lowtd">{{item.money}}</td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td style="text-align: center; vertical-align: middle;color:#10a003;padding-left:15px;padding-right:15px;"
+                        >{{pgObj.pay.xuniXianjin?.xuni}}</td>
+                    <td style="text-align: center; vertical-align: middle;color:#10a003;padding-left:15px;padding-right:15px;"
+                        >{{pgObj.pay.xuniXianjin?.xianjin}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- come -->
+<table *ngIf="compName==='come'" class="tb_normal" width="100%" cellpadding="0" border="0" cellspacing="0">
+    <tbody>
+    <tr>
+        <td class="tdhasins">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <thead>
+                <tr>
+                    <th>类别</th>
+                    <th>账户</th>
+                    <th>&emsp;虚拟&emsp;</th>
+                    <th>&emsp;现金&emsp;</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr *ngFor="let item of pgObj.come.typeList">
+                                <td class="ofstd">{{item.id==-100?'[':''}}{{item.name}}{{item.id==-100?']':''}}{{item.id==-100?'':':'}}</td>
+                                <td class="lowtd">{{item.money}}</td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr *ngFor="let item of pgObj.come.bizhongList">
+                                <td class="ofstd">{{item.bankName}}</td>
+                                <td class="ofstd">{{item.banktypeName}}</td>
+                                <td class="ofstd">{{item.memberName}}</td>
+                                <td>:</td>
+                                <td class="lowtd">{{item.money}}</td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td style="text-align: center; vertical-align: middle;color:#10a003;padding-left:15px;padding-right:15px;"
+                        >{{pgObj.come.xuniXianjin?.xuni}}</td>
+                    <td style="text-align: center; vertical-align: middle;color:#10a003;padding-left:15px;padding-right:15px;"
+                        >{{pgObj.come.xuniXianjin?.xianjin}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- yuEchaE: z_cha_e || yu_e -->
+<div *ngIf="compName==='resum'||compName==='resumm'" style="border:1px solid #7d7d7d;">
+    <table class="godtable" width="100%" cellpadding="0" border="0" cellspacing="0">
+        <tbody>
+            <ng-container *ngFor="let item of pgObj.resum | keyvalue">
+                <tr *ngFor="let iitem of item.value; first as isFirst">
+                    <td *ngIf="isFirst" class="ofstd" [attr.rowspan]="item.value.length">{{item.key}}</td>
+                    <td class="ofstd">{{iitem.bankTypeName}}</td>
+                    <td class="ofstd">{{iitem.bankName}}</td>
+                    <td class="lowtd" style="padding-left:15px;padding-right:15px;">{{
+                        (compName==='resumm' && iitem.money>0) ? '+'+iitem.money : iitem.money
+                    }}</td>
+                </tr>
+            </ng-container>
+        </tbody>
+    </table>
+</div>
+
+

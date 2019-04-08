@@ -1,0 +1,19 @@
+.fordel-w .fordel {
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+.fordel-w:hover .fordel {
+    opacity: 1;
+}
+
+.fdelete {
+    position: absolute;
+    left: 340px;
+    top: 50%;
+    margin-top: -20px;
+    padding: 10px 16px;
+    background: rgba(163, 229, 255, 0.49);
+    border-radius: 11px;
+    color: #1298ce;
+}

@@ -1,0 +1,70 @@
+<div class="paylist max1300">
+
+    <div style="text-align:right;" class="max1300">
+        <a href="javascript:;" (click)="evDelAll()">批量删除</a>
+    </div>
+
+    <table class="tb" width="100%">
+        <thead>
+            <tr>
+                <th *ngFor="let th of columns" [ngClass]="th.classes" [ngStyle]="th.styles"
+                    [attr.title]="th.attrs?.title" [attr.width]="th.attrs?.width" [attr.valign]="th.attrs?.valign">
+                    {{th.text}}
+                    <span *ngIf="th.isSelectAll" style="font-size:10px;user-select: none;" (click)="evSelectingAll()"
+                        [ngClass]="{stspan:true,'stspan-scale':ifSelectAllFlag}">√</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let tr of dataSource; index as rowIndex" [class.checked]="tr[0].ifTrChecked" [style.color]="tr[0].ifTrGray?'gray':''">
+                <td *ngFor="let td of tr; index as tdIndex" (click)="evTriggerSelectingRow(tr)" [ngClass]="td.classes"
+                    [class.td-active]="td.ifTdActive" [ngStyle]="td.styles" [attr.valign]="td.attrs?.valign"
+                    [attr.title]="td.attrs?.title">
+                    <ng-container *ngIf="tdIndex===0">
+                        <span
+                            style="color:rgb(141, 141, 141);">{{td.text.substring(td.onedayAllMoneys?5:0,td.text.lastIndexOf('-')+1)}}</span>
+                        {{td.text.substring(td.text.lastIndexOf('-')+1)}}
+                        <span *ngIf="td.onedayAllMoneys"
+                            style="color:#f86fff;position:absolute;left:0;">{{td.onedayAllMoneys}}</span>
+                    </ng-container>
+                    <ng-container *ngIf="tdIndex!==0">
+                        {{td.text}}
+                    </ng-container>
+                    <div *ngIf="td.eles?.length" style="user-select: none;" class="oprdiv">
+                        <ng-container *ngFor="let ele of td.eles">
+                            <a *ngIf="ele.split(':')[0]==='btn' && ele.split(':')[1].split('|')[0]==='edit'"
+                                (click)="$event.stopPropagation();goToEdit(td.id)"
+                                [ngClass]="{edit: true}" href="javascript:;">
+                                {{ele.split(':')[1].split('|')[1] ||'edit'}}
+                            </a><!-- routerLink="/{{routerPageType}}/edit/{{td.id}}" -->
+                            <a *ngIf="ele.split(':')[0]==='btn' && ele.split(':')[1].split('|')[0]==='del'"
+                                href="javascript:;" (click)="evDelItem(td.id, rowIndex);$event.stopPropagation()"
+                                [ngClass]="{del: true}">
+                                {{ele.split(':')[1].split('|')[1] ||'del'}}
+                            </a>
+                            <a *ngIf="ele.split(':')[0]==='btn' && ele.split(':')[1].split('|')[0]==='detail'"
+                                href="javascript:;" (click)="evDetailItem(tr);$event.stopPropagation()"
+                                [ngClass]="{detail: true}">
+                                {{ele.split(':')[1].split('|')[1] ||'detail'}}
+                            </a>
+                            <ng-container *ngIf="ele.split(':')[0]==='ckbx'">
+                                <input type="checkbox" [(ngModel)]="td.checked" (change)="evSelectingRow();" title="单击所在行也可选中">
+                            </ng-container>
+                        </ng-container>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td class="tc" style="color:lightslategray;">总计：</td>
+                <td style="padding:10px 5px;font-size:.9em;font-weight:bold;color:lightslategray;border-right:none;" colspan="4">{{onePageTotal}}</td>
+                <td [attr.colspan]="columns.length-5" style="text-align:right;border-left:none;">
+                    <span>记录: <span style="color:red;">{{pageNums?.totalRecord}}</span>&emsp;页: <span
+                            class="red">{{pageNums?.currentPage}}</span>/<span
+                            class="red">{{pageNums?.pageCount}}</span></span>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

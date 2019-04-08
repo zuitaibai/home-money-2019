@@ -1,0 +1,103 @@
+<h3 class="indexh3"><span>今年概况</span></h3>
+<div class="zonglan">
+    <ul class="fix">
+        <li class="idye">
+            <p>余额</p><span>{{basic?.yu_e}}</span>
+        </li>
+        <li class="idru">
+            <p>生意</p><span>{{basic?.shengyi_shouru}}</span>
+        </li>
+        <li class="idru">
+            <p>还入</p><span>{{basic?.huanru}}</span>
+        </li>
+        <li class="idru">
+            <p>借入</p><span>{{basic?.jieru}}</span>
+        </li>
+        <li class="idru idbig">
+            <p>收入</p><span>{{basic?.shouru}}</span>
+        </li>
+        <li class="idcu idbig">
+            <p>支出</p><span>{{basic?.zhichu}}</span>
+        </li>
+        <li class="idcu">
+            <p>借出</p><span>{{basic?.jiechu}}</span>
+        </li>
+        <li class="idcu">
+            <p>还出</p><span>{{basic?.huanchu}}</span>
+        </li>
+        <li class="idcu">
+            <p>生意</p><span>{{basic?.shengyi_touzi}}</span>
+        </li>
+    </ul>
+</div>
+
+<h3 class="indexh3"><span>今年支出</span></h3>
+
+<div style="overflow-x: auto;margin-left:40px;">
+    <div class="fix" style="width:1180px;height:400px;">
+        <div style="width:440px;float:left;height:100%" echarts [options]="chartOption1"></div>
+        <div style="width:440px;float:left;height:100%" echarts [options]="chartOption2"></div>
+        <div style="width:300px;float:left;height:100%">
+            <table class="godtable" style="min-width:0" width="100%" border="0" cellspacing="0" cellpadding="0">
+                <thead>
+                    <tr>
+                        <th colspan="4" style="font-size:14px;">支 出 账 户</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of bizhongList">
+                        <td>{{item.memberName}}</td>
+                        <td>{{item.banktypeName}}</td>
+                        <td>{{item.bankName}}</td>
+                        <td class="lowtd">{{item.money}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+<h3 class="indexh3"><span>今年收入</span></h3>
+<div class="fix sbfd">
+    <div echarts [options]="chartOption3"></div>
+    <div>
+
+        <table class="godtable" style="min-width:0" width="100%" border="0" cellspacing="0" cellpadding="0">
+            <thead>
+                <tr>
+                    <th colspan="4" style="font-size:14px;">收 入 账 户</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of bizhongList2">
+                    <td>{{item.memberName}}</td>
+                    <td>{{item.banktypeName}}</td>
+                    <td>{{item.bankName}}</td>
+                    <td class="lowtd">{{item.money}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+<h3 class="indexh3"><span>账户资产</span></h3>
+<div style="width:915px;padding-left:50px;">
+
+    <table class="godtable" width="100%" cellpadding="0" border="0" cellspacing="0">
+        <tbody>
+            <!-- try to asnyc pipe -->
+            <!-- <ng-container *ngFor="let dd of yuEData | keyvalue"> -->
+            <ng-container *ngFor="let dd of getYuEObservable | async | keyvalue">
+                <tr *ngFor="let d of dd.value; first as isFirst">
+                    <td *ngIf="isFirst" class="ofstd" [attr.rowspan]="dd.value?.length">{{dd.key}}</td>
+                    <td class="ofstd">{{d.bankTypeName}}</td>
+                    <td class="ofstd">{{d.bankName}}</td>
+                    <td class="lowtd">&emsp;{{d.money}}&emsp;</td>
+                </tr>
+            </ng-container>
+        </tbody>
+    </table>
+
+</div>

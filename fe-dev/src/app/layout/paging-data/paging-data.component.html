@@ -1,0 +1,41 @@
+<div class="max1300 fix" style="margin-top:10px;font-size:12px;">
+    <span *ngIf="showInfo" style="float:right;line-height:28px;">
+        记录: <span class="red">{{total}}</span> 页: <span id="cur" class="red">{{curP}}</span>/<span class="red">{{pageCount}}</span>
+    </span>
+    <div *ngIf="list.length>1" class="pagination">
+        <ng-container *ngFor="let item of list">
+            <!-- item: { value: 1, type: 'first', link: true, disable: false, text: conf.wordFt } -->
+            <!-- value: 值,
+                 type: first/prev/next/last/normal/current/elp,
+                 link: 是否链接, disable:是否禁用, text:铵钮文字
+            -->
+            <ng-container *ngIf="item.type==='normal'">
+                <a *ngIf="item.link" href="javascript:;" (click)="evChangePage(item.value)">{{item.text}}</a>
+            </ng-container>
+            <ng-container *ngIf="item.type!=='normal'">
+                <a *ngIf="item.link" href="javascript:;"
+                    [ngClass]="{
+                        current:item.type==='current', disabled:item.disable, 
+                        pagenext: item.type==='next', pageprev: item.type==='prev',
+                        pagefirst: item.type==='first', pagelast: item.type==='last',
+                        pagepoints: item.type==='elp'
+                    }"
+                    (click)="evChangePage(item.value)">{{item.text}}</a>
+                <span *ngIf="!item.link"
+                    [ngClass]="{
+                        current:item.type==='current', disabled:item.disable, 
+                        pagenext: item.type==='next', pageprev: item.type==='prev',
+                        pagefirst: item.type==='first', pagelast: item.type==='last',
+                        pagepoints: item.type==='elp'
+                    }">{{item.text}}</span>
+            </ng-container>
+        </ng-container>
+        <ng-container *ngIf="ifSelect && pageCount>1">
+            <em class="pageem pageem1">跳到第</em><select [ngModel]="curP"
+                (change)="evChangePage(selects.value)" #selects>
+                <option *ngFor="let item of pagesArr; index as vv" [value]="vv+1">{{vv+1}}</option>
+            </select><em class="pageem  pageem2">页</em>
+        </ng-container>
+    </div>
+
+</div>

@@ -1,0 +1,7 @@
+<h3>
+    编辑{{payOrCome==='pay'?'支出':'收入'}}
+</h3>
+
+<app-pay-come-form oprType="edit" [id]="id" [payOrCome]="payOrCome"></app-pay-come-form>
+
+<div style="text-align: right;"><button type="button" (click)="goBack()" style="padding:5px 10px;">返回</button></div> 

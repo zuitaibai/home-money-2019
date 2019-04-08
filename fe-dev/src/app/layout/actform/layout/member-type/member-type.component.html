@@ -1,0 +1,4 @@
+<ng-container *ngFor="let item of makeData(ifShowAll); last as ifLast">
+    <label><input type="radio" [attr.name]="sname" [checked]="item.id==checkedId" (click)="clickRadio(item.id,item.name)" [value]="item.id">{{item.name}}</label>
+    <ng-container *ngIf="!ifLast">&nbsp;</ng-container>
+</ng-container>

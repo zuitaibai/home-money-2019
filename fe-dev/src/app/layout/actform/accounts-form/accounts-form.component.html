@@ -1,0 +1,132 @@
+<form [formGroup]="sForm" (ngSubmit)="submits()">
+
+    <table>
+        <tr>
+            <td width="50">收支</td>
+            <td></td>
+            <td>
+                <span class="udline-ilbk mrt30">
+                    <label><input formControlName="type" [value]="100" type="radio" />转存</label>
+                </span>
+                <!-- 
+                    // 需求：如果当前是编辑记录而不是新增：
+                    //     如果记录为存根，则可以改为其他方式，如果记录不为存根，则不可以改成存根
+                    // 此处disabled如果用ng的reactive方式设置，会将整组radio视为一个control都disabled掉
+                    // @ 目前无法将单个radio用于控制，不知是ng没有做到还是自己没有找到合适的api
+                    // @ 在模板内用[disabled]属性绑定或html原生属性disabled 会收到控制台ng的warn
+                    // 在模板内用[disabled]属性绑定，不能还到效果
+                    // 故采用html原生属性disabled，用ngif，并辅以一个editInitTypeValue值迂回。
+                -->
+                <span *ngIf="addOrEdit==='edit' && editInitTypeValue!==0" class="udline-ilbk mrt30">
+                    <label><input formControlName="type" [value]="0" type="radio" disabled/>存根</label>
+                </span>
+                <span *ngIf="!(addOrEdit==='edit' && editInitTypeValue!==0)" class="udline-ilbk mrt30">
+                        <label><input formControlName="type" [value]="0" type="radio"/>存根</label>
+                    </span>
+                <span class="udline-ilbk mrt30">
+                    <label><input formControlName="type" [value]="1" type="radio" />借入</label>&nbsp;
+                    <label><input formControlName="type" [value]="2" type="radio" />还入</label>&nbsp;
+                    <label><input formControlName="type" [value]="3" type="radio" />生意收入</label>
+                </span>
+                <span class="udline-ilbk">
+                    <label><input formControlName="type" [value]="-1" type="radio" />借出</label>&nbsp;
+                    <label><input formControlName="type" [value]="-2" type="radio" />还出</label>&nbsp;
+                    <label><input formControlName="type" [value]="-3" type="radio" />生意投资</label>
+                </span>
+                <div [hidden]="sForm.value.type!==0" class="ffbsb">* 注意：如果当前选中(币种-账户)已有存根，则此操作提交不能成功</div>
+            </td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <td width="50">名称</td>
+            <td class="red">*</td>
+            <td>
+                <input formControlName="name" required autofocus #nameCtrRef />
+            </td>
+        </tr>
+        <tr>
+            <td>金额</td>
+            <td class="red">*</td>
+            <td>
+                <input required type="number" min="0" autocomplete="off" formControlName="money" required
+                    placeholder="不接受小数">
+                <span class="red" style="margin-left:10px;"
+                    *ngIf="money.invalid && (money.dirty || money.touched) && money.errors.forbidden">（不能接受小数）</span>
+            </td>
+        </tr>
+        <tr *ngIf="sForm.value.type==100||sForm.value.type<0">
+            <td><span style="color: #ff6900;">由币种</span></td>
+            <td></td>
+            <td>
+                <app-money-type1 formControlName="bankTypeKey_from" (ngModelChange)="onMoneyType1Change($event)"
+                    [addOrEdit]="addOrEdit"></app-money-type1>
+                <p style="border-bottom:1px dashed #ccc;margin:8px 0 8px 10px;"></p>
+                <app-money-type2 formControlName="bankKey_from" [bkList]="bankKey1ListData"></app-money-type2>
+            </td>
+        </tr>
+        <tr *ngIf="sForm.value.type==100||sForm.value.type<0">
+            <td><span style="color: #ff6900;">由账户</span></td>
+            <td></td>
+            <td>
+                <app-member-type
+                    formControlName="memberKey_from"
+                    [ifShowAll]="false"
+                    [addOrEdit]="addOrEdit"
+                    fbug="3">
+                </app-member-type>
+            </td>
+        </tr>
+        <tr>
+            <td>时间</td>
+            <td></td>
+            <td>
+                <app-date-ctr formControlName="date_sign"></app-date-ctr>
+            </td>
+        </tr>
+        <tr *ngIf="sForm.value.type==100||sForm.value.type>=0">
+            <td><span style="color: #00d3ff;">至币种</span></td>
+            <td></td>
+            <td>
+                <app-money-type1 formControlName="bankTypeKey_to" (ngModelChange)="onMoneyType2Change($event)"
+                    [addOrEdit]="addOrEdit"></app-money-type1>
+                <p style="border-bottom:1px dashed #ccc;margin:8px 0 8px 10px;"></p>
+                <app-money-type2 formControlName="bankKey_to" [bkList]="bankKey2ListData"></app-money-type2>
+            </td>
+        </tr>
+        <tr *ngIf="sForm.value.type==100||sForm.value.type>=0">
+            <td><span style="color: #00d3ff;">至账户</span></td>
+            <td></td>
+            <td>
+                <app-member-type
+                    formControlName="memberKey_to"
+                    [ifShowAll]="false"
+                    [addOrEdit]="addOrEdit"
+                    fbug="4">
+                </app-member-type>
+            </td>
+        </tr>
+        <tr>
+            <td>自分类</td>
+            <td></td>
+            <td>
+                <input formControlName="dtype">
+            </td>
+        </tr>
+        <tr>
+            <td>备注{{isOughtNotPayStr}}</td>
+            <td></td>
+            <td>
+                <textarea formControlName="other"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>
+                <button type="submit" [disabled]="!sForm.valid">提 交</button>
+            </td>
+        </tr>
+    </table>
+    <!-- {{sForm.value | json}} -->
+</form>

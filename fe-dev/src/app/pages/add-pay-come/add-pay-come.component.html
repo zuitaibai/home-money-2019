@@ -1,0 +1,8 @@
+<h3>
+    新建收支
+    <span style="font-size:.8em;margin-left:20px;">
+        <label><input type="checkbox" name="ssstype" [checked]="payOrCome==='pay'" (click)="changeSsstype('pay')">支出</label>&emsp;
+        <label style="margin-left:20px;"><input type="checkbox" name="ssstype" [checked]="payOrCome==='come'" (click)="changeSsstype('come')">收入</label>
+    </span>
+</h3>
+<app-pay-come-form [payOrCome]="payOrCome" oprType="add"></app-pay-come-form>

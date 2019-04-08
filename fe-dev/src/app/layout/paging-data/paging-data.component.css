@@ -1,0 +1,14 @@
+.pagination{vertical-align:middle;}
+.pagination a,.pagination span{padding:0 5px;margin-right:5px;border: 1px solid #ddd;text-align:center;line-height:26px;display:inline-block;min-width:20px;color:#000; vertical-align:middle;}
+.pagination .pageem{line-height:28px;display:inline-block;vertical-align:middle;font-style:normal;color:#aaa;}
+.pagination .pageem1{margin-left:2em;margin-right:4px;}
+.pagination .pageem2{margin-left:5px;}
+.pagination a {text-decoration: none;}
+.pagination a:hover,.pagination a:active {border-color:#666;color: #000;}
+.pagination .pagefirst,.pagination .pageprev,.pagination .pagelast,.pagination .pagenext{font-size:12px;}
+.pagination .pageprev{margin-right:2em;}
+.pagination .pagenext{margin-left:2em;}
+.pagination .current {border-color:transparent;color:blue;}
+.pagination .disabled {border: 1px solid #EEE;color: #DDD;}
+.pagination .pagepoints{border-color:transparent;}
+.pagination .pageselect{box-sizing:border-box;height:26px;vertical-align:middle;}

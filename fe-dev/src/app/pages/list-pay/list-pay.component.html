@@ -1,0 +1,29 @@
+<app-list-form 
+    [routerPageType]="routerPageType" 
+    (onFormChange)="onFormChange($event)"
+    [inits]="formInits"
+    ></app-list-form>
+
+<app-list-table 
+    [columns]="columns" 
+    [dataSource]="dataSource" 
+    [pageNums]="pageNums" 
+    [onePageTotal]="thisPageTotal"
+    [routerPageType]="routerPageType"
+    (delSuccess)="onDelSuccess($event)"
+    [listStatusOpts]="storePageOptions"
+    ></app-list-table>
+
+<app-paging-data
+    (onPagingChange)="onPagingChange($event)"
+    [pCurP]="storePageOptions.currentPage"
+    [pSize]="pageNums?.pageSize"
+    [pTotal]="pageNums?.totalRecord"
+    ></app-paging-data>
+
+<!-- <app-paging-dom
+    (onPagingChange)="onPagingChange($event)"
+    [pCurP]="storePageOptions.currentPage"
+    [pSize]="pageNums?.pageSize"
+    [pTotal]="pageNums?.totalRecord"
+    ></app-paging-dom> -->

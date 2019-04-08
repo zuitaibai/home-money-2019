@@ -1,0 +1,7 @@
+td{padding-bottom:25px;}
+td:first-child{vertical-align: top;}td{padding-bottom:15px;}
+td:first-child{vertical-align: top;}
+
+.udline-ilbk{ border-bottom:1px solid #ccc;display:inline-block;padding-bottom:8px; }
+.mrt30{margin-right:30px;}
+.ffbsb{color:rgba(255,0,0,0.8);padding:10px 0 0 30px;}

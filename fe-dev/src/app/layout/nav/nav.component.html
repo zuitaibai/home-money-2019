@@ -1,0 +1,25 @@
+<nav class="nav" [class.nav-fold]="ifNavFold">
+    <a routerLink="/index" title="首页"><img class="mlogo" src="assets/img/logo.png" alt="" width="84"></a>
+    <ul class="navlist">
+        <li routerLinkActive="cur"><a routerLink="/addPayCome">新建收支</a></li>
+        <li routerLinkActive="cur"><a routerLink="/addAccounts">账目登记</a></li>
+        <li>&nbsp;</li>
+        <li routerLinkActive="cur"><a routerLink="/listPay">支出列表</a></li>
+        <li routerLinkActive="cur"><a routerLink="/listCome">收入列表</a></li>
+        <li routerLinkActive="cur"><a routerLink="/listAccounts">账目列表</a></li>
+        <li routerLinkActive="cur"><a routerLink="/listStatistics">统&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;计</a></li>
+        <li>&nbsp;</li>
+        <li routerLinkActive="cur"><a routerLink="/editType">类目编辑</a></li>
+        <li routerLinkActive="cur"><a routerLink="/db">D B 操作</a></li>
+        <li>&nbsp;</li>
+        <li routerLinkActive="cur"><a routerLink="/cards">卡&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号</a></li>
+        <li class="navcalc"><a (click)="calcShow=!calcShow" [class.toggle]="calcShow" title="快捷键：shift+j">计 算 器</a></li>
+        <li><a href="javascript:;" (click)="loginOut()" [attr.title]="userTip">登 出</a></li>
+    </ul>
+    <a href="javascript:;" class="navbar-btn" 
+        (click)="foldNav()"
+        [class.navbar-btn2]="ifNavFold" 
+        [attr.title]="ifNavFold?'展开导航侧栏':'折叠导航侧栏'">{{ifNavFold?'》':'《'}}</a>
+</nav>
+
+<app-calculator [show]="calcShow" (onClose)="onCalcClose($event)"></app-calculator>

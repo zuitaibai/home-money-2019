@@ -1,0 +1,12 @@
+<app-nav (onNavFold)="onNavFoldChange($event)"></app-nav>
+
+<div class="main" [class.main-for-fold]="forFoldCss">
+
+    <router-outlet></router-outlet>
+
+    <app-modal (modalClose)="onModalClose($event)" [mSize]="modal.modalSize" [mTit]="modal.modalTit"
+        [mInner]="modal.modalInner" [mOverlay]="modal.modalOverlay" [mIfShow]="modal.modalIfShow"
+        [mData]="modal.modalData" [mCompName]="modal.modalCompName"></app-modal>
+
+</div>
+

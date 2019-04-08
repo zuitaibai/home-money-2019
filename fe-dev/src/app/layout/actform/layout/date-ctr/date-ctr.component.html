@@ -1,0 +1,7 @@
+<input type="date" name="date_sign" placeholder="默认为当前时间" tabindex="-1" [(ngModel)]="dateVal" (change)="onChange()">
+&nbsp;
+<a class="sss9" href="javascript:;" data-tit="前一天" (click)="settDate(-100)">&lt;&lt;</a>
+<a class="sss9" href="javascript:;" data-tit="后一天" (click)="settDate(100)">&gt;&gt;</a>
+<a class="sss8" href="javascript:;" data-tit="前天" tabindex="-1" (click)="settDate(-2)"><span>{{yytoday}}</span></a>&emsp;
+<a class="sss8" href="javascript:;" data-tit="昨天" tabindex="-1" (click)="settDate(-1)"><span>{{ytoday}}</span></a>
+<a class="sss8" href="javascript:;" data-tit="今天" tabindex="-1" (click)="settDate(0)"><span>{{today}}</span></a>

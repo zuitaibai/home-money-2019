@@ -1,0 +1,88 @@
+<div class="max1300" style="margin-top:10px;font-size:12px;">
+
+    <span *ngIf="showInfo" style="float:right;line-height:28px;">
+        记录: <span class="red">{{total}}</span> 页: <span id="cur" class="red">{{curP}}</span>/<span class="red">{{pageCount}}</span>
+    </span>
+
+    <div *ngIf="pageCount>1" class="pagination">
+        <!-- first and previous button -->
+        <ng-container *ngIf="curP>1">
+            <a *ngIf="conf.showFtLt" class="pagefirst" (click)="evChangePage(1)" href="javascript:;">{{conf.wordFt}}</a>
+            <a *ngIf="conf.showPvNt" class="pageprev" (click)="evChangePage(curP - 1)"
+                href="javascript:;">{{conf.wordPv}}</a>
+        </ng-container>
+        <ng-container *ngIf="curP<=1">
+            <span *ngIf="conf.showFtLt" class="pagefirst disabled">{{conf.wordFt}}</span>
+            <span *ngIf="conf.showPvNt" class="pageprev disabled">{{conf.wordPv}}</span>
+        </ng-container>
+        <!-- pages -->
+        <ng-container *ngIf="pageCount < 7 + (conf.adjacents * 2)">
+            <ng-container *ngFor="let item of makeEndArr(pageCount)">
+                <span *ngIf="item === curP" class="current">{{item}}</span>
+                <a *ngIf="item !== curP" (click)="evChangePage(item)" href="javascript:;">{{item}}</a>
+            </ng-container>
+        </ng-container>
+        <!-- enough pages to hide some -->
+        <ng-container *ngIf="pageCount >= 7 + (conf.adjacents * 2)">
+            <!-- close to beginning only hide later pages -->
+            <ng-container *ngIf="flag1">
+                <ng-container *ngFor="let item of makeEndArr(4 + (conf.adjacents * 2)-1)">
+                    <span *ngIf="item === curP" class="current">{{item}}</span>
+                    <a *ngIf="item !== curP" (click)="evChangePage(item)" href="javascript:;">{{item}}</a>
+                </ng-container>
+                <span class="pagepoints">{{conf.wordElp}}</span>
+                <a (click)="evChangePage(pageCount - 1)" href="javascript:;">{{pageCount - 1}}</a>
+                <a (click)="evChangePage(pageCount)" href="javascript:;">{{pageCount}}</a>
+            </ng-container>
+            <!-- in middle hide some front and some back -->
+            <ng-container *ngIf="flag2">
+                <a (click)="evChangePage(1)" href="javascript:;">1</a>
+                <a (click)="evChangePage(2)" href="javascript:;">2</a>
+                <span class="pagepoints">{{conf.wordElp}}</span>
+                <ng-container *ngFor="let item of makeEndArr(curP + conf.adjacents,curP - conf.adjacents)">
+                    <span *ngIf="item === curP" class="current">{{item}}</span>
+                    <a *ngIf="item !== curP" (click)="evChangePage(item)" href="javascript:;">{{item}}</a>
+                </ng-container>
+                <span class="pagepoints">{{conf.wordElp}}</span>
+                <a (click)="evChangePage(pageCount-1)" href="javascript:;">{{pageCount-1}}</a>
+                <a (click)="evChangePage(pageCount)" href="javascript:;">{{pageCount}}</a>
+            </ng-container>
+            <!-- close to end only hide early pages -->
+            <ng-container *ngIf="flag3">
+                <a (click)="evChangePage(1)" href="javascript:;">1</a>
+                <a (click)="evChangePage(2)" href="javascript:;">2</a>
+                <span class="pagepoints">{{conf.wordElp}}</span>
+                <ng-container *ngFor="let item of makeEndArr(pageCount, pageCount - (1 + (conf.adjacents * 3)))">
+                    <span *ngIf="item === curP" class="current">{{item}}</span>
+                    <a *ngIf="item !== curP" (click)="evChangePage(item)" href="javascript:;">{{item}}</a>
+                </ng-container>
+            </ng-container>
+        </ng-container>
+        <!-- last and next button -->
+        <ng-container *ngIf="curP < pageCount">
+            <a *ngIf="conf.showFtLt" class="pagenext"
+                (click)="evChangePage(curP + 1)" href="javascript:;">{{conf.wordNt}}</a>
+            <a *ngIf="conf.showPvNt" class="pagelast"
+                (click)="evChangePage(pageCount)" href="javascript:;">{{conf.wordLt}}</a>
+        </ng-container>
+        <ng-container *ngIf="curP >= pageCount">
+            <span *ngIf="conf.showPvNt" class="pagenext disabled">{{conf.wordNt}}</span>
+            <span *ngIf="conf.showFtLt" class="pagelast disabled">{{conf.wordLt}}</span>
+        </ng-container>
+        <ng-container *ngIf="conf.ifSelect">
+            <em class="pageem pageem1">跳到第</em><select [ngModel]="curP"
+                (change)="evChangePage(selects.value)" #selects>
+                <option *ngFor="let item of makeEndArr(pageCount)" [value]="item">{{item}}</option>
+            </select><em class="pageem  pageem2">页</em>
+        </ng-container>
+    </div>
+
+    <div *ngIf="pageCount<=1&&conf.lte2pShow" class="pagination">
+        <span *ngIf="conf.showFtLt" class="pagefirst disabled">{{conf.wordFt}}</span>
+        <span *ngIf="conf.showPvNt" class="pageprev disabled">{{conf.wordPv}}</span>
+        <span class="current">1</span>
+        <span *ngIf="conf.showPvNt" class="pagenext disabled">{{conf.wordNt}}</span>
+        <span *ngIf="conf.showFtLt" class="pagelast disabled">{{conf.wordLt}}</span>
+    </div>
+
+</div>

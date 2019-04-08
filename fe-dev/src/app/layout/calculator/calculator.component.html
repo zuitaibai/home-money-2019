@@ -1,0 +1,39 @@
+<div class="calc" tabindex="-1" [hidden]="!calcShow">
+    <span class="chacha" (click)="evClose(false)">×</span>
+    <table align="center" (click)="clickCalc($event)" >
+        <tr>
+            <th class="td_orange td_content_calc" colspan="5" placeholder="支持键盘操作" contenteditable="true">{{calcStatus}}</th>
+        </tr>
+        <tr>
+            <td [class.active]="viewActObj.if7" data-s="7">7</td>
+            <td [class.active]="viewActObj.if8" data-s="8">8</td>
+            <td [class.active]="viewActObj.if9" data-s="9">9</td>
+            <td [class.active]="viewActObj.ifA" data-s="+">+</td>
+            <td [class.active]="viewActObj.ifB" data-s="-">-</td>
+        </tr>
+        <tr>
+            <td [class.active]="viewActObj.if4" data-s="4">4</td>
+            <td [class.active]="viewActObj.if5" data-s="5">5</td>
+            <td [class.active]="viewActObj.if6" data-s="6">6</td>
+            <td [class.active]="viewActObj.ifC" data-s="*">×</td>
+            <td [class.active]="viewActObj.ifD" data-s="/">÷</td>
+        </tr>
+        <tr>
+            <td [class.active]="viewActObj.if1" data-s="1">1</td>
+            <td [class.active]="viewActObj.if2" data-s="2">2</td>
+            <td [class.active]="viewActObj.if3" data-s="3">3</td>
+            <td [class.active]="viewActObj.ifE" data-s="(">(</td>
+            <td [class.active]="viewActObj.ifF" data-s=")">)</td>
+        </tr>
+        <tr>
+            <td [class.active]="viewActObj.if0" data-s="0">0</td>
+            <td [class.active]="viewActObj.ifG" data-s=".">.</td>
+            <td [class.active]="viewActObj.ifH" data-s="Backspace">←</td>
+            <td [class.active]="viewActObj.ifI" data-s="Delete" class="td_orange">dels</td>
+            <td [class.active]="viewActObj.ifJ" data-s="Enter" class="td_orange">=</td>
+        </tr>
+        <tr>
+            <th class="bsbio" colspan="5">{{calcInfo}}</th>
+        </tr>
+    </table>
+</div>
