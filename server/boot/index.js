@@ -137,4 +137,11 @@ app.use(async (ctx, next) => {
     ctx.throw(404);
 });
 
-app.listen(8888, () => console.log("server is running with 8888..."));
+app.listen(8888, () => console.log(`
+-------------------------------------
+    家庭帐目管理系统已运行，port:8888...
+    嘎嘎 [localhost:8888/apps]
+    小兔子乖乖，把门儿开开，
+    快点开开，我要进来
+=====================================
+` ));

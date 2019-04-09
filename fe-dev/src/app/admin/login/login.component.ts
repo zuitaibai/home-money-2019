@@ -11,6 +11,7 @@ import { ApiService } from '../../service/api.service';
 export class LoginComponent implements OnInit, AfterViewInit {
 
     verCode = '';
+    loginYet = false;
     loginInfo = '';
     loginO = {
         username: '',
@@ -27,9 +28,14 @@ export class LoginComponent implements OnInit, AfterViewInit {
         this.login();
     }
     ngOnInit() {
-        this.apiServ.getVerCode().subscribe((res: {[key: string]: any}) => {
-            this.verCode = res.code;
+        this.apiServ.checkLogin().subscribe((res: {[key: string]: any}) => {
+            this.loginYet = res.login;
         });
+        if (!this.loginYet) {
+            this.apiServ.getVerCode().subscribe((res: {[key: string]: any}) => {
+                this.verCode = res.code;
+            });
+        }
     }
     reGetVerCode() {
         this.apiServ.getVerCode().subscribe((res: {[key: string]: any}) => {
@@ -61,5 +67,12 @@ export class LoginComponent implements OnInit, AfterViewInit {
             }
         });
     }
-
+    loginOut() {
+        this.apiServ.loginOut().subscribe((res: {[key: string]: any}) => {
+            if (res.code === 'ok') {
+                // this.loginServ.clearUser();
+                this.loginYet = false;
+            }
+        });
+    }
 }

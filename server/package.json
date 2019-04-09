@@ -4,8 +4,8 @@
     "main": "rootBoot.js",
     "license": "MIT",
     "scripts": {
-        "start": "node ./boot/index.js",
-        "dev": "nodemon ./boot/index.js"
+        "start": "set NODE_ENV=prod&& node ./boot/index.js",
+        "dev": "set NODE_ENV=dev&& nodemon ./boot/index.js"
     },
     "dependencies": {
         "glob": "^7.1.3",

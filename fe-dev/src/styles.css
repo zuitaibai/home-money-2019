@@ -51,10 +51,16 @@ textarea{width:400px;height:40px;}
 .td-active, .tb tbody tr.checked td.td-active{background: rgba(176, 229, 255, .5);}
 
 .tb tbody tr:hover td.red{}
-.tb .del{color:#999;}
 .fix:after{content:'';clear: both;display:table;visibility:hidden;}
 a{text-decoration:none;}
 a:hover{text-decoration:underline;}
+
+
+.tb a.del,.tb a.edit,.tb a.detail{white-space: nowrap;}
+.tb .del{color:#888;}
+.tb .edit{color:#38a0ca;}
+.tb .detail{color:#905050;}
+.tb a.del:hover,.tb a.edit:hover,.tb a.detail:hover{color: #fb035d;}
 
 .main{margin-left:100px;overflow-y: auto;height:100%; transition:margin .3s;}
 .main-for-fold{margin-left:0;}
@@ -200,7 +206,7 @@ a:hover{text-decoration:underline;}
     50%{background-position:100% 10px;}
     100%{background-position:100% 0;}
 }
-.mlogo{animation:mlogo 4s; transition: transform .5s;}
+.mlogo{animation:mlogo 4s; transition: transform .5s; transform-origin: 100% 50%;}
 .mlogo:hover{transform: scale(0.8, 0.8); }
 @keyframes mlogo {
     0%{ opacity: .1;}

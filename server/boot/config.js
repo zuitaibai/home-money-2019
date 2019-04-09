@@ -1,10 +1,19 @@
 //如果html项目是在根文件夹，请设为''
 //如果html项目是在子文件夹，请设为文件夹名
-const subforderName = 'apps';
-// const subforderName = '';
-// const subforderName = 'apps/somefd/somefd/.../somefd';
+let subforderName; // 'apps/somedir/somedir/.../somedir'
+// 接口请求地址中是否包含子目录文件夹名
+let _ifInterfaceContainSubforderName;
 
-const _ifInterfaceContainSubforderName = true; // 接口请求地址中是否包含子目录文件夹名
+if(process.env.NODE_ENV==='dev'){ // 由package.json script 传入
+    subforderName = '';
+    _ifInterfaceContainSubforderName = false;
+}else if(process.env.NODE_ENV==='prod'){
+    subforderName = 'apps';
+    _ifInterfaceContainSubforderName = true;
+}else{
+    subforderName = '';
+    _ifInterfaceContainSubforderName = false;
+}
 
 //接口请求前缀
 // const _apiPre = '';
