@@ -8,6 +8,7 @@
         "dev": "set NODE_ENV=dev&& nodemon ./boot/index.js"
     },
     "dependencies": {
+        "colors": "^1.3.3",
         "glob": "^7.1.3",
         "koa": "^2.7.0",
         "koa-body": "^4.1.0",

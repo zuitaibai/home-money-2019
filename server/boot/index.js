@@ -1,3 +1,6 @@
+// black（黑色） red（红色） green（绿色） yellow（黄色） magenta（品红/洋红/紫红） 
+// cyan（青色） white（白色） gray（灰色） grey（灰色） blue（蓝色）
+const colors = require('colors');
 const Koa = require('koa');
 const path = require('path');
 const mime = require('mime');
@@ -137,11 +140,13 @@ app.use(async (ctx, next) => {
     ctx.throw(404);
 });
 
+const sub = !!subforderName ? `/${subforderName}` : '';
+const uri = `[ ` + `localhost:8888${sub}`.underline + ` ]`;
 app.listen(8888, () => console.log(`
--------------------------------------
-    家庭帐目管理系统已运行，port:8888...
-    嘎嘎 [localhost:8888/apps]
-    小兔子乖乖，把门儿开开，
-    快点开开，我要进来
-=====================================
-` ));
+${'-------------------------------------'.yellow}
+    ${'家庭帐目管理系统已运行，port:'.red}${'[8888]'.white}
+    ${'嘎嘎嘎嘎嘎 '.green}${uri.white}
+    ${'小兔子乖乖，把门儿开开，'.cyan}
+    ${'快点开开，我要进来...'.magenta}
+${'====================================='.yellow}
+`));
