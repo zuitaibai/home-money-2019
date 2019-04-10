@@ -26,7 +26,9 @@ export class MoneyType1Component implements OnInit, ControlValueAccessor {
 
     private change = (value: any) => { };
 
-    constructor(private apiServ: ApiService) { }
+    constructor(private apiServ: ApiService) {
+        this.sname = `bankTypeKey-${Math.random().toString().replace(/^\d\./, '')}`;
+    }
 
     writeValue(value: any): void {
         if (value !== undefined) {
@@ -39,7 +41,6 @@ export class MoneyType1Component implements OnInit, ControlValueAccessor {
     registerOnTouched(fn: any): void {}
 
     ngOnInit() {
-        this.sname = `bankTypeKey-${Date.now()}`;
         this.apiServ.getMoney1Value().subscribe(res => {
             this.moneyType1Data = res;
             if (this.addOrEdit === 'add' && res.length > 0) {

@@ -1,0 +1,9 @@
+<label *ngFor="let e of options">
+    <input 
+        type="checkbox"
+        [disabled]="ifDisabledMe(e)"
+        [checked]="this.model.length && this.model.indexOf(e.value) > -1"
+        [value]="e.value"
+        (change)="myChange(e)">
+    {{ e.name }}
+</label>

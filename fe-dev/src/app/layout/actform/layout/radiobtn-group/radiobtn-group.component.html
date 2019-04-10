@@ -1,0 +1,11 @@
+<label *ngFor="let e of options">
+    <input 
+        type="radio"
+        [disabled]="ifDisabledMe(e)"
+        [checked]="this.model==e.value"
+        [value]="e.value"
+        (change)="myChange(e)"
+        [attr.name]="privateName"
+        >
+    {{ e.name }}
+</label>

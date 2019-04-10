@@ -45,6 +45,9 @@ import { EditTypeComponent } from './pages/edit-type/edit-type.component';
 import { DbComponent } from './pages/db/db.component';
 import { ForbiddenValidatorDirective } from './layout/actform/validators/forbidden.directive';
 import { CalculatorComponent } from './layout/calculator/calculator.component';
+import { CheckboxGroupComponent } from './layout/actform/layout/checkbox-group/checkbox-group.component';
+import { TryCtrGroupComponent } from './layout/actform/try-ctr-group/try-ctr-group.component';
+import { RadiobtnGroupComponent } from './layout/actform/layout/radiobtn-group/radiobtn-group.component';
 
 @NgModule({
     declarations: [
@@ -78,7 +81,10 @@ import { CalculatorComponent } from './layout/calculator/calculator.component';
         DbComponent,
         LoginComponent,
         ForbiddenValidatorDirective,
-        CalculatorComponent
+        CalculatorComponent,
+        CheckboxGroupComponent,
+        TryCtrGroupComponent,
+        RadiobtnGroupComponent
     ],
     imports: [
         BrowserModule,

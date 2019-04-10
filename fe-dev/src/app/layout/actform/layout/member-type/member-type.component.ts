@@ -29,7 +29,9 @@ export class MemberTypeComponent implements OnInit, ControlValueAccessor, OnChan
 
     private change = (value: any) => { };
 
-    constructor(private apiServ: ApiService) { }
+    constructor(private apiServ: ApiService) {
+        this.sname = `member-${Math.random().toString().replace(/^\d\./, '')}`;
+    }
 
     writeValue(value: any): void {
         if (value !== undefined) {
@@ -42,7 +44,6 @@ export class MemberTypeComponent implements OnInit, ControlValueAccessor, OnChan
     registerOnTouched(fn: any): void {}
 
     ngOnInit() {
-        this.sname = `member-${this.fbug}-${Date.now()}`;
         this.apiServ.getMemberValue().subscribe(res => {
             this.data = res;
             this.datass = this.makeData(this.ifShowAll);

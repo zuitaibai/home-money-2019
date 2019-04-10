@@ -141,11 +141,11 @@ app.use(async (ctx, next) => {
 });
 
 const sub = !!subforderName ? `/${subforderName}` : '';
-const uri = `[ ` + `localhost:8888${sub}`.underline + ` ]`;
+const uri = `[ `.green + `localhost:8888${sub}`.white.underline + ` ]`.green;
 app.listen(8888, () => console.log(`
 ${'-------------------------------------'.yellow}
     ${'家庭帐目管理系统已运行，port:'.red}${'[8888]'.white}
-    ${'嘎嘎嘎嘎嘎 '.green}${uri.white}
+    ${'嘎嘎嘎嘎嘎 '.green}${uri}
     ${'小兔子乖乖，把门儿开开，'.cyan}
     ${'快点开开，我要进来...'.magenta}
 ${'====================================='.yellow}

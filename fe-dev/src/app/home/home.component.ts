@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
         this.modal.modalIfShow = this.modal.modalOverlay = 'no';
     }
 
-    constructor( private modalService: ModalService ) { }
+    constructor(private modalService: ModalService) { }
     ngOnInit() {
         this.modalService.eventEmit.subscribe((value: ObjTpye) => {
             this.modal = {

@@ -20,6 +20,9 @@ export class MoneyType2Component implements OnInit, ControlValueAccessor {
     @Input() bkList: ObjTpye[] = [];
 
     private change = (value: any) => { };
+    constructor() {
+        this.sname = `bankKey-${Math.random().toString().replace(/^\d\./, '')}`;
+    }
 
     writeValue(value: any): void {
         if (value !== undefined) {
@@ -31,9 +34,7 @@ export class MoneyType2Component implements OnInit, ControlValueAccessor {
     }
     registerOnTouched(fn: any): void { }
 
-    ngOnInit() {
-        this.sname = `bankKey-${Date.now()}`;
-    }
+    ngOnInit() { }
     clickRadio(id: number, name: string) {
         this.checkedId = id;
         this.change(id);
