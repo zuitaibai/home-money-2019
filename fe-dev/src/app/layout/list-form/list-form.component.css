@@ -1,0 +1,15 @@
+.srch_ input{padding: 0;height: 25px; line-height: 25px;}
+.srch_ input.long{width:548px;}
+.srch_ input.clong{width:398px;}
+.srch_ input.midd{width:195px;}
+.srch_ input.short{width:130px;}
+.srch_ input.sshort{width:115px;}
+.srch_ input.cshort{width:90px;}
+.srch_ input.vshort{width:46px;}
+.srch_ select{height:22px;line-height: 22px;padding:0;box-sizing: content-box;}
+.srch_ input,.srch_ select{font-size:12px;margin-left:5px;}
+.srch_ button{padding:3px 7px;cursor: pointer;}
+.srch_ button[type='submit']{color:#ce0000;font-weight: bold;}
+
+.bsss{margin-top:5px;}
+.bsss a{margin-left:20px;}

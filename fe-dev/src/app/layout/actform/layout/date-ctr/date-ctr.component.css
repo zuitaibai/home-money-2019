@@ -1,0 +1,11 @@
+.sss8,.sss9{position: relative;}
+.sss8{outline: none;}
+.sss8:after,.sss9:after{position: absolute;left:50%;top:-73%;content: attr(data-tit);display:none;white-space:nowrap;transform: translateX(-50%);}
+.sss8[data-tit="今天"]:after{display:inline;color: rgba(0, 0, 185, 0.58);}
+.sss9:after{top:-48%;letter-spacing: 0;}
+.sss8{text-decoration:underline;color:#777;margin-left:8px;}
+.sss8:hover{color:#000;text-decoration:none;}
+.sss8:hover:after,.sss9:hover:after{display:inline;color:blue;}
+.sss9{padding:3px 7px;display:inline-block;color:#666;letter-spacing:-3px;}
+.sss9:hover{background:#eee;color:#000;text-decoration:none;}
+.sss8:active,.sss9:active{color:#f00;}

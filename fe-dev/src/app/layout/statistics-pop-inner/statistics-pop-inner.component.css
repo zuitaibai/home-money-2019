@@ -1,0 +1,16 @@
+.tb_normal>thead>tr>th,.tb_normal>tbody>tr>td{border:1px solid #7d7d7d;vertical-align: top;}
+.tb_normal>tfoot>tr>td{border:1px solid #7d7d7d;padding:10px 5px;text-align: right;font-weight:bold;}
+.tb_normal>thead>tr>th{padding:5px 2px;background:#e0e0e0;vertical-align: middle;}
+.tb_normal>tbody>tr>td>table>tr>td,
+.tb_normal>tbody>tr>td>table>tbody>tr>td{
+  border-bottom:1px solid #ccc;border-right:1px solid #ccc;vertical-align: top;
+}
+.tb_normal>tbody>tr>td>table>tr>th,
+.tb_normal>tbody>tr>td>table>thead>tr>th{ font-weight:bold; font-size:12px; border-bottom:1px solid #ccc; border-right:1px solid #ccc; padding:7px 0; }
+.tb_normal>tbody>tr>td>table>tr>th:last-child,
+.tb_normal>tbody>tr>td>table>thead>tr>th:last-child{ border-right:none; }
+.tb_normal>tbody>tr>td>table>tr>td:last-child,
+.tb_normal>tbody>tr>td>table>tbody>tr>td:last-child{ border-right:none; }
+
+.tb_normal>tbody>tr>td>table>tr>td td,
+.tb_normal>tbody>tr>td>table>tbody>tr>td td{ border-bottom:1px solid #ccc; padding:4px 10px; }

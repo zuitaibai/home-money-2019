@@ -1,0 +1,27 @@
+.mlogo{animation:mlogo 4s; transition: transform .5s; transform-origin: 100% 50%;}
+.mlogo:hover{transform: scale(0.8, 0.8); }
+@keyframes mlogo {
+    0%{ opacity: .1;}
+    100%{ opacity: 1;}
+}
+
+.nav{position:fixed; transition: left .3s; top:0;left:0;bottom:0;z-index: 10;font-size:14px;background:#e6e6e6;width:84px;line-height:1.6;}
+.nav-fold{left:-84px;}
+.navbar-btn{position:absolute;bottom:5px;right:3px;}
+.navbar-btn2{right:-16px;}
+.navlist{margin-top:20px;}
+.navlist li{}
+.navlist li a{display:block;padding-left:.5em;color: #001dff;transition:0.2s;transform-style:preserve-3d;transform-origin:50% 50%;line-height:2.9;}
+.navlist li a:visited{color: #001dff;}
+.navlist li a:before{content:'▪ ';font-size:12px;color: #000;}
+.navcalc{cursor: pointer;}
+.navlist li.navcalc a:before{margin-right:4px;}
+.navlist li a.toggle{transform:rotateY(180deg);color: #343434;}
+.navlist li a.toggle:before{content:'> ';color:#343434;font-size:14px;}
+.navlist li a:hover{color:#fff;text-decoration:none;background:rgba(179, 179, 179, 0.75);}
+.navlist li.cur a{color:#000;}
+.navlist li.cur a:before{color: #f72400;}
+.navlist li.cur a:visited{color:#f72400;}
+.navlist li:last-child{position: absolute;left:0;bottom:0;}
+.navlist li:last-child a{padding-right:10px;line-height: 2.4;}
+.nav select{font-size:13px;}

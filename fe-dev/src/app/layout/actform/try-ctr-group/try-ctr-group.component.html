@@ -1,4 +1,4 @@
-<div [formGroup]="try" style="border:1px solid #333;margin:0 50px;">
+<form [formGroup]="try" style="border:1px solid #333;margin:0 50px;">
     <h2>响应式</h2>
     <checkbox-group
         [options]="cksDatas" 
@@ -7,8 +7,8 @@
         (outChange)="onCksChange($event)"
     ></checkbox-group>&nbsp;&nbsp;&nbsp;&nbsp;
     <button type="button" (click)="gouXuanCkb()" style="padding:unset">只勾选音乐</button>&nbsp;
-    <button type="button" (click)="jinYongCkb()" style="padding:unset">只禁用电影和音乐</button>&nbsp;|&nbsp;
-    {{try.get('cks').value | json}}
+    <button type="button" (click)="jinYongCkb()" style="padding:unset">只禁用电影和音乐</button>&nbsp;--&gt;&nbsp;
+    ctrValue: {{try.get('cks').value | json}}
     <div style="border-bottom:1px dashed #ccc;margin-bottom:10px;"></div>
 
     <radiobtn-group
@@ -18,34 +18,41 @@
         (outChange)="onRdoChange($event)"
     ></radiobtn-group>&nbsp;&nbsp;&nbsp;&nbsp;
     <button type="button" (click)="gouXuanRdo()" style="padding:unset">勾选音乐</button>&nbsp;
-    <button type="button" (click)="jinYongRdo()" style="padding:unset">只禁用电影和音乐</button>&nbsp;|&nbsp;
-    {{try.get('rdos').value | json}}
+    <button type="button" (click)="jinYongRdo()" style="padding:unset">只禁用电影和音乐</button>&nbsp;--&gt;&nbsp;
+    ctrValue: {{try.get('rdos').value | json}}
     <div style="border-bottom:1px dashed #ccc;margin-bottom:10px;"></div>
 
     <radiobtn-group
         [options]="rdoDatas2" 
         formControlName="rdos2"
         (outChange)="onRdoChange2($event)"
-    ></radiobtn-group>&nbsp;|&nbsp;
-    {{try.get('rdos2').value}}
+    ></radiobtn-group>&nbsp;--&gt;&nbsp;
+    ctrValue: {{try.get('rdos2').value}}
+    <div style="border-top:1px dashed #ccc;margin-top:10px;">
+        formValue ==> {{try.value | json}}
+    </div>
+</form>
 
-</div>
-
-<div style="border:1px solid #333;margin:20px 50px 0;">
+<form #temForm="ngForm" style="border:1px solid #333;margin:20px 50px 0;">
     <h2>模板驱动式</h2>
     <radiobtn-group
         [options]="rdoDatas2" 
+        name="rdo1"
         [(ngModel)]="rdosBBB"
         (outChange)="onRdoChange2($event)"
         #rdoGrp="ngModel"
-    ></radiobtn-group>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
-    {{rdoGrp.value}}
+    ></radiobtn-group>&nbsp;&nbsp;&nbsp;--&gt;&nbsp;&nbsp;
+    ctrValue: {{rdoGrp.value}}
     <div style="border-bottom:1px dashed #ccc;margin-bottom:10px;"></div>
     <checkbox-group
         [options]="cksDatas2"
+        name="cks1"
         [(ngModel)]="cksBBB"
         #ckbGrp="ngModel"
         (outChange)="onCksChange2($event)"
-    ></checkbox-group>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
-    {{ckbGrp.value | json}}
-</div>
+    ></checkbox-group>&nbsp;&nbsp;&nbsp;--&gt;&nbsp;&nbsp;
+    ctrValue: {{ckbGrp.value | json}}
+    <div style="border-top:1px dashed #ccc;margin-top:10px;">
+        formValue ==> {{temForm.value | json}}
+    </div>
+</form>

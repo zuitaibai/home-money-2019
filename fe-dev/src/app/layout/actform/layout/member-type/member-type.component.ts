@@ -20,7 +20,6 @@ export class MemberTypeComponent implements OnInit, ControlValueAccessor, OnChan
 
     @Input() ifShowAll: boolean;
     @Input() addOrEdit: string;
-    @Input() fbug: number;
 
     data: ObjTpye[] = [];
     datass: ObjTpye[] = [];

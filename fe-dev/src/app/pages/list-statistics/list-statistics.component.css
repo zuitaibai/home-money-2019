@@ -1,0 +1,12 @@
+.td_neirong{position:relative;}
+.td_neirong button{padding:4px 6px;position: absolute;right:5px;top:2px;display:none;}
+.td_neirong em{position: absolute;right:7px;top:7px;font-style: normal;color:#949494;}
+.td_neirong em:after{content: '↱';}
+.td_neirong:hover button{display:inline-block;}
+.td_neirong:hover em{display:none;}
+.color_ru{color:#ff6900;}
+.color_chu{color: #00a1c2;}
+.isRowZhuncun,.isRowZhuncun .color_ru,.isRowZhuncun .color_chu{color:#bdbdbd;}
+.isRowZhuncun td:last-child{color:#7A7A7A;}
+.isRowZhuncun .td_neirong.td_shouzhi em{display:none;}
+.isRowZhuncun .td_neirong.td_shouzhi:hover button{display:none;}

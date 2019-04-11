@@ -159,8 +159,8 @@ export class ListTableComponent implements OnInit, OnChanges {
                     <tr><th>类别：</th><td>&lt; ${tr[4].text} &gt;</td></tr>
                     <tr><th>币种：</th><td>${tr[5].text}</td></tr>
                     <tr><th>支出账户：</th><td>${tr[6].text}</td></tr>
-                    <tr><th>自分类：</th><td>${tr[7].text}</td></tr>
-                    <tr><th valign="top">备注：</th><td class="n_td">${tr[0].for_oth}</td></tr>
+                    <tr><th>自分类：</th><td>${tr[7].text || ''}</td></tr>
+                    <tr><th valign="top">备注：</th><td class="n_td">${tr[0].for_oth || ''}</td></tr>
                     <tr class="n_gray"><th>添加时间：</th><td>${tr[0].for_addtime}</td></tr>
                     <tr class="n_gray"><th>ID：</th><td>${tr[0].id}</td></tr>
                     <tr class="n_gray"><th>录入人：</th><td>${tr[0].for_inwho || ''}</td></tr>
@@ -174,8 +174,8 @@ export class ListTableComponent implements OnInit, OnChanges {
                     <tr><th>类别：</th><td>&lt; ${tr[3].text} &gt;</td></tr>
                     <tr><th>币种：</th><td>${tr[4].text}</td></tr>
                     <tr><th>收入账户：</th><td>${tr[5].text}</td></tr>
-                    <tr><th>自分类：</th><td>${tr[6].text}</td></tr>
-                    <tr><th valign="top">备注：</th><td class="n_td">${tr[0].for_oth}</td></tr>
+                    <tr><th>自分类：</th><td>${tr[6].text || ''}</td></tr>
+                    <tr><th valign="top">备注：</th><td class="n_td">${tr[0].for_oth || ''}</td></tr>
                     <tr class="n_gray"><th>添加时间：</th><td>${tr[0].for_addtime}</td></tr>
                     <tr class="n_gray"><th>ID：</th><td>${tr[0].id}</td></tr>
                     <tr class="n_gray"><th>录入人：</th><td>${tr[0].for_inwho || ''}</td></tr>
@@ -189,8 +189,8 @@ export class ListTableComponent implements OnInit, OnChanges {
                     <tr><th>类别：</th><td>&lt; ${tr[3].text} &gt;</td></tr>
                     <tr><th>由：</th><td>${tr[4].text}</td></tr>
                     <tr><th>至：</th><td>${tr[5].text}</td></tr>
-                    <tr><th>自分类：</th><td>${tr[6].text}</td></tr>
-                    <tr><th valign="top">备注：</th><td class="n_td">${tr[0].for_oth}</td></tr>
+                    <tr><th>自分类：</th><td>${tr[6].text || ''}</td></tr>
+                    <tr><th valign="top">备注：</th><td class="n_td">${tr[0].for_oth || ''}</td></tr>
                     <tr class="n_gray"><th>添加时间：</th><td>${tr[0].for_addtime}</td></tr>
                     <tr class="n_gray"><th>ID：</th><td>${tr[0].id}</td></tr>
                     <tr class="n_gray"><th>录入人：</th><td>${tr[0].for_inwho || ''}</td></tr>
