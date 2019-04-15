@@ -43,7 +43,7 @@ function build(data, tool) {
         else{
             item = storeObj2.bankTypeKey.find((vv)=>{ return vv.id == v.bankTypeKey_to; });
             if(item){
-                storeObj.bankTypeKey[v.bankTypeKey_to] = v.bankTypeKey_fromName = item.name;
+                storeObj.bankTypeKey[v.bankTypeKey_to] = v.bankTypeKey_toName = item.name;
             }
         }
         //bankKey

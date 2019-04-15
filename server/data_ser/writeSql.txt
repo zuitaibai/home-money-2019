@@ -6244,3 +6244,80 @@ INSERT INTO in_out (type,name,money,date_sign,dtype,other,memberKey,for_from_mem
 ------------------------------start:
 INSERT INTO in_out (type,name,money,date_sign,dtype,other,memberKey,for_from_memberKey,intypeKey,outtype1Key,outtype2Key,bankTypeKey,bankKey,date_dbCreate) VALUES (0,'格格0花',2,'2019-04-09','','',2,4,1,1,34,1,18,'2019-04-10 20:23:41');
 ---------------:end
+
+
+
+2019-04-13 20:06:08
+------------------------------start:
+INSERT INTO in_out (type,name,money,date_sign,dtype,other,memberKey,for_from_memberKey,intypeKey,outtype1Key,outtype2Key,bankTypeKey,bankKey,date_dbCreate) VALUES (0,'洗澡',49,'2019-04-13','','',2,2,1,5,74,4,15,'2019-04-13 20:06:08');
+---------------:end
+
+
+
+2019-04-13 20:09:29
+------------------------------start:
+INSERT INTO in_out (type,name,money,date_sign,dtype,other,memberKey,for_from_memberKey,intypeKey,outtype1Key,outtype2Key,bankTypeKey,bankKey,date_dbCreate) VALUES (0,'给孩子买种子',5,'2019-04-13','','',2,4,1,2,11,4,15,'2019-04-13 20:09:29');
+---------------:end
+
+
+
+2019-04-13 20:09:58
+------------------------------start:
+INSERT INTO in_out (type,name,money,date_sign,dtype,other,memberKey,for_from_memberKey,intypeKey,outtype1Key,outtype2Key,bankTypeKey,bankKey,date_dbCreate) VALUES (0,'手机帖膜',15,'2019-04-13','','',2,2,1,6,96,4,15,'2019-04-13 20:09:58');
+---------------:end
+
+
+
+2019-04-13 20:10:27
+------------------------------start:
+INSERT INTO in_out (type,name,money,date_sign,dtype,other,memberKey,for_from_memberKey,intypeKey,outtype1Key,outtype2Key,bankTypeKey,bankKey,date_dbCreate) VALUES (0,'孩子吃榨鸡',25,'2019-04-13','','',2,4,1,1,112,4,15,'2019-04-13 20:10:27');
+---------------:end
+
+
+
+2019-04-13 20:10:50
+------------------------------start:
+INSERT INTO in_out (type,name,money,date_sign,dtype,other,memberKey,for_from_memberKey,intypeKey,outtype1Key,outtype2Key,bankTypeKey,bankKey,date_dbCreate) VALUES (0,'盖饭',15,'2019-04-13','','',2,2,1,1,112,4,15,'2019-04-13 20:10:50');
+---------------:end
+
+
+
+2019-04-13 20:11:52
+------------------------------start:
+INSERT INTO in_out (type,name,money,date_sign,dtype,other,memberKey,for_from_memberKey,intypeKey,outtype1Key,outtype2Key,bankTypeKey,bankKey,date_dbCreate) VALUES (0,'鸭脖',9,'2019-04-13','','',2,3,1,1,34,4,15,'2019-04-13 20:11:52');
+---------------:end
+
+
+
+2019-04-13 20:14:23
+------------------------------start:
+INSERT INTO in_out (type,name,money,date_sign,dtype,other,memberKey,for_from_memberKey,intypeKey,outtype1Key,outtype2Key,bankTypeKey,bankKey,date_dbCreate) VALUES (0,'啤酒+孩子饮料',10,'2019-04-13','','',2,2,1,1,31,4,15,'2019-04-13 20:14:23');
+---------------:end
+
+
+
+2019-04-15 10:38:18
+------------------------------start:
+INSERT INTO in_out (type,name,money,date_sign,dtype,other,memberKey,for_from_memberKey,intypeKey,outtype1Key,outtype2Key,bankTypeKey,bankKey,date_dbCreate) VALUES (0,'啤酒+罐啤',13,'2019-04-13','','',2,2,1,1,29,4,15,'2019-04-15 10:38:18');
+---------------:end
+
+
+
+2019-04-15 10:38:54
+------------------------------start:
+INSERT INTO in_out (type,name,money,date_sign,dtype,other,memberKey,for_from_memberKey,intypeKey,outtype1Key,outtype2Key,bankTypeKey,bankKey,date_dbCreate) VALUES (0,'加油',20,'2019-04-13','','',2,1,1,3,40,1,18,'2019-04-15 10:38:54');
+---------------:end
+
+
+
+2019-04-15 10:39:12
+------------------------------start:
+INSERT INTO in_out (type,name,money,date_sign,dtype,other,memberKey,for_from_memberKey,intypeKey,outtype1Key,outtype2Key,bankTypeKey,bankKey,date_dbCreate) VALUES (0,'加油',290,'2019-04-15','','',2,1,1,3,40,3,4,'2019-04-15 10:39:12');
+---------------:end
+
+
+
+2019-04-15 10:39:31
+------------------------------start:
+INSERT INTO in_out (type,name,money,date_sign,dtype,other,memberKey,for_from_memberKey,intypeKey,outtype1Key,outtype2Key,bankTypeKey,bankKey,date_dbCreate) VALUES (0,'早点7+3',10,'2019-04-15','','',2,2,1,1,110,4,15,'2019-04-15 10:39:31');
+---------------:end
