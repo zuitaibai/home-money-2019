@@ -65,7 +65,8 @@ export class ListStatisticsComponent implements OnInit, OnDestroy {
         this.apiService.getListStatistics(this.storePageOptions).subscribe(resResult => {
             resResult.listArr.forEach((v: {[key: string]: any}) => {
                 const date = new Date(v.date);
-                v.datefmt = [ date.getFullYear(), ('0' + (date.getMonth() + 1)).slice(-2), ('0' + date.getDate()).slice(-2) ].join(' - ');
+                // v.datefmt = [ date.getFullYear(), ('0' + (date.getMonth() + 1)).slice(-2), ('0' + date.getDate()).slice(-2) ].join(' - ');
+                v.datefmt = v.date.replace(/-/g, ' - ');
             });
             this.pageData = resResult;
         });
