@@ -47,6 +47,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     }
     reset() {
         this.loginO = { username: '', userpwd: '', usercode: '' };
+        this.loginInfo = '';
         this.reGetVerCode();
         this.nameCtrRef.nativeElement.focus();
     }
