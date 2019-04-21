@@ -15,6 +15,7 @@ export class ModalComponent implements OnInit {
     @Input() mIfShow = '' || 'no';
     @Input() mOverlay = 'no';
     @Input() mData: ObjTpye;
+    @Input() mOther: ObjTpye | undefined;
     @Input() mCompName = '';
 
     @Output() modalClose = new EventEmitter<string>();

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChange } from '@angular/core';
 import { ObjTpye } from '../../util/types';
 
 @Component({
@@ -6,10 +6,11 @@ import { ObjTpye } from '../../util/types';
     templateUrl: './statistics-pop-inner.component.html',
     styleUrls: ['./statistics-pop-inner.component.css']
 })
-export class StatisticsPopInnerComponent implements OnInit {
+export class StatisticsPopInnerComponent implements OnInit, OnChanges {
 
     @Input() compName: string;
     @Input() data: ObjTpye;
+    @Input() other: ObjTpye | undefined;
 
     pgObj = {
         pay : {},
@@ -19,7 +20,7 @@ export class StatisticsPopInnerComponent implements OnInit {
 
     constructor() { }
 
-    ngOnInit() {
+    ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
         let name = this.compName; // pay|come|resumm|resum
         if (name === 'resumm' || name === 'resum') {
             name = 'resum';
@@ -47,9 +48,13 @@ export class StatisticsPopInnerComponent implements OnInit {
         }
         this.pgObj[name] = this.data;
     }
+    ngOnInit() { }
     showSmUnlawful() {
-        const {totalUnlawful, isOughtNotPay} = this.pgObj.pay as any;
-        console.log(`${totalUnlawful} - ${isOughtNotPay} = ${totalUnlawful - isOughtNotPay}`);
+        if (this.other && this.other.totalUnlawful) {
+            const t = this.other.totalUnlawful;
+            const {isOughtNotPay} = this.pgObj.pay as any;
+            console.log(`${t} - ${isOughtNotPay} = ${t - isOughtNotPay}`);
+        }
     }
 
 }

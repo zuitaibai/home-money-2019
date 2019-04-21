@@ -18,7 +18,8 @@ export class HomeComponent implements OnInit {
         modalIfShow: 'no',
         modalOverlay: 'no',
         modalData: {},
-        modalCompName: ''
+        modalCompName: '',
+        modalOtherData: {}
     };
 
     @HostListener('document:keyup.esc', ['$event'])
