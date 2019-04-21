@@ -47,5 +47,9 @@ export class StatisticsPopInnerComponent implements OnInit {
         }
         this.pgObj[name] = this.data;
     }
+    showSmUnlawful() {
+        const {totalUnlawful, isOughtNotPay} = this.pgObj.pay as any;
+        console.log(`${totalUnlawful} - ${isOughtNotPay} = ${totalUnlawful - isOughtNotPay}`);
+    }
 
 }

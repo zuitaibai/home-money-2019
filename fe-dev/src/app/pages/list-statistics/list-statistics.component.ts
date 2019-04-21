@@ -119,6 +119,7 @@ export class ListStatisticsComponent implements OnInit, OnDestroy {
             modalCompName: type
         });
         this.subscript = subscb.subscribe(res => {
+            res.totalUnlawful = money;
             this.modalSer.eventEmit.emit({
                 modalSize: 'small',
                 modalTit: tit,

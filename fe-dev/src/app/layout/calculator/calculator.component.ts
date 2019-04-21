@@ -1,5 +1,5 @@
 import { Component, OnInit, HostListener, Input, Output, EventEmitter } from '@angular/core';
-import { Calc } from '../../util/calc';
+import { Calc } from './calc';
 
 @Component({
     selector: 'app-calculator',
