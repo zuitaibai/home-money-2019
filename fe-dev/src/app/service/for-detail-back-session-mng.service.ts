@@ -27,7 +27,7 @@ export class ForDetailBackSessionMngService {
     }
     // 非列表页调用
     public clearAll() {
-        // ['listPay', 'listCome', 'listAccounts', 'listStatistics'] // 没有编辑，故也没有写入过相关sessionStorage
+        // ['listPay', 'listCome', 'listAccounts', 'listStatistics'] // listStatistics没有编辑，故也没有写入过相关sessionStorage
         // 此处没有做成活的，拷贝自各list页面自己声明的routerPageType，
         // 而且如果改的话，请注意除此、各list页面、及其它别处是否有用到。
         ['listPay', 'listCome', 'listAccounts'].forEach(v => {

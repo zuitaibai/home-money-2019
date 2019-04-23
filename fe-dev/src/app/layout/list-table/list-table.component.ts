@@ -5,7 +5,6 @@ import { ModalService } from '../../service/modal.service';
 import { map2Cn } from '../../util/local';
 import { ApiService } from '../../service/api.service';
 import { ForDetailBackSessionMngService } from '../../service/for-detail-back-session-mng.service';
-import { analyzeAndValidateNgModules } from '@angular/compiler';
 @Component({
     selector: 'app-list-table',
     templateUrl: './list-table.component.html',

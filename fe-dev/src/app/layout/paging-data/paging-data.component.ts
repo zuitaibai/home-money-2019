@@ -114,7 +114,7 @@ const build = (curP: number, pageCount: number, conf: ObjTpye) => {
     return list;
 };
 
-const conf = {
+const config = {
     adjacents: 2, lte2pShow: false, ifSelect: true, showPvNt: true, showFtLt: true,
     wordElp: '...', wordPv: '< 上一页', wordNt: '下一页 >', wordFt: '|<< 首 页', wordLt: '末 页 >>|'
 };
@@ -153,7 +153,7 @@ export class PagingDataComponent implements OnInit, OnChanges {
     private calc() {
         this.pageCount = Math.ceil(this.total / this.pSize);
         this.pagesArr = new Array(this.pageCount || 1).fill(1);
-        this.list = build(this.curP, this.pageCount, conf);
+        this.list = build(this.curP, this.pageCount, config);
     }
 
 }
