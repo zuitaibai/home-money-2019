@@ -56,5 +56,8 @@ export class StatisticsPopInnerComponent implements OnInit, OnChanges {
             console.log(`${t} - ${isOughtNotPay} = ${t - isOughtNotPay}`);
         }
     }
+    getMemberSum(arr: ObjTpye[] = []) {
+        return arr.reduce((a: number, b: ObjTpye) => a + b.money || 0, 0);
+    }
 
 }

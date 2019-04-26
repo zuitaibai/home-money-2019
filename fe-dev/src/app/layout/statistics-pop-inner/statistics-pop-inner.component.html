@@ -107,7 +107,10 @@
         <tbody>
             <ng-container *ngFor="let item of pgObj.resum | keyvalue">
                 <tr *ngFor="let iitem of item.value; first as isFirst">
-                    <td *ngIf="isFirst" class="ofstd" [attr.rowspan]="item.value.length">{{item.key}}</td>
+                    <td *ngIf="isFirst" class="ofstd" [attr.rowspan]="item.value.length">
+                        {{item.key}}<br>
+                        <span style="color:#ff6900">({{getMemberSum(item.value)}})</span>
+                    </td>
                     <td class="ofstd">{{iitem.bankTypeName}}</td>
                     <td class="ofstd">{{iitem.bankName}}</td>
                     <td class="lowtd" style="padding-left:15px;padding-right:15px;">{{
