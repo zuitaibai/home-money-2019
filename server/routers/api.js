@@ -18,6 +18,24 @@ router.get('/cometype',async (ctx, next) => {
     ctx.type = 'json';
     ctx.body = result;
 });
+//for rest-client: GET http://localhost:8888/api/outypeAll HTTP/1.1
+//支出一二级全部
+router.get('/outypeAll',async (ctx, next) => {
+    let arr = [], o1keys = [];
+    let o1 = await ctx.db.query('select * from outtype1 where isOpen = 1 order by orderd');
+    let o2 = await ctx.db.query('select * from outtype2 where 1 = 1 order by orderd');
+    arr = o1.sort((a,b)=>a.orderd-b.orderd).map(item=>{
+        o1keys.push(item.id);
+        return {name: item.name, value: ''+item.id, parent: '0'};
+    });
+    o1keys.forEach(key=>{
+        o2.filter(item=>item.outType1Key===key).sort((a,b)=>a.orderd-b.orderd).forEach(item=>{
+            arr.push({name: item.name, value: ''+item.id, parent: ''+key});
+        });
+    });
+    ctx.type = 'json';
+    ctx.body = arr;
+});
 //for rest-client: GET http://localhost:8888/api/outype1 HTTP/1.1
 // 支出类型一级
 router.get('/outype1',async (ctx, next) => {
@@ -30,6 +48,23 @@ router.get('/outype2/:id',async (ctx, next) => {
     let result = await ctx.db.query('select * from outtype2 where outType1Key = ? order by orderd', ctx.params.id);
     ctx.type = 'json';
     ctx.body = result;
+});
+//for rest-client: GET http://localhost:8888/api/moneyTypeAll HTTP/1.1
+//币种一二级全部
+router.get('/moneyTypeAll',async (ctx, next) => {
+    let arr = [];
+    let o1 = await ctx.db.query('select * from banktype order by orderd');
+    let o2 = await ctx.db.query('select * from bank where 1 = 1 order by orderd');
+    arr = o1.sort((a,b)=>a.orderd-b.orderd).map(item=>{
+        return {name: item.name, value: ''+item.id, parent: '0'};
+    });
+    o1.forEach(o1Item=>{
+        o2.filter(item=>item.bankType===o1Item.type).sort((a,b)=>a.orderd-b.orderd).forEach(item=>{
+            arr.push({name: item.name, value: ''+item.id, parent: ''+o1Item.id});
+        });
+    });
+    ctx.type = 'json';
+    ctx.body = arr;
 });
 //for rest-client: GET http://localhost:8888/api/moneyTypes HTTP/1.1
 // 币种类型一级
