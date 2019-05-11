@@ -187,7 +187,7 @@ router.post('/', async (ctx, next) => {
             totalRecord: listArr.length,
             currentPage: currentPage,
             pageSize: pageSize,
-            pageCout: Math.ceil(listArr.length / pageSize)
+            pageCount: Math.ceil(listArr.length / pageSize)
         },
         total: total
     };
