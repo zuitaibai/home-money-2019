@@ -242,7 +242,7 @@ export class ApiService {
             catchError(this.handleError<any>(`ajax>(${url})`))
         );
     }
-    // 统计列表弹窗内容获取：账户余额
+    // 统计列表弹窗内容获取：账户差额
     getStatisticsPopResumm(date: string): Observable<ObjTpye> {
         const url = `${preApi}listStatistics/z_cha_e/${date}`;
         return this.http.get(url)
@@ -251,7 +251,7 @@ export class ApiService {
             catchError(this.handleError<any>(`ajax>(${url})`))
         );
     }
-    // 统计列表弹窗内容获取：账户差额
+    // 统计列表弹窗内容获取：账户余额
     getStatisticsPopResum(date: string): Observable<ObjTpye> {
         const url = `${preApi}listStatistics/yu_e/${date}`;
         return this.http.get(url)

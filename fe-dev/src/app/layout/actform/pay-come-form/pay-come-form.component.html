@@ -74,7 +74,7 @@
                 <app-date-ctr formControlName="date_sign"></app-date-ctr>
             </td>
         </tr>
-        <tr>
+        <tr *ngIf="payOrCome==='pay'">
             <td>花给谁</td>
             <td></td>
             <td>

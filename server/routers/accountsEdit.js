@@ -25,7 +25,8 @@ router.get('/:id', async (ctx, next) => {
         memberKey_to: dataItem[0].memberKey_to,
         dtype: dataItem[0].dtype,
         other: dataItem[0].other,
-        isOughtNotPay: dataItem[0].isOughtNotPay
+        isOughtNotPay: dataItem[0].isOughtNotPay,
+		id: dataItem[0].id
     };
 });
 // 提交帐目 详情编辑

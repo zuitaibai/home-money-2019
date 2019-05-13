@@ -323,7 +323,7 @@ router.get('/shouru/:date', async (ctx,next)=> {
         xuniXianjin: xuniXianjin
     };
 });
-// 统计列表弹窗内容获取：账户余额
+// 统计列表弹窗内容获取：账户差额
 router.get('/z_cha_e/:date', async(ctx,next) => {
     let date  = ctx.params.date, temlen= date.split('-').length, sch_type='year'; //date:  '2017' || '2017-01' || '2017-11-05'
     if(temlen===2) sch_type = 'month';
@@ -449,7 +449,7 @@ router.get('/z_cha_e/:date', async(ctx,next) => {
     ctx.body =listObj
 
 });
-// 首页数据块 余额   // 统计列表弹窗内容获取：账户差额
+// 统计列表弹窗内容获取：账户余额  // 首页数据块 余额
 router.get('/yu_e/:date', async (ctx,next)=> {
 
     let date  = ctx.params.date, temlen= date.split('-').length, sch_type='year'; //date:  '2017' || '2017-01' || '2017-11-05'

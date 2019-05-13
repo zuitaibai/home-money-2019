@@ -26,7 +26,8 @@ router.get('/:id', async (ctx, next) => {
         date_dbCreate: ctx.tool.dateFmt(dataItem[0].date_dbCreate),
         other: dataItem[0].other,
         dtype: dataItem[0].dtype,
-        isOughtNotPay: dataItem[0].isOughtNotPay
+        isOughtNotPay: dataItem[0].isOughtNotPay,
+		id: dataItem[0].id
     };
 });
 // 提交收入/支出 详情编辑
