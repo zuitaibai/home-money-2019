@@ -125,6 +125,7 @@ router.get('/getUserInfo', async (ctx, next) => {
     let re =  { name: 'smbd', level: 1};
     if(ctx.session && ctx.session.user) {
         re = {
+			name: ctx.session.user.name,
             sname: ctx.session.user.sname,
             level: ctx.session.level
         };
