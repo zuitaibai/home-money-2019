@@ -65,7 +65,15 @@ router.post('/', async (ctx, next) => {
             if(data[0].password === lastPassword){
                 ctx.session.user = data[0];
                 ctx.session.level = data[0].level;
-                resp = {code:'ok',err:'登录成功'};
+                resp = {
+                    code:'ok',
+                    err:'登录成功', 
+                    user: {
+                        name: data[0].name,
+                        sname: data[0].sname,
+                        level: data[0].level
+                    }
+                };
             }else{
                 resp = {code:'no',err:'密码不对'};
             }
@@ -78,13 +86,20 @@ router.post('/', async (ctx, next) => {
 router.get('/loginOut',async (ctx, next) => {
     ctx.session = {};
     ctx.type = 'json';
-    ctx.body = {code: 'ok' };
+    ctx.body = { code: 'ok' };
 });
 //获取当前登录状态：是否登录
 router.get('/checkLogin', async (ctx, next) => {
     let ifs = !!(ctx.session && ctx.session.user);
     ctx.type = 'json';
-    ctx.body = { login: ifs };
+    ctx.body = ifs ? { 
+        login: true, 
+        user: {
+            name: ctx.session.user.name,
+            sname: ctx.session.user.sname,
+            level: ctx.session.level
+        }
+    } : { login: false };
 });
 
 
