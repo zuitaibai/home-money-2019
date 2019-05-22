@@ -3,8 +3,6 @@
 /node_modules
 apps/*
 !apps/readme.md
-apps-m/*
-!apps-m/readme.md
 # IDEs and editors
 /.idea
 .project
