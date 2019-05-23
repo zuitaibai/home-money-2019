@@ -62,8 +62,11 @@ const checkPathIsDoPass = path => {
     });
 }
 
+const port = 8888;
+
 module.exports = {
     subforderName,
     interfacePre,
-    checkPathIsDoPass
+    checkPathIsDoPass,
+    port,
 };

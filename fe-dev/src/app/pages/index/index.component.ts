@@ -81,7 +81,7 @@ export class IndexComponent implements OnInit {
                 const dataForDraw = resData.typeList
                 .map((item: ObjTpye) => ({value: item.money, name: item.name}))
                 .sort((a: ObjTpye, b: ObjTpye) => b.value - a.value);
-                this.chartOption1 = this.makeChartOption(dataForDraw, '支 出 账 户');
+                this.chartOption1 = this.makeChartOption(dataForDraw, '支 出 类 别');
             }
             if (resData.forMemberList && resData.forMemberList.length)  {
                 const dataForDraw = resData.forMemberList

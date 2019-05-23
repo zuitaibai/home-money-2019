@@ -12,7 +12,7 @@ const db = require('../util/db');
 const tool = require('../util/tool');
 const loginApi = require('./login.api');
 
-const { subforderName, interfacePre, checkPathIsDoPass } = require('./config');
+const { subforderName, interfacePre, checkPathIsDoPass, port } = require('./config');
 
 const subFdName = !!subforderName ? `${subforderName}/` : '';
 const indexFile_ = `./${subFdName}index.html`;
@@ -141,13 +141,14 @@ app.use(async (ctx, next) => {
 });
 
 const sub = !!subforderName ? `/${subforderName}` : '';
-const uri = `[ `.green + `localhost:8888${sub}`.white.underline + ` ]`.green;
+const uri = `[ `.green + `localhost:${port}${sub}`.white.underline + ` ]`.green;
 let env = process.env.NODE_ENV === 'dev' ? '开发' : process.env.myflag === 'prodhot' ? '热-生产' : '生产';
 env = ` ${env} `.magenta.underline;
+const pt = `[${port}]`.magenta;
 
-app.listen(8888, () => console.log(`
+app.listen(port, () => console.log(`
 ${'-------------------------------------'.yellow}
-    ${'家庭帐目管理系统已运行于'.red}${env}${'环境，port:'.red}${'[8888]'.magenta}
+    ${'家庭帐目管理系统已运行于'.red}${env}${'环境，port:'.red}${pt}
     ${'嘎嘎嘎嘎嘎 '.green}${uri}
     ${'小兔子乖乖，把门儿开开，'.cyan}
     ${'快点开开，我要进来...'.gray}
