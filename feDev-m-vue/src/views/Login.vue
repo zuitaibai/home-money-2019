@@ -98,8 +98,8 @@
                 'logout',
             ]),
             jumpIndex(){
-                window.location.href='/index';
-                // this.$router.replace('/index');
+                window.location.href='./index';
+                // this.$router.replace('./index');
             },
             resetLoginForm(){
                 this.userName = this.userPwd = this.userCode = '';

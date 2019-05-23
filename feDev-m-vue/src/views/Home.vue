@@ -150,7 +150,7 @@
                     let res = await vm.checkLogin();
                     if(res){
                         if(!res.login) {
-                            window.location.href='/login';
+                            window.location.href='./login';
                         }
                     }
                 }

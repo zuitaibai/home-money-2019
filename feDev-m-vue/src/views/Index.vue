@@ -107,13 +107,13 @@ import { local } from "@/config";
 const en = "index";
 const cn = local.pgKey2Cn[en];
 import { mapActions } from "vuex";
-// , VLine, VArea
-import { Divider, Card, VChart, VTooltip, VLegend, VBar, VPie, VScale } from "vux";
+// , VLine, VArea, VScale
+import { Divider, Card, VChart, VTooltip, VLegend, VBar, VPie } from "vux";
 
 export default {
 	name: en,
 	// , VLine, VArea
-	components:{ Divider, Card, VChart, VTooltip, VLegend, VBar, VPie, VScale },
+	components:{ Divider, Card, VChart, VTooltip, VLegend, VBar, VPie },
 	data(){
 		return {
 			zcType: [{name: '', money:0}],

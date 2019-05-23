@@ -4,6 +4,8 @@ let subforderName; // 'apps/somedir/somedir/.../somedir'
 // 接口请求地址中是否包含子目录文件夹名
 let _ifInterfaceContainSubforderName;
 
+let subsubforderName = 'mb';
+
 if(process.env.NODE_ENV==='dev'){ // 由package.json script 传入
     subforderName = '';
     _ifInterfaceContainSubforderName = false;
@@ -69,4 +71,5 @@ module.exports = {
     interfacePre,
     checkPathIsDoPass,
     port,
+    subsubforderName,
 };

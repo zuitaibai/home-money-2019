@@ -12,12 +12,24 @@ const db = require('../util/db');
 const tool = require('../util/tool');
 const loginApi = require('./login.api');
 
-const { subforderName, interfacePre, checkPathIsDoPass, port } = require('./config');
+const { subforderName, interfacePre, checkPathIsDoPass, port, subsubforderName } = require('./config');
 
-const subFdName = !!subforderName ? `${subforderName}/` : '';
-const indexFile_ = `./${subFdName}index.html`;
-const indexPath_ = `/${subFdName}index`;
-const loginPath_ = `/${subFdName}login`;
+
+function getPath(ctx){
+    let subFdName = !!subforderName ? `${subforderName}/` : '';
+    if(ctx && ctx.request.path.includes('/'+subsubforderName)){
+        subFdName = `${subFdName}/${subsubforderName}/`.replace('//','/');
+    }
+    const indexFile_ = `./${subFdName}index.html`;
+    const indexPath_ = `/${subFdName}index`;
+    const loginPath_ = `/${subFdName}login`;
+    return {
+        subFdName,
+        indexFile_,
+        indexPath_,
+        loginPath_,
+    }
+}
 
 const sendFileSync = (file, ctx) => {
     let typeMime;
@@ -73,8 +85,8 @@ app.use(loginApi.allowedMethods());
     // use  子文件夹时： http://10.20.35.3:88/文件夹/login
     // unUse子文件夹时： http://10.20.35.3:88/login
 app.use(async (ctx, next) => {
-    if (ctx.method.toUpperCase() === 'GET' && ctx.request.path === loginPath_ ) {
-        if (!sendFileSync(indexFile_, ctx)) await next();
+    if (ctx.method.toUpperCase() === 'GET' && ctx.request.path === getPath(ctx).loginPath_ ) {
+        if (!sendFileSync(getPath(ctx).indexFile_, ctx)) await next();
     } else await next();
 });
 
@@ -100,7 +112,7 @@ app.use(async (ctx, next) => {
             ctx.throw(401);
         }
         // 其它重定向至login
-        ctx.redirect(loginPath_);
+        ctx.redirect(getPath(ctx).loginPath_);
         ctx.status = 301;
     } else {
         await next();
@@ -113,16 +125,17 @@ app.use(async (ctx, next) => {
 app.use(async (ctx, next) => {
     if (ctx.method.toUpperCase() === 'GET' && (
         ctx.request.path === `/${subforderName}`||     // subforderName：'fName'||''
-        ctx.request.path === indexPath_
+        ctx.request.path === (`/${subforderName}/${subsubforderName}/`).replace('//','/') ||
+        ctx.request.path === getPath(ctx).indexPath_
     )) {
-        if (!sendFileSync(indexFile_, ctx)) await next();
+        if (!sendFileSync(getPath(ctx).indexFile_, ctx)) await next();
     } else await next();
 });
 
 /* 配合前后分离，设置一些通过的路由而不404（login已提出置前）：读取index.html发送 */
 app.use(async (ctx, next) => {
     if ( ctx.method.toUpperCase() === 'GET' && checkPathIsDoPass(ctx.request.path) ) {
-        if (!sendFileSync(indexFile_, ctx)) await next();
+        if (!sendFileSync(getPath(ctx).indexFile_, ctx)) await next();
     } else {
         await next();
     }
@@ -135,7 +148,7 @@ app.use(registerRouter());
 app.use(async (ctx, next) => {
     ctx.session.refresh();
     //目前保持其404
-    //sendFileSync(indexFile_, ctx); //不用此是因为 会将不存在于路由表中的地址渲染为首页，返回200成功状态
+    //sendFileSync(getPath(ctx).indexFile_, ctx); //不用此是因为 会将不存在于路由表中的地址渲染为首页，返回200成功状态
     //ctx.redirect(301, './index'); //此处使用redirect有极大问题
     ctx.throw(404);
 });
