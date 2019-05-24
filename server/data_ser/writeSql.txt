@@ -8876,3 +8876,31 @@ INSERT INTO in_out (type,name,money,date_sign,dtype,other,memberKey,for_from_mem
 ------------------------------start:
 INSERT INTO in_out (type,name,money,date_sign,dtype,other,memberKey,for_from_memberKey,intypeKey,outtype1Key,outtype2Key,bankTypeKey,bankKey,date_dbCreate) VALUES (0,'早点3*5+3',18,'2019-05-24','','',2,1,1,1,110,1,18,'2019-05-24 07:33:20');
 ---------------:end
+
+
+
+2019-05-24 22:30:11
+------------------------------start:
+INSERT INTO in_out (name,money,dtype,other,date_sign,memberKey,for_from_memberKey,outtype1Key,outtype2Key,intypeKey,bankTypeKey,bankKey,type,date_dbCreate) VALUES ('鸡柳+雪糕',32,'','','2019-05-24',2,1,1,34,1,4,14,0,'2019-05-24 22:30:11');
+---------------:end
+
+
+
+2019-05-24 22:31:27
+------------------------------start:
+INSERT INTO in_out (name,money,dtype,other,date_sign,memberKey,for_from_memberKey,outtype1Key,outtype2Key,intypeKey,bankTypeKey,bankKey,type,date_dbCreate) VALUES ('西瓜',37,'','','2019-05-24',2,1,1,35,1,1,18,0,'2019-05-24 22:31:27');
+---------------:end
+
+
+
+2019-05-24 22:49:53
+------------------------------start:
+INSERT INTO in_out (name,money,dtype,other,date_sign,memberKey,for_from_memberKey,outtype1Key,outtype2Key,intypeKey,bankTypeKey,bankKey,type,date_dbCreate) VALUES ('麦当劳',31,'','','2019-05-24',3,1,1,111,1,4,15,0,'2019-05-24 22:49:53');
+---------------:end
+
+
+
+2019-05-24 22:52:00
+------------------------------start:
+INSERT INTO in_out (name,money,dtype,other,date_sign,memberKey,for_from_memberKey,outtype1Key,outtype2Key,intypeKey,bankTypeKey,bankKey,type,date_dbCreate) VALUES ('牛肉+牛排',268,'','','2019-05-24',3,1,1,33,1,4,14,0,'2019-05-24 22:52:00');
+---------------:end
