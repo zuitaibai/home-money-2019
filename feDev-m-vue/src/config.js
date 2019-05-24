@@ -20,5 +20,5 @@ export const local = {
 
 export const defaultPageSize = 8;
 
-export const preApi = '/apps/api/';
+export  const preApi = '/apps/api/';
 // export const preApi = '/api/';

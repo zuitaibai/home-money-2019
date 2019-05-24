@@ -93,12 +93,12 @@
                 // 'fade','jump','slide-left','slide-right','scale-up','scale-down','long-form'
                 transitionName: 'jump',
                 pWord: local.pgKey2Cn,
-                qrcodeUrl: location.origin,
+                qrcodeUrl: window.location.href,
             };
         },
-        /* watch:{
+        watch:{
             sideBarVisible: function (newv, oldv) { if(!newv) this.qrcodeVisible = false; },
-        }, */
+        },
         computed: {
             ...mapState(['loading', 'navigationTitle']),
             ...mapState('login', ['user']),
@@ -150,7 +150,7 @@
                     let res = await vm.checkLogin();
                     if(res){
                         if(!res.login) {
-                            window.location.href='./login';
+                            vm.$router.replace('/login');
                         }
                     }
                 }

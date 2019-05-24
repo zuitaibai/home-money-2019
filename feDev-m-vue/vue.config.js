@@ -1,4 +1,5 @@
 const vuxLoader = require('vux-loader');
+const isProduction = process.env.NODE_ENV === "production";
 
 // 这里只列一部分，具体配置参考文档
 module.exports = {
@@ -10,13 +11,51 @@ module.exports = {
 				path: 'src/myless/myless.less'
 			}]
 		});
+		// 分离打包js,用cdn加速，由于本应用目前没有走外网，故先不做
+		/* if (isProduction) {
+			config.externals = {
+				'vue': 'Vue',
+				'vue-router': 'VueRouter',
+				'vuex': 'Vuex',
+			}
+		} */
+		// 开启Gzip, 由于本应用目前没有走外网，故先不做 (Gzip的变小率还是蛮大的)
+		/* 
+		// 安装插件
+		// yarn add -D compression-webpack-plugin
+		// 在vue-config.js 中加入
+		// const CompressionWebpackPlugin = require('compression-webpack-plugin');
+		// const productionGzipExtensions = ['js', 'css'];
+		if (isProduction) {
+			config.plugins.push(new CompressionWebpackPlugin({
+				algorithm: 'gzip',
+				test: new RegExp('\\.(' + productionGzipExtensions.join('|') + ')$'),
+				threshold: 10240,
+				minRatio: 0.8
+			}))
+		} 
+		*/
+		// 还有修改uglifyOptions去除console来减少文件大小，
+		// 安装uglifyjs-webpack-plugin
+		// yarn add -D uglifyjs-webpack-plugin
+		/* if (isProduction) {
+			config.plugins.push(
+				new UglifyJsPlugin({
+					uglifyOptions: {
+						compress: { warnings: false, drop_debugger: true, drop_console: true, },
+					},
+					sourceMap: false,
+					parallel: true,
+				})       
+			)
+		} */
 	},
 	// 部署生产环境和开发环境下的URL。
 	// 默认情况下，Vue CLI 会假设你的应用是被部署在一个域名的根路径上
 	// 例如 https://www.my-app.com/。如果应用被部署在一个子路径上，你就需要用这个选项指定这个子路径。例如，如果你的应用被部署在 https://www.my-app.com/my-app/，则设置 baseUrl 为 /my-app/。
 	// process.env.NODE_ENV:  production development
-	//baseUrl: process.env.NODE_ENV === "production" ? "./" : "/",  //从 Vue CLI 3.3 起已弃用，请使用publicPath
-	publicPath: process.env.NODE_ENV === "production" ? "./" : "./apps/mb/",
+	//baseUrl: isProduction ? "./" : "/",  //从 Vue CLI 3.3 起已弃用，请使用publicPath
+	publicPath: isProduction ? "/apps/mb/" : "/apps/",
 
 	// outputDir: 在npm run build 或 yarn build 时 ，生成文件的目录名称（要和baseUrl的生产环境路径一致）
 	//outputDir: "dist",

@@ -98,8 +98,9 @@
                 'logout',
             ]),
             jumpIndex(){
-                window.location.href='./index';
-                // this.$router.replace('./index');
+                // TODO: 采用$router.method 进入首页期间空白时间相当长
+                // this.$router.replace('index');
+                window.location.href = window.location.href.split('login','index');
             },
             resetLoginForm(){
                 this.userName = this.userPwd = this.userCode = '';
