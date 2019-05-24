@@ -8904,3 +8904,45 @@ INSERT INTO in_out (name,money,dtype,other,date_sign,memberKey,for_from_memberKe
 ------------------------------start:
 INSERT INTO in_out (name,money,dtype,other,date_sign,memberKey,for_from_memberKey,outtype1Key,outtype2Key,intypeKey,bankTypeKey,bankKey,type,date_dbCreate) VALUES ('牛肉+牛排',268,'','','2019-05-24',3,1,1,33,1,4,14,0,'2019-05-24 22:52:00');
 ---------------:end
+
+
+
+2019-05-25 05:59:27
+------------------------------start:
+UPDATE in_out SET  type = 0 , name = '我和孩子 饼' , money = 9 , date_sign = '2019-04-26' , dtype = '' , other = '' , memberKey = 2 , for_from_memberKey = 1 , intypeKey = 1 , outtype1Key = 1 , outtype2Key = 110 , bankTypeKey = 4 , bankKey = 15  WHERE id = 805;
+---------------:end
+
+
+
+2019-05-25 06:02:09
+------------------------------start:
+INSERT INTO in_out (type,name,money,date_sign,dtype,other,memberKey,for_from_memberKey,intypeKey,outtype1Key,outtype2Key,bankTypeKey,bankKey,date_dbCreate) VALUES (1,'医保提取',11748,'2019-05-24','医保','',2,2,19,1,28,2,8,'2019-05-25 06:02:09');
+---------------:end
+
+
+
+2019-05-25 06:03:34
+------------------------------start:
+INSERT INTO zhuan_cun (type,name,money,date_sign,dtype,other,bankTypeKey_from,bankKey_from,bankTypeKey_to,bankKey_to,memberKey_from,memberKey_to,date_dbCreate) VALUES (100,'医保卡转农商',11748,'2019-05-25','','',2,8,2,9,2,2,'2019-05-25 06:03:34');
+---------------:end
+
+
+
+2019-05-25 06:12:17
+------------------------------start:
+INSERT INTO zhuan_cun (type,name,money,date_sign,dtype,other,bankTypeKey_from,bankKey_from,bankTypeKey_to,bankKey_to,memberKey_from,memberKey_to,date_dbCreate) VALUES (100,'还交信卡',607,'2019-05-25','','',2,9,3,4,2,2,'2019-05-25 06:12:17');
+---------------:end
+
+
+
+2019-05-25 06:34:58
+------------------------------start:
+INSERT INTO zhuan_cun (type,name,money,date_sign,dtype,other,bankTypeKey_from,bankKey_from,bankTypeKey_to,bankKey_to,memberKey_from,memberKey_to,date_dbCreate) VALUES (100,'支付宝充值500+500',1000,'2019-05-25','','',2,9,4,14,2,2,'2019-05-25 06:34:58');
+---------------:end
+
+
+
+2019-05-25 06:35:12
+------------------------------start:
+INSERT INTO zhuan_cun (type,name,money,date_sign,dtype,other,bankTypeKey_from,bankKey_from,bankTypeKey_to,bankKey_to,memberKey_from,memberKey_to,date_dbCreate) VALUES (100,'微信充值',500,'2019-05-25','','',2,9,4,15,2,2,'2019-05-25 06:35:12');
+---------------:end

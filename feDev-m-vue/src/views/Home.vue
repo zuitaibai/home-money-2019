@@ -60,10 +60,12 @@
                 </transition>
             </div>
         </view-box>
-        <div class="qrcode-w" v-if="qrcodeVisible">
-            <span class="close-qrcode" @click="qrcodeVisible=false"><span class="vux-close"></span></span>
-            <qrcode :value="qrcodeUrl" type="img" :size="130" fg-color="rgb(158, 105, 45)"></qrcode>
-        </div>
+        <transition name="slide-left">
+            <div class="qrcode-w" v-if="qrcodeVisible">
+                <span class="close-qrcode" @click="qrcodeVisible=false"><span class="vux-close"></span></span>
+                <qrcode :value="qrcodeUrl" type="img" :size="130" fg-color="rgb(158, 105, 45)"></qrcode>
+            </div>
+        </transition>
         <div v-transfer-dom>
             <loading :show="loading.show" :text="loading.text"></loading>
         </div>
