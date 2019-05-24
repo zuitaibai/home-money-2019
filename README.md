@@ -1,6 +1,6 @@
 # HomeMoney2019
 
-three folders£º
+three folders:
 [feDev-pc-ng] FE: angular7+npm
 [feDev-m-vue] FE-mobile: vue2.6+yarn
 [server] SV: koa2+yarn
@@ -8,19 +8,19 @@ three folders£º
 
 [feDev-pc-ng]: ======================================
 
-run dev: localhost:4200
+run DEV: localhost:4200
     feDev-pc-ng/src/index.html  base[href]="/"
     feDev-pc-ng/ bash:ng serve
     net start mysql + server/yarn run dev
 	(Or: win+r/mmm -> d+enter )
 
-run prod: localhost:8888/apps
+run PROD: localhost:8888/apps
     build: feDev-pc-ng/src/index.html  base[href]="/apps/"   bash: ng build --prod
 	copy files into server/apps/
     net start mysql + server/yarn start
 	(Or: win+r/mmm -> enter|p+enter)
 
-run prod-hot: localhost:8888/apps
+run PROD-HOT: localhost:8888/apps
     build: feDev-pc-ng/src/index.html base[href]="/apps/"   bash: ng build --prod
 	copy files into server/apps/
     net start mysql + server/yarn run prod-hot
@@ -30,20 +30,26 @@ run prod-hot: localhost:8888/apps
 
 [feDev-m-vue]: ======================================
 
-run dev: localhost:8080/appm
+run DEV: localhost:8080/apps/mb
+    feDev-m-vue/public/index.html  base[href]="/"
+    feDev-m-vue/src/config    preApi = '/api/'
     feDev-m-vue/ bash:yarn run serve
     net start mysql + server/yarn start
 	(Or: win+r/mmm -> enter|p+enter )
 
-run prod: localhost:8888/appm
+run PROD: localhost:8888/apps/mb
+    feDev-m-vue/public/index.html  base[href]="/apps/mb/"
+    feDev-m-vue/src/config    preApi = '/apps/api/'
     build: feDev-m-vue/   bash: yarn run build
-	copy files into server/appm/
+	copy files into server/apps/mb
     net start mysql + server/yarn start
 	(Or: win+r/mmm -> enter|p+enter)
 
-run prod-hot: localhost:8888/appm
+run PROD-HOT: localhost:8888/apps/mb
+    feDev-m-vue/public/index.html  base[href]="/apps/mb/"
+    feDev-m-vue/src/config    preApi = '/apps/api/'
     build: feDev-m-vue/   bash: yarn run build
-	copy files into server/appm/
+	copy files into server/apps/mb
     net start mysql + server/yarn run prod-hot
 	(Or: win+r/mmm -> ph+enter)
 : ===================================================

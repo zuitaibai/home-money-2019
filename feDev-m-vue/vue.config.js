@@ -9,14 +9,14 @@ module.exports = {
 				name: 'less-theme',
 				path: 'src/myless/myless.less'
 			}]
-		})
+		});
 	},
 	// 部署生产环境和开发环境下的URL。
 	// 默认情况下，Vue CLI 会假设你的应用是被部署在一个域名的根路径上
 	// 例如 https://www.my-app.com/。如果应用被部署在一个子路径上，你就需要用这个选项指定这个子路径。例如，如果你的应用被部署在 https://www.my-app.com/my-app/，则设置 baseUrl 为 /my-app/。
 	// process.env.NODE_ENV:  production development
 	//baseUrl: process.env.NODE_ENV === "production" ? "./" : "/",  //从 Vue CLI 3.3 起已弃用，请使用publicPath
-	publicPath: process.env.NODE_ENV === "production" ? "./" : "/apps/md/",
+	publicPath: process.env.NODE_ENV === "production" ? "./" : "./apps/mb/",
 
 	// outputDir: 在npm run build 或 yarn build 时 ，生成文件的目录名称（要和baseUrl的生产环境路径一致）
 	//outputDir: "dist",

@@ -126,6 +126,7 @@ app.use(async (ctx, next) => {
     if (ctx.method.toUpperCase() === 'GET' && (
         ctx.request.path === `/${subforderName}`||     // subforderName：'fName'||''
         ctx.request.path === (`/${subforderName}/${subsubforderName}/`).replace('//','/') ||
+        ctx.request.path === (`/${subforderName}/${subsubforderName}`).replace('//','/') ||
         ctx.request.path === getPath(ctx).indexPath_
     )) {
         if (!sendFileSync(getPath(ctx).indexFile_, ctx)) await next();

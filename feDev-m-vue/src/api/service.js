@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import { ajax } from '../plugins/axios';
-
-const preApi = '/api/';
+import { preApi } from '../config';
 
 const handleError = (er, url, mothed) => {
     // TODO: 如果项目中有用到axios的取消请求的话，请在此方法中识别, 不要在页面中弹出toast
