@@ -135,7 +135,7 @@ app.use(async (ctx, next) => {
 
 /* 配合前后分离，设置一些通过的路由而不404（login已提出置前）：读取index.html发送 */
 app.use(async (ctx, next) => {
-    if ( ctx.method.toUpperCase() === 'GET' && checkPathIsDoPass(ctx.request.path) ) {
+    if ( ctx.method.toUpperCase() === 'GET' && checkPathIsDoPass(ctx.request.path, ctx.request.path.includes(`/${subsubforderName}/`)) ) {
         if (!sendFileSync(getPath(ctx).indexFile_, ctx)) await next();
     } else {
         await next();

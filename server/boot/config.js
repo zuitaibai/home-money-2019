@@ -48,13 +48,14 @@ const interfacePre = (() => {
     return `${subf}${_apiPre}`;
 })();
 
-const _doPassPathsWithPre = (()=>{
-    const pre = !!subforderName ? `${subforderName}/` : '';
+const _doPassPathsWithPre = ifMobile=>{
+    let pre = !!subforderName ? `${subforderName}/` : '';
+    pre += ifMobile ? subsubforderName + '/' : '';
     return _doPassPaths.map(item => `/${pre}${item}`);
-})();
+};
 
-const checkPathIsDoPass = path => {
-    return _doPassPathsWithPre.some(item => {
+const checkPathIsDoPass = (path, ifMobile) => {
+    return _doPassPathsWithPre(ifMobile).some(item => {
         if (_apiPre !== '' && path.indexOf(`${_apiPre}/`) > -1) return false;
         if (item === path) return true;
         const escaped = item.replace(/[\-#$\^*()+\[\]{}|\\,.?\s]/g, '\\$&');
