@@ -9037,3 +9037,17 @@ INSERT INTO in_out (type,name,money,date_sign,dtype,other,memberKey,for_from_mem
 ------------------------------start:
 INSERT INTO in_out (type,name,money,date_sign,dtype,other,memberKey,for_from_memberKey,intypeKey,outtype1Key,outtype2Key,bankTypeKey,bankKey,date_dbCreate) VALUES (0,'打印居住证材料',6,'2019-05-25','','',2,1,1,2,8,1,18,'2019-05-25 21:12:50');
 ---------------:end
+
+
+
+2019-05-26 10:01:54
+------------------------------start:
+INSERT INTO in_out (type,name,money,date_sign,dtype,other,memberKey,for_from_memberKey,intypeKey,outtype1Key,outtype2Key,bankTypeKey,bankKey,date_dbCreate) VALUES (0,'早点',21,'2019-05-26','','',2,1,1,1,110,1,18,'2019-05-26 10:01:54');
+---------------:end
+
+
+
+2019-05-26 10:02:07
+------------------------------start:
+INSERT INTO in_out (type,name,money,date_sign,dtype,other,memberKey,for_from_memberKey,intypeKey,outtype1Key,outtype2Key,bankTypeKey,bankKey,date_dbCreate) VALUES (0,'鸡架',8,'2019-05-26','','',2,1,1,1,33,1,18,'2019-05-26 10:02:07');
+---------------:end
