@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { TdObjType, ThObjType, PageNumsType, ObjTpye } from '../../util/types';
 import { defPageSize } from '../../util/local';
+import { ModalService } from '../../service/modal.service';
 import { ApiService } from '../../service/api.service';
 import { ForDetailBackSessionMngService } from '../../service/for-detail-back-session-mng.service';
 
@@ -25,7 +26,11 @@ export class ListPayComponent implements OnInit {
         pageSize: defPageSize
     };
 
-    constructor(private apiService: ApiService, private fds: ForDetailBackSessionMngService) { }
+    constructor(
+        private apiService: ApiService,
+        private modalSer: ModalService,
+        private fds: ForDetailBackSessionMngService
+    ) { }
 
     ngOnInit() {
 
@@ -125,6 +130,10 @@ export class ListPayComponent implements OnInit {
         if (str === 'delSuccess') {
             this.requestForList();
         }
+    }
+
+    ngOnDestroy() {
+        this.modalSer.eventEmit.emit({ modalIfShow: 'no' });
     }
 
 }

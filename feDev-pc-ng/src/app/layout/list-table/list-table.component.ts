@@ -93,17 +93,22 @@ export class ListTableComponent implements OnInit, OnChanges {
             });
         }
     }
-    evDetailItem(tr: TdObjType[]) {
+    evDetailItem(tr: TdObjType[], dataSource: TdObjType[][]) {
+        dataSource.forEach(tr => {
+            tr.forEach(item => item.ifTdActive = false);
+        });
         tr.forEach(item => item.ifTdActive = true);
         const cn = map2Cn(this.routerPageType);
         this.modalService.eventEmit.emit({
             modalSize: 'large',
             modalTit: `${cn} -> 详情`,
             modalInner: this.makeHtml(tr),
-            modalOverlay: 'yes',
+            modalOverlay: 'no',
             modalIfShow: 'yes',
             onClose: (arg: any) => {
-                tr.forEach(item => item.ifTdActive = false);
+                dataSource.forEach(tr => {
+                    tr.forEach(item => item.ifTdActive = false);
+                });
             }
         });
     }

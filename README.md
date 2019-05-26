@@ -13,7 +13,7 @@
 	|----apps/mb/   mobile端fe文件s + readme.md
 
 
-### [feDev-pc-ng]:
+### [feDev-pc-ng]: npm install
 
 DEV: 
 
@@ -37,7 +37,7 @@ PROD-HOT:
 
 	copy files into server/apps/ & sv端跑prod-hot: localhost:8888/apps
     
-### [feDev-m-vue]
+### [feDev-m-vue]: yarn install (install后请搜索feDev-m-vue内的‘码源修改’按说明修改package等)
 
 DEV:
 
@@ -61,7 +61,7 @@ PROD-HOT:
 
 	copy files into server/apps/mb & sv端跑prod-hot: localhost:8888/apps/mb
 
-### {server端}
+### {server端}: yarn install
 
 net start mysql &
 

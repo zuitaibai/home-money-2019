@@ -45,7 +45,7 @@
                                 {{ele.split(':')[1].split('|')[1] ||'del'}}
                             </a>
                             <a *ngIf="ele.split(':')[0]==='btn' && ele.split(':')[1].split('|')[0]==='detail'"
-                                href="javascript:;" (click)="evDetailItem(tr);$event.stopPropagation()"
+                                href="javascript:;" (click)="evDetailItem(tr, dataSource);$event.stopPropagation()"
                                 [ngClass]="{detail: true}">
                                 {{ele.split(':')[1].split('|')[1] ||'detail'}}
                             </a>
