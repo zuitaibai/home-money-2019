@@ -10332,3 +10332,52 @@ INSERT INTO in_out (type,name,money,date_sign,dtype,other,memberKey,for_from_mem
 ------------------------------start:
 delete from in_out where id in (1140,1139);
 ---------------:end
+
+
+
+2019-06-16 21:27:32
+------------------------------start:
+INSERT INTO in_out (type,name,money,date_sign,dtype,other,memberKey,for_from_memberKey,intypeKey,outtype1Key,outtype2Key,bankTypeKey,bankKey,date_dbCreate) VALUES (0,'晚饭烤串',85,'2019-06-16','','',2,1,1,1,112,4,15,'2019-06-16 21:27:32');
+---------------:end
+
+
+
+2019-06-17 18:32:56
+------------------------------start:
+INSERT INTO in_out (type,name,money,date_sign,dtype,other,memberKey,for_from_memberKey,intypeKey,outtype1Key,outtype2Key,bankTypeKey,bankKey,date_dbCreate) VALUES (0,'中点',26,'2019-06-17','','',2,2,1,1,111,4,23,'2019-06-17 18:32:56');
+---------------:end
+
+
+
+2019-06-17 18:34:04
+------------------------------start:
+INSERT INTO in_out (type,name,money,date_sign,dtype,other,memberKey,for_from_memberKey,intypeKey,outtype1Key,outtype2Key,bankTypeKey,bankKey,date_dbCreate) VALUES (0,'早点8+2',10,'2019-06-17','','',2,2,1,1,110,4,15,'2019-06-17 18:34:04');
+---------------:end
+
+
+
+2019-06-17 18:34:25
+------------------------------start:
+INSERT INTO in_out (type,name,money,date_sign,dtype,other,memberKey,for_from_memberKey,intypeKey,outtype1Key,outtype2Key,bankTypeKey,bankKey,date_dbCreate) VALUES (0,'蔬菜',8,'2019-06-17','','',2,1,1,1,33,4,15,'2019-06-17 18:34:25');
+---------------:end
+
+
+
+2019-06-17 18:42:05
+------------------------------start:
+UPDATE in_out SET  type = 0 , name = '晚饭烤串' , money = 85 , date_sign = '2019-06-16' , dtype = '' , other = '' , memberKey = 2 , for_from_memberKey = 1 , intypeKey = 1 , outtype1Key = 1 , outtype2Key = 112 , bankTypeKey = 4 , bankKey = 14  WHERE id = 1168;
+---------------:end
+
+
+
+2019-06-17 20:35:40
+------------------------------start:
+INSERT INTO in_out (type,name,money,date_sign,dtype,other,memberKey,for_from_memberKey,intypeKey,outtype1Key,outtype2Key,bankTypeKey,bankKey,date_dbCreate) VALUES (0,'烟',172,'2019-06-17','','',2,2,1,1,28,4,15,'2019-06-17 20:35:40');
+---------------:end
+
+
+
+2019-06-17 20:36:12
+------------------------------start:
+INSERT INTO in_out (type,name,money,date_sign,dtype,other,memberKey,for_from_memberKey,intypeKey,outtype1Key,outtype2Key,bankTypeKey,bankKey,date_dbCreate) VALUES (0,'田格本等',5,'2019-06-17','','',2,4,1,8,66,4,15,'2019-06-17 20:36:12');
+---------------:end
