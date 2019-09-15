@@ -17122,3 +17122,38 @@ INSERT INTO in_out (type,name,money,date_sign,dtype,other,memberKey,for_from_mem
 ------------------------------start:
 UPDATE in_out SET  type = 0 , name = '地铁' , money = 10 , date_sign = '2019-09-02' , dtype = '' , other = '' , memberKey = 3 , for_from_memberKey = 3 , intypeKey = 1 , outtype1Key = 3 , outtype2Key = 48 , bankTypeKey = 3 , bankKey = 22  WHERE id = 1946;
 ---------------:end
+
+
+
+2019-09-15 16:17:50
+------------------------------start:
+INSERT INTO in_out (type,name,money,date_sign,dtype,other,memberKey,for_from_memberKey,intypeKey,outtype1Key,outtype2Key,bankTypeKey,bankKey,date_dbCreate) VALUES (0,'寄修手环充电线',12,'2019-09-15','','',2,2,1,7,89,4,14,'2019-09-15 16:17:50');
+---------------:end
+
+
+
+2019-09-15 16:19:22
+------------------------------start:
+INSERT INTO in_out (type,name,money,date_sign,dtype,other,memberKey,for_from_memberKey,intypeKey,outtype1Key,outtype2Key,bankTypeKey,bankKey,date_dbCreate) VALUES (0,'早点',15,'2019-09-15','','',2,2,1,1,110,4,15,'2019-09-15 16:19:22');
+---------------:end
+
+
+
+2019-09-15 16:19:39
+------------------------------start:
+INSERT INTO in_out (type,name,money,date_sign,dtype,other,memberKey,for_from_memberKey,intypeKey,outtype1Key,outtype2Key,bankTypeKey,bankKey,date_dbCreate) VALUES (0,'烟',22,'2019-09-15','','',2,2,1,1,28,4,15,'2019-09-15 16:19:38');
+---------------:end
+
+
+
+2019-09-15 16:20:17
+------------------------------start:
+INSERT INTO in_out (type,name,money,date_sign,dtype,other,memberKey,for_from_memberKey,intypeKey,outtype1Key,outtype2Key,bankTypeKey,bankKey,date_dbCreate) VALUES (0,'买小咸菜等',16,'2019-09-15','','',2,1,1,1,33,4,15,'2019-09-15 16:20:17');
+---------------:end
+
+
+
+2019-09-15 16:21:22
+------------------------------start:
+INSERT INTO in_out (type,name,money,date_sign,dtype,other,memberKey,for_from_memberKey,intypeKey,outtype1Key,outtype2Key,bankTypeKey,bankKey,date_dbCreate) VALUES (1,'卖旧笔记本',25,'2019-09-13','','',2,2,16,1,28,1,18,'2019-09-15 16:21:22');
+---------------:end
