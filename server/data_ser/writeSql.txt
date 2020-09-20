@@ -3104,3 +3104,17 @@ INSERT INTO in_out (type,name,money,date_sign,dtype,other,memberKey,for_from_mem
 ------------------------------start:
 INSERT INTO in_out (type,name,money,date_sign,dtype,other,memberKey,for_from_memberKey,intypeKey,outtype1Key,outtype2Key,bankTypeKey,bankKey,date_dbCreate) VALUES (0,'孩子买鞋118.99+103.53',222,'2020-09-20','','',2,4,1,13,69,3,4,'2020-09-20 13:43:31');
 ---------------:end
+
+
+
+2020-09-20 14:21:49
+------------------------------start:
+INSERT INTO zhuan_cun (type,name,money,date_sign,dtype,other,bankTypeKey_from,bankKey_from,bankTypeKey_to,bankKey_to,memberKey_from,memberKey_to,date_dbCreate) VALUES (100,'老婆入公',10000,'2020-09-20','','',2,7,2,9,3,1,'2020-09-20 14:21:48');
+---------------:end
+
+
+
+2020-09-20 14:25:01
+------------------------------start:
+INSERT INTO zhuan_cun (type,name,money,date_sign,dtype,other,bankTypeKey_from,bankKey_from,bankTypeKey_to,bankKey_to,memberKey_from,memberKey_to,date_dbCreate) VALUES (100,'我入公',10000,'2020-09-20','','',2,1,2,9,2,1,'2020-09-20 14:25:01');
+---------------:end
