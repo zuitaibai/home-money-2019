@@ -25,7 +25,7 @@ const _apiPre = '/api';
 // 注：当接口请求前缀为空，并且接口名字等于doPassPath名字，并且接口为get方法，
 // 会先走doPassPath逻辑，以响应index.html来截胡同名接口。
 
-//for SPA front-end as smoe path donot request for a redirect !!! 
+//for SPA front-end as smoe path donot request for a redirect !!!
 const _doPassPaths = [ //可变量统一使用:any代替
     'listPay',
     'listPay/edit/:any',
@@ -39,7 +39,8 @@ const _doPassPaths = [ //可变量统一使用:any代替
     'cards',
     'db',
     'editType',
-    'login'
+    'login',
+    'notes'
 ];
 
 const interfacePre = (() => {

@@ -31,6 +31,7 @@ import { PagingDataComponent } from './layout/paging-data/paging-data.component'
 import { Remove0ValItemsPipe } from './util/remove-0-val-items.pipe';
 import { StatisticsPopInnerComponent } from './layout/statistics-pop-inner/statistics-pop-inner.component';
 import { CardsComponent } from './pages/cards/cards.component';
+import { NotesComponent } from './pages/notes/notes.component';
 import { AddPayComeComponent } from './pages/add-pay-come/add-pay-come.component';
 import { AddAccountsComponent } from './pages/add-accounts/add-accounts.component';
 import { PayComeFormComponent } from './layout/actform/pay-come-form/pay-come-form.component';
@@ -69,6 +70,7 @@ import { RadiobtnGroupComponent } from './layout/actform/layout/radiobtn-group/r
         Remove0ValItemsPipe,
         StatisticsPopInnerComponent,
         CardsComponent,
+        NotesComponent,
         AddPayComeComponent,
         AddAccountsComponent,
         PayComeFormComponent,

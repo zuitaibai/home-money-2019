@@ -13,12 +13,13 @@
         <li routerLinkActive="cur"><a routerLink="/db">D B 操作</a></li>
         <li>&nbsp;</li>
         <li routerLinkActive="cur"><a routerLink="/cards">卡&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号</a></li>
+        <li routerLinkActive="cur"><a routerLink="/notes">记事本本</a></li>
         <li class="navcalc"><a (click)="calcShow=!calcShow" [class.toggle]="calcShow" title="快捷键：shift+j">计 算 器</a></li>
         <li><a href="javascript:;" (click)="loginOut()" [attr.title]="userTip">登 出</a></li>
     </ul>
-    <a href="javascript:;" class="navbar-btn" 
+    <a href="javascript:;" class="navbar-btn"
         (click)="foldNav()"
-        [class.navbar-btn2]="ifNavFold" 
+        [class.navbar-btn2]="ifNavFold"
         [attr.title]="ifNavFold?'展开导航侧栏':'折叠导航侧栏'">{{ifNavFold?'》':'《'}}</a>
 </nav>
 

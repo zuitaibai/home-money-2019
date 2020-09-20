@@ -84,6 +84,11 @@ export default new Router({
                     component: () => import( /* webpackChunkName: "cards" */ './views/Cards.vue').then(m => m.default),
                 },
                 {
+                    path: '/notes',
+                    name: 'notes',
+                    component: () => import( /* webpackChunkName: "notes" */ './views/Notes.vue').then(m => m.default),
+                },
+                {
                     path: '',
                     redirect: '/index',
                     // component: Index,

@@ -279,6 +279,27 @@ export class ApiService {
         const url = `${preApi}login/checkLogin`;
         return aGet(url);
     }
+
+    // 记事列表
+    static getListNotes(obj) {
+        const url = `${preApi}notes`;
+        return aPost(url, obj);
+    }
+    // 删除记事
+    static delNote(id, obj={}) {
+        const url = `${preApi}notes/del/${id}`;
+        return aPost(url, obj);
+    }
+    // 添加记事
+    static addNote(obj) {
+        const url = `${preApi}notes/add`;
+        return aPost(url, obj);
+    }
+    // 编辑记事
+    static updateNote(id, obj) {
+        const url = `${preApi}notes/edit/${id}`;
+        return aPost(url, obj);
+    }
 }
 
 Object.defineProperties(Vue.prototype, {

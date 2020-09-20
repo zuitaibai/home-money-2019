@@ -5,6 +5,9 @@ import { ModalService } from '../../service/modal.service';
 import { map2Cn } from '../../util/local';
 import { ApiService } from '../../service/api.service';
 import { ForDetailBackSessionMngService } from '../../service/for-detail-back-session-mng.service';
+import * as FileSaver from 'file-saver';
+import * as XLSX from 'xlsx';
+
 @Component({
     selector: 'app-list-table',
     templateUrl: './list-table.component.html',
@@ -201,5 +204,36 @@ export class ListTableComponent implements OnInit, OnChanges {
                 </table>`;
         }
     }
+    exportTable() {
+        const exportItem = this.makeExportData();
+        const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(exportItem);
+        const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+        const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+        let sname = '';
+        if (this.routerPageType === 'listPay') sname = '支出';
+        else if (this.routerPageType === 'listCome') sname = '收入';
+        else if (this.routerPageType === 'listAccounts') sname = '帐目';
+        this.saveAsExcelFile(excelBuffer, '2019-2020'+sname);
+    }
 
+    private saveAsExcelFile(buffer: any, fileName: string) {
+      const data: Blob = new Blob([buffer], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8'
+      });
+      FileSaver.saveAs(data, fileName+'.xlsx');
+    }
+
+    private makeExportData(){
+        const thds = Array.from(document.querySelectorAll('#m-table-m>thead th'));
+        const tbodys = document.querySelectorAll('#m-table-m>tbody tr');
+        thds.length = thds.length -2;
+        return Array.from(tbodys).map( tr =>{
+            let tds = tr.querySelectorAll('td');
+            let o = {};
+            thds.forEach((th, index) => {
+                o[th.textContent] = tds[index].innerText;
+            });
+            return o;
+        });
+    }
 }

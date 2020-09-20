@@ -478,4 +478,40 @@ export class ApiService {
             catchError(this.handleError<any>(`ajax>(${url})`))
         );
     }
+    // 记事列表
+    getListNotes(obj: ObjTpye = {}): Observable<ObjTpye> {
+        const url = `${preApi}notes`;
+        return this.http.post(url, { ...obj })
+        .pipe(
+            // tap(_ => console.log(`ajax:获取首页总览`)),
+            catchError(this.handleError<any>(`ajax>(${url})`))
+        );
+    }
+    //添加记事
+    addNote(obj: ObjTpye = {}): Observable<ObjTpye> {
+        const url = `${preApi}notes/add`;
+        return this.http.post(url, { ...obj })
+        .pipe(
+            // tap(_ => console.log(`ajax:获取首页总览`)),
+            catchError(this.handleError<any>(`ajax>(${url})`))
+        );
+    }
+    // 编辑记事
+    updateNote(id: number, obj: ObjTpye = {}): Observable<ObjTpye> {
+        const url = `${preApi}notes/edit/${id}`;
+        return this.http.post(url, { ...obj })
+        .pipe(
+            // tap(_ => console.log(`ajax:获取首页总览`)),
+            catchError(this.handleError<any>(`ajax>(${url})`))
+        );
+    }
+    // 删除记事
+    delNote(id: number, obj: ObjTpye = {}): Observable<ObjTpye> {
+        const url = `${preApi}notes/del/${id}`;
+        return this.http.post(url, { ...obj })
+        .pipe(
+            // tap(_ => console.log(`ajax:获取首页总览`)),
+            catchError(this.handleError<any>(`ajax>(${url})`))
+        );
+    }
 }

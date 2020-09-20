@@ -14,6 +14,7 @@ import { AddPayComeComponent } from './pages/add-pay-come/add-pay-come.component
 import { AddAccountsComponent } from './pages/add-accounts/add-accounts.component';
 import { EditTypeComponent } from './pages/edit-type/edit-type.component';
 import { DbComponent } from './pages/db/db.component';
+import { NotesComponent } from './pages/notes/notes.component';
 
 import { RouteGuardService } from './service/route-guard.service';
 
@@ -107,6 +108,12 @@ const routes: Routes = [
             path: 'db',
             component: DbComponent,
             data: { title: `${tit}-数据库操作`},
+            canActivate: [RouteGuardService]
+        },
+        {
+            path: 'notes',
+            component: NotesComponent,
+            data: { title: `${tit}-记事本`},
             canActivate: [RouteGuardService]
         }
     ]},

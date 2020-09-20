@@ -10,6 +10,7 @@ export const local = {
        editCategory: '类目编辑',
        db: 'DB-操作',
        cards: '卡号',
+       notes: '记事本本',
        login: '登录',
 
        editAccounts: '编辑帐目',
@@ -20,5 +21,5 @@ export const local = {
 
 export const defaultPageSize = 8;
 
-export  const preApi = '/apps/api/';
-// export const preApi = '/api/';
+// export  const preApi = '/apps/api/';
+export const preApi = '/api/';

@@ -1,12 +1,13 @@
 <div class="paylist max1300">
 
     <div style="text-align:right;margin-bottom:4px;" class="max1300">
+        <button type="button" (click)="exportTable()" style="padding:0 3px;margin-right:30px;">导出</button>
         <span style="margin-right:30px;" [hidden]="tempCalcNum.sum===0||tempCalcNum.len<=1">
             [ 已选求和: <span class="red">{{tempCalcNum.sum}}</span> ]
         </span>
         <a href="javascript:;" (click)="evDelAll()" style="color:#666;">批量删除</a>
     </div>
-    <table class="tb" width="100%">
+    <table class="tb" width="100%" id="m-table-m">
         <thead>
             <tr>
                 <th *ngFor="let th of columns" [ngClass]="th.classes" [ngStyle]="th.styles"

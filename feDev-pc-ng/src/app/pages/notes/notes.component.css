@@ -1,0 +1,22 @@
+.bss {
+    display: inline-block;
+    min-width: 180px;
+    text-align: left;
+}
+
+.hd {
+    display: none;
+}
+
+.bt {
+    padding: 2px 6px;
+    cursor: pointer;
+}
+
+.tb th {
+    height: 18px;
+}
+
+.tb td {
+    height: 28px;
+}

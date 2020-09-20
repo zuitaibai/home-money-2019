@@ -37,11 +37,14 @@
                 <router-link exact-active-class="cur" to="/db">
                     <x-icon type="add-db"></x-icon> <span>{{pWord.db}}</span>
                 </router-link>
+                <router-link exact-active-class="cur" to="/notes">
+                    <x-icon type="add-note"></x-icon> <span>{{pWord.notes}}</span>
+                </router-link>
                 <router-link exact-active-class="cur" to="/cards">
                     <x-icon type="add-card"></x-icon> <span>{{pWord.cards}}</span>
                 </router-link>
             </div>
-            
+
             <span class="ico-link ico-link-togglebar" @click="sideBarVisible = false;">
                 <x-icon type="add-colspan"></x-icon>
             </span>
@@ -196,7 +199,7 @@
                 }
             }
         }
-        
+
         &.ico-link-togglebar{position: absolute;right:8px;bottom:3px;}
         &.ico-link-qrcode{position: absolute;right:50px;bottom:3px;}
     }

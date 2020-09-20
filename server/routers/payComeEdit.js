@@ -85,7 +85,7 @@ router.post('/add',async (ctx, next) => {
             fs.appendFileSync('data_ser/writeSql.txt', str, function () { });
         }
     }
-    
+
     ctx.type = 'json';
     ctx.body =result;
 

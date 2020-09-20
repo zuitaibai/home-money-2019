@@ -1,0 +1,76 @@
+<h3>记事本</h3>
+
+<div class="paylist max1300" style="margin-top:20px">
+    <div style="margin:0 1em;">
+        <table class="tb tc" id="tb1" width="100%">
+            <thead>
+            <tr>
+                <th>名字</th>
+                <th>日期</th>
+                <th>自分类</th>
+                <th>内容</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let i of pageData.list index as rowIndex">
+                    <td>
+                        <input [hidden]="!i.editSt" class="ctrnam" [(ngModel)]="i.sname">
+                        <span [hidden]="i.editSt" class="sw hastxt">{{i.sname}}</span>
+                    </td>
+                    <td>
+                        <input [hidden]="!i.editSt" class="ctrnam" [(ngModel)]="i.date_sign" type="date">
+                        <span [hidden]="i.editSt" class="sw hastxt">{{i.date_sign}}</span>
+                    </td>
+                    <td>
+                        <input [hidden]="!i.editSt" class="ctrnam" [(ngModel)]="i.dtype">
+                        <span [hidden]="i.editSt" class="sw hastxt">{{i.dtype}}</span>
+                    </td>
+                    <td width="60%">
+                        <textarea [hidden]="!i.editSt" class="ctrnam" [(ngModel)]="i.con" style="width:96%;height:150px;"></textarea>
+                        <span [hidden]="i.editSt" class="sw hastxt">{{i.con}}</span>
+                    </td>
+                    <td style="white-space: nowrap;">
+                        <span [hidden]="!i.editSt">
+                            <button class="bt save" (click)="eidtSure(i)">提交</button>&nbsp;
+                            <button class="bt channel" (click)="eidtCanel(rowIndex)">取消</button>
+                        </span>
+                        <span [hidden]="i.editSt" class="sw">
+                            <a href="javascript:;" class="edit" (click)="gotoEdit(i,rowIndex)">编辑</a> |
+                            <a href="javascript:;" class="del" (click)="delItem(i.id)">删除</a>
+                        </span>
+                    </td>
+                </tr>
+                <tr *ngIf="addSt">
+                    <td style="height:10px;background:rgba(204, 204, 204, 0.2);" colspan="5"></td>
+                </tr>
+                <tr class="nohover" *ngIf="addSt">
+                        <td>
+                            <input class="ctrnam" [(ngModel)]="addModel.sname">
+                        </td>
+                        <td>
+                            <input class="ctrnam" [(ngModel)]="addModel.date_sign" type="date">
+                        </td>
+                        <td>
+                            <input class="ctrnam" [(ngModel)]="addModel.dtype">
+                        </td>
+                        <td width="60%">
+                            <textarea class="ctrnam" [(ngModel)]="addModel.con" style="width:96%;height:150px;"></textarea>
+                        </td>
+                        <td style="white-space: nowrap;">
+                            <span>
+                                <button class="bt save" (click)="addSure()">保存</button>&nbsp;
+                                <button class="bt channel" (click)="addSt=false;addCanel()">取消</button>
+                            </span>
+                        </td>
+                    </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="max1300" style="margin-top:20px">
+    <div style="margin:0 1em;text-align:right;"><button
+         style="padding:3px 14px;font-size:14px;font-weight:normal;"
+         (click)="addSt=true"
+         >新 建</button></div>
+</div>
