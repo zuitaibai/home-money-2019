@@ -13,10 +13,10 @@ const pool = mysql.createPool(dbConfStr);
 let query = function (sql, values, ifResultFields) {
     return new Promise((resolve, reject) => {
         pool.getConnection(function (err, connection) {
-            if (err) { reject(err); } 
+            if (err) { reject(err); }
             else {
                 connection.query(sql, values, (err, rows, fields) => {
-                    if (err) { reject(err) } 
+                    if (err) { reject(err) }
                     else { resolve( rows ) }
                     connection.release()
                 })

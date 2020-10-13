@@ -68,11 +68,11 @@ export class PayComeFormComponent implements OnInit, AfterViewInit, OnChanges {
         private dtSer: DateMethodService,
         private location: Location) { }
     ngOnChanges(changes: SimpleChanges) {
-        if (!changes.payOrCome.firstChange) {
+        // if (!changes.payOrCome.firstChange) {
             const str = changes.payOrCome.currentValue;
             const type = {pay: 0, come: 1}[str];
             this.sForm.patchValue({type});
-        }
+        // }
     }
     ngOnInit() {
         // 支出一级和二级、收入级手动获取数据系列，及如果是add则为此三控件赋值
