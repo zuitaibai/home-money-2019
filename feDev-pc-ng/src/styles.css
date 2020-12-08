@@ -12,15 +12,15 @@ input[type=file]{width:100px;}
 input[type=radio],input[type=checkbox]{width:16px;height:16px;}
 .big input[type=radio],.big input[type=checkbox]{width:24px;height:24px;}
 textarea{width:400px;height:40px;}
-/* TODO: font-face: 
+/* TODO: font-face:
     consoleWarn:
     1.Failed to decode downloaded font,
     2.OTS parsing error: vhea: Failed to parse table
 */
-@font-face{
+/* @font-face{
     font-family: 'xingShu';
     src:url('assets/fonts/xingshu.ttf') format('truetype');
-}
+} */
 .red{color:#f00;}
 .unline{text-decoration:underline;}
 .red{color:#f00;}
@@ -57,7 +57,7 @@ a:hover{text-decoration:underline;}
 .n_table td{border-bottom:1px dashed #ccc;padding-left:16px;}
 .n_table th{border-right:1px dashed #ccc;border-bottom:1px dashed #ccc;text-align: right;}
 .n_table tr:nth-child(1) td,.n_table tr:nth-child(1) th{border-top:1px dashed #ccc;}
-@media (max-width: 1370px) { 
+@media (max-width: 1370px) {
     .n_table{line-height: 2.3;}
 }
 .n_h3{font-weight:normal;font-size:26px;text-align:center}

@@ -12,7 +12,7 @@
 .loginbtns{display:flex;justify-content:space-between;padding-right:6px;margin-top:26px;}
 
 .login{font-size:inherit;height:100%;background:url('../../../assets/img/logo.png') 100% 0 no-repeat;
-    animation:loginBg1 5s ease, loginBg2 2s ease 4s infinite alternate;font-family: 'xingShu';
+    animation:loginBg1 5s ease, loginBg2 2s ease 4s infinite alternate;/* font-family: 'xingShu'; */
 }
 @keyframes loginBg1 {
     0%{background-size:cover;background-position:50% 100%;}
