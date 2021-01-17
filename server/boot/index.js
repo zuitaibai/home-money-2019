@@ -1,4 +1,4 @@
-// black（黑色） red（红色） green（绿色） yellow（黄色） magenta（品红/洋红/紫红） 
+// black（黑色） red（红色） green（绿色） yellow（黄色） magenta（品红/洋红/紫红）
 // cyan（青色） white（白色） gray（灰色） grey（灰色） blue（蓝色）
 const colors = require('colors');
 const Koa = require('koa');
@@ -45,6 +45,12 @@ const sendFileSync = (file, ctx) => {
 };
 const app = new Koa();
 
+
+/* gzip压缩配置 start */
+const compress = require('koa-compress');
+app.use(compress({ threshold: 100 * 1024 }));
+/* gzip压缩配置 end */
+
 app.context.db = db;
 app.context.tool = tool;
 app.context.appObj = {};
@@ -62,7 +68,7 @@ const CONFIG = {
 // required for cookie signature generation
 app.keys = ['newest secret key', 'older secret key']; //此处不设置keys，koa-session2会报错
 
-/* 
+/*
     app.use(async (ctx, next) => {
         ctx.set('Access-Control-Allow-Origin', '*');
         ctx.set('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
@@ -72,7 +78,7 @@ app.keys = ['newest secret key', 'older secret key']; //此处不设置keys，ko
             return;
         }
         await next();
-    }); 
+    });
 */
 app.use(koaBody());
 // 挂载session注册
@@ -101,7 +107,7 @@ app.use(async (ctx, next) => {
         }
     } else {
         await next();
-    }    
+    }
 });
 
 // 挂载session条件拦截

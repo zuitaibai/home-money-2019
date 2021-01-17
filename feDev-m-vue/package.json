@@ -5,10 +5,12 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "buildModern": "vue-cli-service build --modern",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "compression-webpack-plugin": "5.0.0",
     "core-js": "^2.6.5",
     "fastclick": "^1.0.6",
     "vue": "^2.6.10",
@@ -27,9 +29,15 @@
     "eslint-plugin-vue": "^5.0.0",
     "less": "^3.0.4",
     "less-loader": "^4.1.0",
+    "uglifyjs-webpack-plugin": "^2.2.0",
     "vue-loader": "14.2.2",
     "vue-template-compiler": "^2.5.21",
     "vux-loader": "^1.2.9",
     "yaml-loader": "^0.5.0"
+  },
+  "eslintConfig": {
+    "rules": {
+      "no-console": "off"
+    }
   }
 }
