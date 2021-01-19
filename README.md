@@ -63,6 +63,8 @@ PROD-HOT:
 
 ### {server端}: yarn install
 
+//上线前改端口为80
+
 net start mysql &
 
 run DEV:
