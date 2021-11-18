@@ -5,3 +5,16 @@ td:first-child{vertical-align: top;}
 .udline-ilbk{ border-bottom:1px solid #ccc;display:inline-block;padding-bottom:8px; }
 .mrt30{margin-right:30px;}
 .ffbsb{color:rgba(255,0,0,0.8);padding:10px 0 0 30px;}
+
+.mmssjunhgh{ text-decoration: underline;}
+.mmssjunhgh:hover{ text-decoration-style:double;}
+
+
+.T-overlay{position:fixed;left:0;top:0;right:0;bottom:0;z-index:19;background:rgba(59, 59, 59, 0.432);}
+.T-pops{position:absolute;background:rgba(234,234,234,0.965);left:383px;top:186px;z-index: 20;min-width: 900px;height: calc(100% - 300px);
+  border:3px solid #ccc;border-radius:6px;padding:7px 15px 18px;
+  box-shadow:5px 0 7px rgba(62,62,62,0.5),0 5px 7px rgba(62,62,62,0.5),
+  -3px 0 14px rgba(62,62,62,0.5),0 -3px 14px rgba(62,62,62,0.5);}
+.T-closepops{position:absolute;right:11px;top:6px;font-size:1.8em;line-height:18px;color:#000;transition: transform .3s;  }
+.T-closepops:hover{text-decoration:none;transform:rotate(180deg) translateY(-4px);}
+.T-pops-con{background:#fff;margin-top:6px;overflow-y: auto;height: calc(100% - 34px);}

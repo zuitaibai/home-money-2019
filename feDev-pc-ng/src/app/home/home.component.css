@@ -1,2 +1,2 @@
-.main{margin-left:100px;overflow-y: auto;height:100%; transition:margin .3s;}
+.main{margin-left:100px;height:100%; transition:margin .3s; overflow-y: auto;}
 .main-for-fold{margin-left:0;}

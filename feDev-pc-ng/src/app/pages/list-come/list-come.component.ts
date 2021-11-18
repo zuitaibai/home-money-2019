@@ -103,7 +103,7 @@ export class ListComeComponent implements OnInit {
             this.requestForList();
         }
     }
-    
+
     ngOnDestroy() {
         this.modalSer.eventEmit.emit({ modalIfShow: 'no' });
     }

@@ -11,7 +11,7 @@
 
 .pop-tj{/*top:50%;transform:none;transform:translateX(-50%) translateY(-60%);*/word-break: keep-all; white-space: nowrap;}
 .pops-edit{top:77px;bottom:150px;display:block;width:600px;margin-left:-200px;}
-@media (max-width: 1370px) { 
-  .pops-edit{bottom:60px;top:60px;margin-left:-250px;} 
+@media (max-width: 1370px) {
+  .pops-edit{bottom:60px;top:60px;margin-left:-250px;}
 }
 .pops-edit .pops-con{margin-top: 0;position:absolute;top:34px;left:15px;right:15px;bottom:18px;padding:10px;padding-right:15px;overflow-y:auto;}

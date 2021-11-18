@@ -2,10 +2,11 @@ import { Component, OnInit, Input, ViewChild, AfterViewInit, ElementRef } from '
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 import { Observable } from 'rxjs';
-import { ObjTpye } from '../../../util/types';
+import { ObjTpye, PageNumsType, ThObjType, TdObjType } from '../../../util/types';
 import { ApiService } from '../../../service/api.service';
 import { DateMethodService } from '../../../service/date-method.service';
 import { forbiddenValidator } from '../validators/forbidden.directive';
+import { htmlAstToRender3Ast } from '@angular/compiler/src/render3/r3_template_transform';
 
 @Component({
     selector: 'app-accounts-form',
@@ -21,10 +22,26 @@ export class AccountsFormComponent implements OnInit, AfterViewInit {
 
     @ViewChild('nameCtrRef') nameCtrRef: ElementRef; // for ctr auto focus
 
+    curFmType = 100;
+
     editInitTypeValue: number;
     bankKey1ListData: ObjTpye[] = [];
     bankKey2ListData: ObjTpye[] = [];
     isOughtNotPayStr = '';
+
+    mIfShow = false;
+    mTit='';
+    columns: ThObjType[];
+    dataSource: TdObjType[][];
+    doPages={
+        currentPage: 1,
+        pageSize: 200,
+        totalRecord: 0
+    };
+    textStr='';
+
+    ctrOtherpartyName = new FormControl('', Validators.required);
+    ctrFinishedFormIds = new FormControl('', Validators.required);
 
     sForm = new FormGroup({
         type: new FormControl(100),
@@ -56,9 +73,11 @@ export class AccountsFormComponent implements OnInit, AfterViewInit {
         bankTypeKey_from: 4,
         bankTypeKey_to: 4
     };
+    txtStatus = '';
 
     get money() { return this.sForm.get('money'); }
     get type() { return this.sForm.get('type'); }
+
 
     constructor(
         private apiServ: ApiService,
@@ -75,7 +94,20 @@ export class AccountsFormComponent implements OnInit, AfterViewInit {
         } else if (this.addOrEdit === 'edit') { // EDIT
 
             this.apiServ.getDetailAccounts(this.id).subscribe((res: ObjTpye) => {
+                if(res.type == 1 || res.type == -1) {
+                    this.sForm.addControl('otherpartyName', this.ctrOtherpartyName);
+                    this.sForm.patchValue({otherpartyName: res.otherpartyName});
+                    this.txtStatus = {'0': '✘', '1': '✔', '2': '◕'}[res.isFinished] + ` （已${{'1':'还出', '-1':'还入'}[res.type]||''}的记录id: ${res.finishedFormIds}）`;
+                }
+                if(res.type == 2 || res.type == -2) {
+                    this.sForm.addControl('finishedFormIds', this.ctrFinishedFormIds);
+                    this.sForm.patchValue({finishedFormIds: res.finishedFormIds});
+                    if(res.type == 2) this.textStr = '此[还入]要还的是哪条借出帐目(id)';
+                    else if(res.type == -2) this.textStr = '此[还出]要还的是哪条借入帐目(id)';
+                }
                 this.editInitTypeValue = res.type;
+
+
                 this.sForm.patchValue({
                     type: res.type,
                     name: res.name,
@@ -94,8 +126,23 @@ export class AccountsFormComponent implements OnInit, AfterViewInit {
                 this.onMoneyType1Change(res.bankTypeKey_from, res.bankKey_from);
                 this.onMoneyType2Change(res.bankTypeKey_to, res.bankKey_to);
                 this.isOughtNotPayStr = res.isOughtNotPay ? '.' : '';
+                this.sForm.setControl('type', new FormControl({ value: res.type, disabled: true }));
+                this.curFmType = res.type;
             });
         }
+
+        this.columns = [
+            { text: '日期', key: 0 },
+            { text: 'ID', key: 3 },
+            { text: '金额', key: 1, classes: {} },
+            { text: '名称', key: 2 },
+            { text: '类别', key: 4 },
+            { text: '还了没', key: 5 },
+            { text: '由', key: 6 },
+            { text: '至', key: 7 },
+            { text: '操作', key: 8 }
+        ];
+
     }
     ngAfterViewInit() {
         this.nameCtrRef.nativeElement.focus();
@@ -119,16 +166,36 @@ export class AccountsFormComponent implements OnInit, AfterViewInit {
         });
     }
     submits() {
-        const type = this.sForm.value.type;
+        //编辑时由于禁用type组件，this.sForm.value.type获取不到，所以用this.sForm.getRawValue().type，以为下用。但提交时无须包含type。
+        //当新增时没有禁type组件，因此提交的的数据(this.sForm.value)里包含type字段。
+        const type = this.sForm.getRawValue().type;
+
+        let objs = Object.assign({}, this.sForm.value);
+        //转存（type=100）全有
+        //生意收入、存根、借入、还入，没有memberKey_from、bankKey_from、bankTypeKey_from
+        if(type == 3 || type == 0 || type == 1 || type == 2){
+            delete objs.memberKey_from;
+            delete objs.bankKey_from;
+            delete objs.bankTypeKey_from;
+        }
+        //生意支出、借出、还出，没有memberKey_to、bankKey_to、bankTypeKey_to
+        else if(type == -3 || type == -1 || type == -2){
+            delete objs.memberKey_to;
+            delete objs.bankKey_to;
+            delete objs.bankTypeKey_to;
+        }
+
         let observable: Observable<ObjTpye>;
         let info: string;
+
         if (this.addOrEdit === 'add') {
-            observable = this.apiServ.addDetailAccounts(this.sForm.value);
+            observable = this.apiServ.addDetailAccounts(objs);
             info = '添加';
         } else if (this.addOrEdit === 'edit') {
-            observable = this.apiServ.updateDetailAccounts(this.id, this.sForm.value);
+            observable = this.apiServ.updateDetailAccounts(this.id, objs);
             info = '编辑';
         }
+
 
         observable.subscribe(res => {
             if (res && res.affectedRows === 1) {
@@ -151,5 +218,100 @@ export class AccountsFormComponent implements OnInit, AfterViewInit {
             }
         });
     }
-
+    //浏览
+    liulan(){
+        this.mIfShow = true;
+        this.doPages.currentPage = 1;
+        this.doPages.totalRecord = 0;
+        this.getForList();
+    }
+    getForList(){
+        this.apiServ.getListAcc({
+            currentPage: this.doPages.currentPage,
+            pageSize: this.doPages.pageSize,
+            type: {
+                '2': -1,
+                '-2': 1
+            }[this.sForm.value.type]
+        }).subscribe((resData: ObjTpye) => {
+            const listAccountsType = { 100 : '转存', 0: '存根', 1: '借入', 2: '还入', 3: '生意收入', '-1': '借出', '-2': '还出', '-3': '生意投资'};
+            const dataSource = resData.list.map( (item: ObjTpye, index: number) => {
+                let huanok = false, huanpt = false, huanno = false;
+                if(item.type === 1 || item.type === -1){
+                    if(item.isFinished==0) huanno = true;
+                    else if(item.isFinished==1) huanok = true;
+                    else if(item.isFinished==2) huanpt = true;
+                }
+                let yihuanJoinTxt =  (item.isFinished == 0) ? '' : ` 已${{'1':'还出', '-1':'还入'}[item.type]||''}的记录id: ${item.finishedFormIds}`;
+                let from = '';
+                let to = '';
+                if (item.type === 100 || item.type === -1 || item.type === -2 || item.type === -3) {
+                    from = `${item.memberKey_fromName} ◆ ${item.bankTypeKey_fromName} • ${item.bankKey_fromName}`; //⊳
+                    if(item.type === -1 || item.type === -2) to = item.otherpartyName ? `[${item.otherpartyName}]` : '';
+                }
+                if (item.type === 100 || item.type === 0 || item.type === 1 || item.type === 2 || item.type === 3) {
+                    to = `${item.memberKey_toName} ◆ ${item.bankTypeKey_toName} • ${item.bankKey_toName}`;
+                    if(item.type === 1 || item.type === 2) from = item.otherpartyName ? `[${item.otherpartyName}]` : '';
+                }
+                const re: ObjTpye[] = [
+                    // 日期
+                    { text: item.date_sign},
+                    // ID
+                    { text: `${item.id}`, styles: {fontStyle:'italic',color:'#aaa'}},
+                    // 金额
+                    { text: item.money, styles: {color:'red'} },
+                    // 名称
+                    { text: item.name, styles: { 'font-weight': 'bold' }, attrs: { title: item.other ? '备注：' + item.other : '' } },
+                    // 类别
+                    { text: listAccountsType[item.type], type: item.type },
+                    //是否已还
+                    { text: yihuanJoinTxt, keyN: item.isFinished, classes: {huanno, huanok, huanpt} },
+                    // 由
+                    { text: from },
+                    // 至
+                    { text: to },
+                    // 操作
+                    { text: '', linkText: '选择', isOpr: true, id: item.id }
+                ];
+                return re;
+            });
+            this.dataSource = dataSource;
+            this.doPages.totalRecord = resData.page.totalRecord;
+        })
+    }
+    onPagingChange(page: number) {
+        this.doPages.currentPage = page;
+        this.getForList();
+    }
+    onChoosedTr(id: number){
+        this.sForm.patchValue({ finishedFormIds: id });
+        this.mIfShow = false;
+    }
+    //编辑时radio组件禁用，可以不用考虑change事件
+    changeType(type: number){
+        this.curFmType = type;
+        if(type == 1 || type == -1){
+            this.sForm.addControl('otherpartyName', this.ctrOtherpartyName);
+        }else{
+            if(this.sForm.get('otherpartyName')) this.sForm.removeControl('otherpartyName');
+        }
+        if(type == 2 || type == -2){
+            this.sForm.addControl('finishedFormIds', this.ctrFinishedFormIds);
+            if(type == 2) {
+                this.mTit = '借出帐目列表（请选择要还的是哪条借出帐目）';
+                this.textStr = '此[还入]要还的是哪条借出帐目(id)';
+            }
+            else if(type == -2) {
+                this.mTit = '借入帐目列表（请选择要还的是哪条借入帐目）';
+                this.textStr = '此[还出]要还的是哪条借入帐目(id)';
+            }
+        }else{
+            if(this.sForm.get('finishedFormIds')) this.sForm.removeControl('finishedFormIds');
+        }
+        this.sForm.reset(this.formInitDataWithoutStepJoin);
+        this.sForm.patchValue({ type, date_sign: this.dtSer.format(new Date()) });
+        this.onMoneyType1Change(4);
+        this.onMoneyType2Change(4);
+        this.nameCtrRef.nativeElement.focus();
+    }
 }

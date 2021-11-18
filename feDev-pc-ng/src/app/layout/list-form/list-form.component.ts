@@ -43,7 +43,11 @@ export class ListFormComponent implements OnInit, AfterViewInit {
         VSbank2 : 'all',
         VSintype : 'all',
         VStype : 'all',
-        VSdw : 'month'
+        VSdw : 'month',
+        VMoney: '',
+        VId: '',
+        VSmemberFrom: 'all',
+        VSmemberTo: 'all'
     };
 
     constructor(private apiService: ApiService, private dateSv: DateMethodService) { }
@@ -88,6 +92,21 @@ export class ListFormComponent implements OnInit, AfterViewInit {
                 this.pageObj = { ...this.pageObj, ...resData };
                 /* {"intypeKey":[ {"id":1,"name":"工资","orderd":1,"isOpen":1} ]}*/
                 if (this.inits && this.inits.intypeKey) { this.fmOpts.VSintype = this.inits.intypeKey; }
+            });
+        }
+        if (this.routerPageType === 'listAccounts') {
+            this.apiService.getInitControlValue().subscribe((resData: ObjTpye) => {
+                this.pageObj = { ...this.pageObj, ...resData };
+                /* {
+                    "outtype1Key": [ { "id": 1, "name": "食品酒水", "orderd": 1, "isOpen": 1 } ],
+                    "bankTypeKey": [ { "id": 3, "name": "信用卡", "orderd": 2, "type": 0 } ],
+                    "memberKey": [ { "id": 2, "name": "老公", "orderd": 1, "ifhome": 1 } ],
+                    "for_from_memberKey": [ { "id": 18, "name": "同学", "orderd": 38, "ifhome": 0 } ]
+                } */
+                if (this.inits) {
+                    if (this.inits.memberKey_from) { this.fmOpts.VSmember = this.inits.memberKey_from; }
+                    if (this.inits.memberKey_to) { this.fmOpts.VSmemberB = this.inits.memberKey_to; }
+                }
             });
         }
     }
@@ -138,8 +157,12 @@ export class ListFormComponent implements OnInit, AfterViewInit {
             = this.fmOpts.VSmember
             = this.fmOpts.VSintype
             = this.fmOpts.VStype
+            = this.fmOpts.VStype
+            = this.fmOpts.VSmemberFrom
+            = this.fmOpts.VSmemberTo
             = 'all';
         this.fmOpts.VSdw = 'month';
+        this.fmOpts.VId = this.fmOpts.VMoney = '';
         // 统计列表页的重置需要保留this.inits数据
         if (this.inits && this.inits.TRIGGER && Object.keys(this.inits).length > 1) {
             if (this.inits.date_sign_start) { this.fmOpts.VTdateSt = this.inits.date_sign_start; }
@@ -150,7 +173,7 @@ export class ListFormComponent implements OnInit, AfterViewInit {
     evFormSubmit() {
         const {
             VTname, VTdateSt, VTdateEd, VTdtype, VTother, VTpgSize, VSout1, VSout2,
-            VSmember, VSmemberB, VSbank1, VSbank2, VSintype, VStype, VSdw
+            VSmember, VSmemberB, VSbank1, VSbank2, VSintype, VStype, VSdw, VId, VMoney, VSmemberFrom, VSmemberTo
         } = { ...this.fmOpts };
         const pay = {
             name: VTname, date_sign_start: VTdateSt, date_sign_end: VTdateEd,
@@ -163,7 +186,8 @@ export class ListFormComponent implements OnInit, AfterViewInit {
         };
         const acco = {
             name: VTname, date_sign_start: VTdateSt, date_sign_end: VTdateEd,
-            type: VStype, dtype: VTdtype, other: VTother, pageSize: VTpgSize
+            type: VStype, dtype: VTdtype, other: VTother, pageSize: VTpgSize,
+            id: VId, money: VMoney, memberKey_from: VSmemberFrom, memberKey_to: VSmemberTo
         };
         const stat = { date_sign_start: VTdateSt, date_sign_end: VTdateEd, tongjidw: VSdw, pageSize: VTpgSize };
         function delPropEmptyValue() { // 过滤空参数，for后台

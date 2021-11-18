@@ -1,0 +1,4 @@
+
+.oprdiv a{margin:0 4px;}
+.stspan{display:block;transition:0.6s;transform-style:preserve-3d;padding:10px;}
+.stspan.stspan-scale{transform:scale(-1.4,1);}

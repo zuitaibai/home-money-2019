@@ -1,29 +1,35 @@
-<app-list-form 
-    [routerPageType]="routerPageType" 
-    (onFormChange)="onFormChange($event)"
-    [inits]="formInits"
-    ></app-list-form>
+<div class="mainer">
+    <div class="main-t">
+        <app-list-form
+            [routerPageType]="routerPageType"
+            (onFormChange)="onFormChange($event)"
+            [inits]="formInits"
+        ></app-list-form>
+    </div>
+    <div class="main-m">
+        <app-list-table
+            [columns]="columns"
+            [dataSource]="dataSource"
+            [pageNums]="pageNums"
+            [onePageTotal]="thisPageTotal"
+            [routerPageType]="routerPageType"
+            (delSuccess)="onDelSuccess($event)"
+            [listStatusOpts]="storePageOptions"
+        ></app-list-table>
+    </div>
+    <div class="main-b">
+        <app-paging-data
+            (onPagingChange)="onPagingChange($event)"
+            [pCurP]="storePageOptions.currentPage"
+            [pSize]="pageNums?.pageSize"
+            [pTotal]="pageNums?.totalRecord"
+        ></app-paging-data>
 
-<app-list-table 
-    [columns]="columns" 
-    [dataSource]="dataSource" 
-    [pageNums]="pageNums" 
-    [onePageTotal]="thisPageTotal"
-    [routerPageType]="routerPageType"
-    (delSuccess)="onDelSuccess($event)"
-    [listStatusOpts]="storePageOptions"
-    ></app-list-table>
-
-<app-paging-data
-    (onPagingChange)="onPagingChange($event)"
-    [pCurP]="storePageOptions.currentPage"
-    [pSize]="pageNums?.pageSize"
-    [pTotal]="pageNums?.totalRecord"
-    ></app-paging-data>
-
-<!-- <app-paging-dom
-    (onPagingChange)="onPagingChange($event)"
-    [pCurP]="storePageOptions.currentPage"
-    [pSize]="pageNums?.pageSize"
-    [pTotal]="pageNums?.totalRecord"
-    ></app-paging-dom> -->
+        <!-- <app-paging-dom
+            (onPagingChange)="onPagingChange($event)"
+            [pCurP]="storePageOptions.currentPage"
+            [pSize]="pageNums?.pageSize"
+            [pTotal]="pageNums?.totalRecord"
+        ></app-paging-dom> -->
+    </div>
+</div>

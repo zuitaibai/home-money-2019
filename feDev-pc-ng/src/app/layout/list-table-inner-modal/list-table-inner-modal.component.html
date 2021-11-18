@@ -1,0 +1,28 @@
+<div class="paylist">
+
+    <table class="tb" width="100%">
+        <thead>
+            <tr>
+                <th *ngFor="let th of columns" [ngStyle]="th.styles" [attr.title]="th.attrs?.title" [attr.width]="th.attrs?.width">
+                    {{th.text}}
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let tr of dataSource; index as rowIndex">
+                <td *ngFor="let td of tr; index as tdIndex" [ngClass]="td.classes" [ngStyle]="td.styles" [attr.title]="td.attrs?.title">
+                    {{td.text}}
+                    <div *ngIf="td.isOpr" style="user-select: none;" class="oprdiv">
+                        <a (click)="selectThisTr(td.id)" href="javascript:;">{{td.linkText}}</a>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <app-paging-data
+        (onPagingChange)="onPagingChange($event)"
+        [pCurP]="pages.currentPage"
+        [pSize]="pages.pageSize"
+        [pTotal]="pages.totalRecord"
+    ></app-paging-data>
+</div>

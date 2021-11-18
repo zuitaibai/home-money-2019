@@ -88,15 +88,19 @@ router.post('/', async (ctx, next) => {
         await firstDo(ctx);
     }
 
-    let currentPage = 1, pageSize = 10;
-    let body = ctx.tool.objItem2num(ctx.request.body,[ 'type!!:all', 'currentPage', 'pageSize' ]);
+    let currentPage = 1, pageSize = 10, sql = '';
+    let body = ctx.tool.objItem2num(ctx.request.body,[ 'type!!:all', 'memberKey_from!!:all', 'memberKey_to!!:all', 'currentPage', 'pageSize' ]);
     if('currentPage' in body) currentPage = body.currentPage;
     if('pageSize' in body) pageSize = body.pageSize;
 
+
     let subWhere = '';
     if(body.name) subWhere += ` and name like '%${body.name}%'`;
+    if(body.money) subWhere += ` and money = ${body.money}`;
     if(body.dtype) subWhere += ` and dtype like '%${body.dtype}%'`;
     if(body.other) subWhere += ` and other like '%${body.other}%'`;
+    if('memberKey_from' in body && body.memberKey_from!=='all') subWhere += ` and memberKey_from = ${body.memberKey_from}`;
+    if('memberKey_to' in body && body.memberKey_to!=='all') subWhere += ` and memberKey_to = ${body.memberKey_to}`;
     if('type' in body){
         if(body.type==-100000) subWhere += ` and type!=100`;
         else if(body.type!=='all') subWhere += ` and type=${body.type}`;
@@ -104,12 +108,14 @@ router.post('/', async (ctx, next) => {
     if(body.date_sign_start) subWhere += ` and date_sign>='${body.date_sign_start}'`;
     if(body.date_sign_end) subWhere += ` and date_sign<='${body.date_sign_end}'`;
     if(ctx.session&&ctx.session.level===1) subWhere += ` and isOughtNotPay=0`;
-    let sql = `select * from zhuan_cun 
+
+    if('id' in body) sql = 'select * from zhuan_cun where id = ' + body.id;
+    else sql = `select * from zhuan_cun
                     where 1=1 ${subWhere}
                     order by date_sign desc, date_dbCreate desc
                     limit ${(currentPage-1)*pageSize} , ${pageSize}`;
         // 此处不能用 SQL_CALC_FOUND_ROWS ==>> select FOUND_ROWS()方式，因为用于async/await query，会产生时序滞延
-    let sql0 = `select  count(id) from zhuan_cun 
+    let sql0 = `select  count(id) from zhuan_cun
         where 1=1 ${subWhere}
         order by date_sign desc, date_dbCreate desc`;
     let data = await ctx.db.query(sql);
@@ -138,21 +144,83 @@ router.post('/', async (ctx, next) => {
 });
 // 单 删帐目列表项
 router.get('/del/:id', async (ctx, next) => {
+    let willDel = await ctx.db.query('select type,finishedFormIds from zhuan_cun WHERE id = ?', ctx.params.id);
+    let {type, finishedFormIds} = willDel[0];
+    finishedFormIds = finishedFormIds || '';
+    finishedFormIds = finishedFormIds.trim();
     let result = await ctx.db.query('delete from zhuan_cun where id = ?', ctx.params.id);
     if(fs.existsSync(`data_ser/writeSql.txt`)){
         let str = fs.readFileSync('data_ser/writeSql.txt').toString();
         let ifOpen = !!(str.indexOf('mode=open')>-1);
         if(ifOpen){
             let str = `\r\n\r\n\r\n\r\n${ctx.tool.dateFmt(Date.now(),'yyyy-MM-dd hh:mm:ss')}\r\n------------------------------start:\r\n`;
-            str += `delete from zhuan_cun where id = ${ctx.params.id};`;
+            str += `DELETE from zhuan_cun where id = ${ctx.params.id};`;
             str += `\r\n---------------:end`;
             fs.appendFileSync('data_ser/writeSql.txt', str, function () { });
         }
     }
+
+
+    //如果删除成功
+    if(result.affectedRows == 1){
+        //如果是还出或还入：同时更新所对应的主记录的isFinished,finishedFormIds
+        if(type == 2 || type == -2){
+            let mainRecord = await ctx.db.query('select id,money,finishedFormIds,isFinished from zhuan_cun WHERE id = ?', finishedFormIds);
+            let ids = mainRecord[0].finishedFormIds.split(',');
+            ids = ids.filter(item => item != '' && item != ' ' && item);
+            ids = ids.filter(item => item != ctx.params.id);
+            let idsStr = ids.join(',');
+            let summ = await ctx.db.query(`SELECT SUM(money) as summ FROM zhuan_cun WHERE id in (${idsStr})`);
+            var sumMmyy = +summ[0].summ;
+            let isFinished = 0;
+
+            if(sumMmyy !== 0){
+                isFinished = 2;
+                if(sumMmyy >= +mainRecord[0].money) isFinished = 1;
+            }
+            //更新还入或还出所对应的帐目的isFinished字段为0,1或2
+            let updateMainRecord = await ctx.db.query('update zhuan_cun set ? where id = '+mainRecord[0].id, {isFinished, finishedFormIds: `${idsStr}`});
+
+            if(fs.existsSync(`data_ser/writeSql.txt`)){
+                let str = fs.readFileSync('data_ser/writeSql.txt').toString();
+                let ifOpen = !!(str.indexOf('mode=open')>-1);
+                if(ifOpen){
+                    let str = `\r\n\r\n\r\n\r\n${ctx.tool.dateFmt(Date.now(),'yyyy-MM-dd hh:mm:ss')}\r\n------------------------------start:\r\n`;
+                    str += `UPDATE zhuan_cun SET isFinished = ${isFinished}, finishedFormIds = '${idsStr}' WHERE id = ${mainRecord[0].id};`;
+                    str += `\r\n---------------:end`;
+                    fs.appendFileSync('data_ser/writeSql.txt', str, function () { });
+                }
+            }
+
+        }
+        //如果是借出或借入：同时删除本条finishedFormIds字段所示的各记录id关联的条目
+        else if(type == 1 || type == -1){
+            if(finishedFormIds != ''){
+                let ids = finishedFormIds.split(',');
+                ids = ids.filter(item => item != '' && item != ' ' && item);
+                let delSubRecords = await ctx.db.query(`delete from zhuan_cun where id in (${ids.join(',')})`);
+
+                if(fs.existsSync(`data_ser/writeSql.txt`)){
+                    let str = fs.readFileSync('data_ser/writeSql.txt').toString();
+                    let ifOpen = !!(str.indexOf('mode=open')>-1);
+                    if(ifOpen){
+                        let str = `\r\n\r\n\r\n\r\n${ctx.tool.dateFmt(Date.now(),'yyyy-MM-dd hh:mm:ss')}\r\n------------------------------start:\r\n`;
+                        str += `DELETE from zhuan_cun where id in (${ids.join(',')});`;
+                        str += `\r\n---------------:end`;
+                        fs.appendFileSync('data_ser/writeSql.txt', str, function () { });
+                    }
+                }
+
+            }
+        }
+    }
+
+
     ctx.type = 'json';
     ctx.body = result;
 });
 // 批 删帐目列表项
+// 批删：没有写对于借出借入还出还入删除时的连带效应实现，所以在页面处当是帐目列表时暂禁用批删按钮
 router.post('/delAll', async (ctx, next) => {
     let ids = ctx.request.body.ids;
     let result = await ctx.db.query(`delete from zhuan_cun where id in (${ids})`);
@@ -161,7 +229,7 @@ router.post('/delAll', async (ctx, next) => {
         let ifOpen = !!(str.indexOf('mode=open')>-1);
         if(ifOpen){
             let str = `\r\n\r\n\r\n\r\n${ctx.tool.dateFmt(Date.now(),'yyyy-MM-dd hh:mm:ss')}\r\n------------------------------start:\r\n`;
-            str += `delete from zhuan_cun where id in (${ids});`;
+            str += `DELETE from zhuan_cun where id in (${ids});`;
             str += `\r\n---------------:end`;
             fs.appendFileSync('data_ser/writeSql.txt', str, function () { });
         }

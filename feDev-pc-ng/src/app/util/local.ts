@@ -33,4 +33,4 @@ export const map2Key = (str: string, strType: string = 'rd') => {
     }
 };
 
-export const defPageSize = 20;
+export const defPageSize = 60;

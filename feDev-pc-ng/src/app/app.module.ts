@@ -49,6 +49,8 @@ import { CalculatorComponent } from './layout/calculator/calculator.component';
 import { CheckboxGroupComponent } from './layout/actform/layout/checkbox-group/checkbox-group.component';
 import { TryCtrGroupComponent } from './layout/actform/try-ctr-group/try-ctr-group.component';
 import { RadiobtnGroupComponent } from './layout/actform/layout/radiobtn-group/radiobtn-group.component';
+import { listTableInnerModalComponent } from './layout/list-table-inner-modal/list-table-inner-modal.component';
+import { HtmlPipe } from './util/innerhtmlpipe';
 
 @NgModule({
     declarations: [
@@ -86,7 +88,9 @@ import { RadiobtnGroupComponent } from './layout/actform/layout/radiobtn-group/r
         CalculatorComponent,
         CheckboxGroupComponent,
         TryCtrGroupComponent,
-        RadiobtnGroupComponent
+        RadiobtnGroupComponent,
+        listTableInnerModalComponent,
+        HtmlPipe
     ],
     imports: [
         BrowserModule,

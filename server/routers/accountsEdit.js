@@ -10,6 +10,16 @@ router.get('/:id', async (ctx, next) => {
 
     let id = ctx.params.id;
     let dataItem = await ctx.db.query('select * from zhuan_cun where id = ?', id);
+    let finisheds = {};
+    if(dataItem[0].finishedFormIds){
+        let sum = await ctx.db.query(`SELECT SUM(money) as summ FROM zhuan_cun WHERE id in (${dataItem[0].finishedFormIds})`);
+        let list = await ctx.db.query(`SELECT * FROM zhuan_cun WHERE id in (${dataItem[0].finishedFormIds})`);
+        finisheds.sum = sum[0].summ;
+        finisheds.count = list.length;
+        finisheds.list = list;
+    }
+
+
 
     ctx.type = 'json';
     ctx.body = {
@@ -26,7 +36,11 @@ router.get('/:id', async (ctx, next) => {
         dtype: dataItem[0].dtype,
         other: dataItem[0].other,
         isOughtNotPay: dataItem[0].isOughtNotPay,
-		id: dataItem[0].id
+		id: dataItem[0].id,
+        otherpartyName: dataItem[0].otherpartyName || '',
+        finishedFormIds: dataItem[0].finishedFormIds || '',
+        isFinished: dataItem[0].isFinished,
+        finisheds
     };
 });
 // 提交帐目 详情编辑
@@ -43,7 +57,7 @@ router.post('/update/:id', async (ctx, next) => {
         let ifOpen = !!(str.indexOf('mode=open')>-1);
         if(ifOpen){
             let str = `\r\n\r\n\r\n\r\n${ctx.tool.dateFmt(Date.now(),'yyyy-MM-dd hh:mm:ss')}\r\n------------------------------start:\r\n`;
-            let arr = [], numKeys = ['type','money','bankTypeKey_from','bankKey_from','memberKey_from','bankTypeKey_to','bankKey_to','memberKey_to','isOughtNotPay'];
+            let arr = [], numKeys = ['type','money','bankTypeKey_from','bankKey_from','memberKey_from','bankTypeKey_to','bankKey_to','memberKey_to','isOughtNotPay', 'otherpartyName'];
             for(let i in params){
                 let v = params[i];
                 if(numKeys.indexOf(i)===-1) v = `\'${v||''}\'`;
@@ -54,6 +68,67 @@ router.post('/update/:id', async (ctx, next) => {
             fs.appendFileSync('data_ser/writeSql.txt', str, function () { });
         }
     }
+
+
+    //如果编辑成功（编辑时也许动了钱数）
+    if (result.affectedRows == 1 && result.changedRows == 1) {
+        let myRecord = await ctx.db.query('select type,money,finishedFormIds,isFinished from zhuan_cun WHERE id = ?', id);
+        //如果是还出或还入：同时更新所对应的主记录的isFinished
+        if(myRecord[0].type == 2 || myRecord[0].type == -2){
+            let mainRecord = await ctx.db.query('select id,money,finishedFormIds,isFinished from zhuan_cun WHERE id = (select finishedFormIds from zhuan_cun where id = ?)', id);
+            let ids = mainRecord[0].finishedFormIds.split(',');
+            ids = ids.filter(item => item != '' && item != ' ' && item);
+            let summ = await ctx.db.query(`SELECT SUM(money) as summ FROM zhuan_cun WHERE id in (${ids.join(',')})`);
+            var sumMmyy = +summ[0].summ;
+            let isFinished = 0;
+            if(sumMmyy !== 0){
+                isFinished = 2;
+                if(sumMmyy >= +mainRecord[0].money) isFinished = 1;
+            }
+            //更新还入或还出所对应的帐目的isFinished字段为0,1或2
+            let updateMainRecord = await ctx.db.query('update zhuan_cun set ? where id = '+mainRecord[0].id, {isFinished});
+
+            if(fs.existsSync(`data_ser/writeSql.txt`)){
+                let str = fs.readFileSync('data_ser/writeSql.txt').toString();
+                let ifOpen = !!(str.indexOf('mode=open')>-1);
+                if(ifOpen){
+                    let str = `\r\n\r\n\r\n\r\n${ctx.tool.dateFmt(Date.now(),'yyyy-MM-dd hh:mm:ss')}\r\n------------------------------start:\r\n`;
+                    str += `UPDATE zhuan_cun SET isFinished=${isFinished}  WHERE id = ${mainRecord[0].id};`;
+                    str += `\r\n---------------:end`;
+                    fs.appendFileSync('data_ser/writeSql.txt', str, function () { });
+                }
+            }
+
+        }
+        //如果是借出或借入：更新自己的isFinished
+        else if(myRecord[0].type == 1 || myRecord[0].type == -1){
+            let ids = myRecord[0].finishedFormIds.split(',');
+            ids = ids.filter(item => item != '' && item != ' ' && item);
+            let summ = await ctx.db.query(`SELECT SUM(money) as summ FROM zhuan_cun WHERE id in (${ids.join(',')})`);
+            var sumMmyy = +summ[0].summ;
+            let isFinished = 0;
+            if(sumMmyy !== 0){
+                isFinished = 2;
+                if(sumMmyy >= +myRecord[0].money) isFinished = 1;
+            }
+            //更新此借出或借入的isFinished字段为0,1或2
+            let updateMyRecord = await ctx.db.query('update zhuan_cun set ? where id = '+id, {isFinished});
+
+            if(fs.existsSync(`data_ser/writeSql.txt`)){
+                let str = fs.readFileSync('data_ser/writeSql.txt').toString();
+                let ifOpen = !!(str.indexOf('mode=open')>-1);
+                if(ifOpen){
+                    let str = `\r\n\r\n\r\n\r\n${ctx.tool.dateFmt(Date.now(),'yyyy-MM-dd hh:mm:ss')}\r\n------------------------------start:\r\n`;
+                    str += `UPDATE zhuan_cun SET isFinished=${isFinished}  WHERE id = ${id};`;
+                    str += `\r\n---------------:end`;
+                    fs.appendFileSync('data_ser/writeSql.txt', str, function () { });
+                }
+            }
+
+        }
+    }
+
+
     ctx.type = 'json';
     ctx.body = result;
 
@@ -66,6 +141,12 @@ router.post('/add',async (ctx, next) => {
     if(params.other==='no'){ params.other=''; params.isOughtNotPay = 1; }
     let selectSql = `select count(*) as count from zhuan_cun where bankTypeKey_to=${params.bankTypeKey_to} and bankKey_to=${params.bankKey_to} and memberKey_to=${params.memberKey_to} and type=0`;
     let insertSql = `insert into zhuan_cun set ?`;
+
+    if(params.finishedFormIds && (params.type == 2 || params.type == -2)){
+        //查询还入或还出所对应的帐目
+        let selectTo = await ctx.db.query('select otherpartyName from zhuan_cun where id = ?', +params.finishedFormIds);
+        if(selectTo[0].otherpartyName) params.otherpartyName = selectTo[0].otherpartyName;
+    }
 
     let insertDo = async ()=> {
         let result = await ctx.db.query(insertSql,params);
@@ -100,6 +181,50 @@ router.post('/add',async (ctx, next) => {
     }else{
         sDataResult = await insertDo();
     }
+
+
+    //添加成功后
+    if(sDataResult.affectedRows == 1 && sDataResult.insertId){
+        //如果添加的是还入或还出
+        if(params.finishedFormIds && (params.type == 2 || params.type == -2)){
+            //查询还入或还出所对应的帐目
+            let selectTo = await ctx.db.query('select money,type,finishedFormIds,isFinished from zhuan_cun where id = ?', +params.finishedFormIds);
+            let ids = selectTo[0].finishedFormIds.split(',');
+            ids = ids.filter(item => item != '' && item != ' ' && item);
+            ids.push(sDataResult.insertId);
+            let obj = {finishedFormIds: ids.join(',')};
+            //更新还入或还出所对应的帐目的finishedFormIds字段为形如: 56,59
+            let updateTo = await ctx.db.query('update zhuan_cun set ? where id = '+params.finishedFormIds, obj);
+            if(updateTo.affectedRows == 1 && updateTo.changedRows == 1){
+                //查询 还入或还出所对应的帐目的finishedFormIds字段的值（如56,59）各个所对应的记录的钱数和
+                let summ = await ctx.db.query(`SELECT SUM(money) as summ FROM zhuan_cun WHERE id in (${obj.finishedFormIds})`);
+                var sumMmyy = +summ[0].summ;
+                let isFinished = 0;
+                if(sumMmyy !== 0){
+                    isFinished = 2;
+                    if(sumMmyy >= +selectTo[0].money) isFinished = 1;
+                }
+                //更新还入或还出所对应的帐目的isFinished字段为0,1或2
+                let updateTo2 = await ctx.db.query('update zhuan_cun set ? where id = '+params.finishedFormIds, {isFinished});
+                if(updateTo2.affectedRows == 1 && updateTo2.changedRows == 1){
+                    if(fs.existsSync(`data_ser/writeSql.txt`)){
+                        let str = fs.readFileSync('data_ser/writeSql.txt').toString();
+                        let ifOpen = !!(str.indexOf('mode=open')>-1);
+                        if(ifOpen){
+                            let str = `\r\n\r\n\r\n\r\n${ctx.tool.dateFmt(Date.now(),'yyyy-MM-dd hh:mm:ss')}\r\n------------------------------start:\r\n`;
+                            str += `UPDATE zhuan_cun SET finishedFormIds=\'${obj.finishedFormIds}\'  WHERE id = ${params.finishedFormIds};`;
+                            str += '\r\n';
+                            str += `UPDATE zhuan_cun SET isFinished=${isFinished}  WHERE id = ${params.finishedFormIds};`;
+                            str += `\r\n---------------:end`;
+                            fs.appendFileSync('data_ser/writeSql.txt', str, function () { });
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
     ctx.type = 'json';
     ctx.body = sDataResult;
 

@@ -1,6 +1,10 @@
 <section class="srch_">
     <form (ngSubmit)="evFormSubmit()" #form1="ngForm">
         <span style="color:red;font-weight:bold;">{{pageCnName}}：</span>
+        <ng-container *ngIf="routerPageType==='listAccounts'">
+            <input name="id" [(ngModel)]="fmOpts.VId" type="text" class="vshort" placeholder="ID">
+            <input name="money" [(ngModel)]="fmOpts.VMoney" class="cshort" placeholder="金额" min="1" type="number">
+        </ng-container>
         <ng-container *ngIf="routerPageType!=='listStatistics'">
             <input name="name" [(ngModel)]="fmOpts.VTname" type="text" class="short" placeholder="名 称">
         </ng-container>
@@ -43,11 +47,11 @@
         <ng-container *ngIf="routerPageType==='listAccounts'">
             <select name="type" [(ngModel)]="fmOpts.VStype">
                 <option value="all" data-type="all">-- 账目类型 --</option>
-                <optgroup label=""> 
+                <optgroup label="">
                     <option value="100">转存</option>
                     <option value="-100000">非转存</option>
                 </optgroup>
-                    <optgroup label=""> 
+                    <optgroup label="">
                     <option value="0">存根</option>
                     <option value="1">借入</option>
                     <option value="-1">借出</option>
@@ -56,6 +60,13 @@
                     <option value="3">生意收入</option>
                     <option value="-3">生意投资</option>
                 </optgroup>
+            </select>
+            <select name="memberKey_from" [(ngModel)]="fmOpts.VSmemberFrom">
+                <option value="all">--由账户--</option>
+                <option *ngFor="let item of pageObj?.memberKey" [value]="item.id">{{item.name}}</option>
+            </select><span style="color: #888;">∞</span><select name="memberKey_to" [(ngModel)]="fmOpts.VSmemberTo" style="margin-left:0;">
+                <option value="all">--至账户--</option>
+                <option *ngFor="let item of pageObj?.memberKey" [value]="item.id">{{item.name}}</option>
             </select>
         </ng-container>
         <ng-container *ngIf="routerPageType==='listStatistics'">
@@ -73,7 +84,7 @@
         <input name="pageSize" [(ngModel)]="fmOpts.VTpgSize" class="vshort" min="1" type="number" placeholder="条/页" value="">
         <button type="button" (click)="evFormReset()" style="margin-left:5px;">重置</button>
         <button type="submit" style="margin-left:5px;" (click)="qkSearchClass=''">查询</button>
-    
+
         <div class="bsss" [ngStyle]="{display:routerPageType==='listStatistics'?'inline-block':'', margin:routerPageType==='listStatistics'?'0 0 0 36px':'5px 0 0', verticalAlign: routerPageType==='listStatistics'?'middle':''}">
             <span>快捷查询：</span>
             <a href="javascript:;" [ngClass]="{red:qkSearchClass==='-year',unline:qkSearchClass==='-year'}"  (click)="evQuickSubmit('-year');"
