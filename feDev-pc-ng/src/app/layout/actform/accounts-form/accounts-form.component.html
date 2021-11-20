@@ -225,6 +225,7 @@
                 [columns]="columns"
                 [dataSource]="dataSource"
                 [pages]="doPages"
+                (clickedPage)="onPagingChange($event)"
             ></app-list-table-inner-modal>
         </div>
     </section>

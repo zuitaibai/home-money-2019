@@ -13,6 +13,7 @@ export class listTableInnerModalComponent implements OnInit {
     @Input() dataSource: TdObjType[][];
     @Input() pages: ObjTpye;
     @Output() onChoosed: EventEmitter<number> = new EventEmitter();
+    @Output() clickedPage: EventEmitter<number | string> = new EventEmitter();
 
     constructor() { }
 
@@ -21,6 +22,8 @@ export class listTableInnerModalComponent implements OnInit {
     selectThisTr(id: number) {
         this.onChoosed.emit(id);
     }
-    onPagingChange(){}
+    onPagingChange(n: number | string){
+        this.clickedPage.emit(+n);
+    }
 
 }
