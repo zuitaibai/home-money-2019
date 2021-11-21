@@ -43,7 +43,7 @@ router.get('/:id', async (ctx, next) => {
         finisheds
     };
 });
-// 提交帐目 详情编辑
+// 编辑帐目 详情编辑
 router.post('/update/:id', async (ctx, next) => {
     id = ctx.params.id;
     let params = ctx.tool.objItem2num(ctx.request.body,['type','money','bankTypeKey_from','bankKey_from','memberKey_from','bankTypeKey_to','bankKey_to','memberKey_to']);
@@ -73,6 +73,10 @@ router.post('/update/:id', async (ctx, next) => {
     //如果编辑成功（编辑时也许动了钱数）
     if (result.affectedRows == 1 && result.changedRows == 1) {
         let myRecord = await ctx.db.query('select type,money,finishedFormIds,isFinished from zhuan_cun WHERE id = ?', id);
+        //如果是还出或还入，对应的主记录id页面只读，不可改。所以不用考虑再更新主记录的finishedFormIds和自身的finishedFormIds。
+        //即：还入和还出的帐目对应，只能在新增还入和还出的时候一次定型（除了删除）。
+        //即：还给别人或别人还给自己，依据现实有一笔生成一笔，日后只能改名字钱数等(和主记录对应方面无关的信息)，或者删除。
+
         //如果是还出或还入：同时更新所对应的主记录的isFinished
         if(myRecord[0].type == 2 || myRecord[0].type == -2){
             let mainRecord = await ctx.db.query('select id,money,finishedFormIds,isFinished from zhuan_cun WHERE id = (select finishedFormIds from zhuan_cun where id = ?)', id);
@@ -100,6 +104,9 @@ router.post('/update/:id', async (ctx, next) => {
             }
 
         }
+
+        //如果是借出或借入：页面不给修改与次记录(还入还出)对应方面的入口，也不能改第一次输入的对方姓名
+
         //如果是借出或借入：更新自己的isFinished
         else if(myRecord[0].type == 1 || myRecord[0].type == -1){
             let ids = myRecord[0].finishedFormIds.split(',');

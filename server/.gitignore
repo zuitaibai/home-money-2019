@@ -5,7 +5,7 @@ apps/*
 !apps/readme.md
 !apps/mb
 apps/mb/*
-!apps/mb/readme.md
+!apps/mb/.gitkeep
 
 # IDEs and editors
 /.idea

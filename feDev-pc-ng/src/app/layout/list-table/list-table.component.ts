@@ -235,7 +235,7 @@ export class ListTableComponent implements OnInit, OnChanges {
                         finishList = `<tr><th>还帐历史：</th><td class="tbpadding">
                             <table width="100%" cellpadding="0" cellspacing="0" border="0">
                                 <tr>
-                                <th>ID</th>
+                                    <th>ID</th>
                                     <th>日期</th>
                                     <th>金额</th>
                                     <th>名称</th>
