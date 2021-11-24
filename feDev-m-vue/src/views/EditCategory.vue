@@ -25,6 +25,7 @@ const cn = local.pgKey2Cn[en];
 
 import { mapActions } from "vuex";
 import { Divider } from 'vux';
+/* import Divider from 'vux/src/components/divider/index.vue'; */
 
 export default {
 	name: en,

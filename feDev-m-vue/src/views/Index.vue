@@ -108,7 +108,14 @@ const en = "index";
 const cn = local.pgKey2Cn[en];
 import { mapActions } from "vuex";
 // , VLine, VArea, VScale
-import { Divider, Card, VChart, VTooltip, VLegend, VBar, VPie } from "vux";
+import { Divider, Card, VChart, VTooltip, VLegend, VBar, VPie } from 'vux';
+/* import Divider from 'vux/src/components/divider/index.vue';
+import Card from 'vux/src/components/card/index.vue';
+import VChart from 'vux/src/components/v-chart/v-chart.vue';
+import VTooltip from 'vux/src/components/v-chart/v-tooltip.vue';
+import VLegend from 'vux/src/components/v-chart/v-legend.vue';
+import VBar from 'vux/src/components/v-chart/v-bar.vue';
+import VPie from 'vux/src/components/v-chart/v-pie.vue'; */
 
 export default {
 	name: en,

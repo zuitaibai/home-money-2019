@@ -243,11 +243,12 @@ export class ListTableComponent implements OnInit, OnChanges {
                                 </tr>
                                 ${
                                     finishedsObj.list.map((ssj: ObjTpye) => {
-                                        let ss = ssj.date_sign.replace('T', ' ');
-                                        let arr = ss.split(':');
-                                        ss = arr[0];
-                                        if(ss.length>1) ss = arr[0] + ':' + arr[1];
-                                        return '<tr><td>'+ssj.id+'</td><td>'+ss+'</td><td>'+ssj.money+'</td><td>'+ssj.name+'</td><td>'+(ssj.dtype||'')+'</td></tr>';
+                                        let dateStr = '';
+                                        if(ssj.date_sign){
+                                            let date = new Date(ssj.date_sign);
+                                            dateStr = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
+                                        }
+                                        return '<tr><td>'+ssj.id+'</td><td>'+dateStr+'</td><td>'+ssj.money+'</td><td>'+ssj.name+'</td><td>'+(ssj.dtype||'')+'</td></tr>';
                                     }).join('\n')
                                 }
                             </table></td></tr>

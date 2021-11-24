@@ -60,6 +60,20 @@ const cn = local.pgKey2Cn[en];
 import { mapActions } from "vuex";
 
 import { Swiper, SwiperItem, Divider, Group, XInput, PopupPicker, PopupRadio, XButton, XTextarea, Checker, CheckerItem, CellBox, Flexbox, FlexboxItem } from 'vux';
+/* import {Swiper, SwiperItem} from 'vux/src/components/swiper/index.js';
+import Divider from 'vux/src/components/divider/index.vue';
+import Group from 'vux/src/components/group/index.vue';
+import XInput from 'vux/src/components/x-input/index.vue';
+import PopupPicker from 'vux/src/components/popup-picker/index.vue';
+import PopupRadio from 'vux/src/components/popup-radio/index.vue';
+import XTextarea from 'vux/src/components/x-textarea/index.vue';
+import XButton from 'vux/src/components/x-button/index.vue';
+import {Checker, CheckerItem} from 'vux/src/components/checker/index.js';
+import CellBox from 'vux/src/components/cell-box/index.vue';
+import {Flexbox, FlexboxItem} from 'vux/src/components/flexbox/index.js'; */
+
+
+
 import pic_normal from '../assets/card/normal.png';
 import pic_gongShang from '../assets/card/gongShang.png';
 import pic_guangFa from '../assets/card/guangFa.png';

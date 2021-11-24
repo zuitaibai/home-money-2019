@@ -34,8 +34,17 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
-// Datetime, XNumber, CellBox, Checker, CheckerItem
+
 import { Group, XInput, PopupPicker, PopupRadio, Calendar, XTextarea, XButton, dateFormat } from 'vux';
+/* import Group from 'vux/src/components/group/index.vue';
+import XInput from 'vux/src/components/x-input/index.vue';
+import PopupPicker from 'vux/src/components/popup-picker/index.vue';
+import PopupRadio from 'vux/src/components/popup-radio/index.vue';
+import Calendar from 'vux/src/components/calendar/index.vue';
+import XTextarea from 'vux/src/components/x-textarea/index.vue';
+import XButton from 'vux/src/components/x-button/index.vue';
+import dateFormat from 'vux/src/tools/date/format.js'; */
+
 
 const ctrlsInitDefault = {
 	name: '',

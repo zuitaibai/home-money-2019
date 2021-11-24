@@ -13,6 +13,9 @@
 import { local } from "@/config";
 import { mapActions, mapState } from "vuex";
 import { TransferDom, Popup } from 'vux';
+/* import TransferDom from 'vux/src/directives/transfer-dom/index.js';
+import Popup from 'vux/src/components/popup/index.vue'; */
+
 import ActformPayCome from '@/components/ActformPayCome.vue';
 
 export default {

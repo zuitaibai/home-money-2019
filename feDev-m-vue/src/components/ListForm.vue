@@ -1,8 +1,8 @@
 <template>
-<!-- 
+<!--
 支出 [listPay]:
 	名称， 开始,结束，  支类1,支类2,  币种1,币种2， 自分类， 备注， 分页条数， 账户,  消费对象
-	name, date_sign_start, date_sign_end,outtype1Key, outtype2Key, 
+	name, date_sign_start, date_sign_end,outtype1Key, outtype2Key,
 	bankTypeKey, bankKey,dtype, other, pageSize, memberKey, for_from_memberKey
 收入 [listCome]:
 	名称， 开始,结束，  收入类别,     币种1,币种2， 自分类， 备注， 分页条数,  账户
@@ -26,34 +26,34 @@
 			<div v-show="showMoreVisible">
 				<group gutter="0" :class="showMoreMoreVis?'':'no-after'">
 					<x-input v-if="pageType!='listStatistics'" title="名称" placeholder-align="right" text-align="right" v-model="name"></x-input>
-					<datetime 
-						v-model="dateStart" 
-						:min-year=2018 
-						:max-year="maxYear" 
-						format="YYYY-MM-DD" 
+					<datetime
+						v-model="dateStart"
+						:min-year=2018
+						:max-year="maxYear"
+						format="YYYY-MM-DD"
 						@on-clear="clearDateStart"
-						title="起始时间" 
-						year-row="{value}年" 
-						month-row="{value}月" 
-						day-row="{value}日" 
+						title="起始时间"
+						year-row="{value}年"
+						month-row="{value}月"
+						day-row="{value}日"
 						clear-text="清除"
 					></datetime>
-					<datetime 
-						v-model="dateEnd" 
-						:min-year=2018 
-						:max-year="maxYear" 
-						format="YYYY-MM-DD" 
+					<datetime
+						v-model="dateEnd"
+						:min-year=2018
+						:max-year="maxYear"
+						format="YYYY-MM-DD"
 						@on-clear="clearDateEnd"
-						title="结束时间" 
-						year-row="{value}年" 
-						month-row="{value}月" 
-						day-row="{value}日" 
+						title="结束时间"
+						year-row="{value}年"
+						month-row="{value}月"
+						day-row="{value}日"
 						clear-text="清除"
 					></datetime>
 
 					<popup-picker v-if="pageType=='listPay'" title="支出类别" :data="outTypeList" :columns="2" v-model="outType" show-name @on-hide="ifOutTypeEmpty"></popup-picker>
 					<popup-picker v-else-if="pageType=='listCome'" title="收入类别" :data="inTypeList" :columns="1" v-model="inType" show-name @on-hide="ifInTypeEmpty"></popup-picker>
-					
+
 					<popup-picker v-else-if="pageType=='listAccounts'" title="帐目类型" :data="accountsTypeList" :columns="1" v-model="accountsType" show-name></popup-picker>
 					<cell-box v-else-if="pageType=='listStatistics'" style="justify-content:space-between;">
 						统计单位
@@ -63,12 +63,12 @@
 					</cell-box>
 					<popup-picker v-if="pageType=='listPay'||pageType=='listCome'" title="币种" :data="moneyTypeList" :columns="2" v-model="moneyType" show-name @on-hide="ifMoneyTypeEmpty"></popup-picker>
 					<popup-picker v-if="pageType=='listPay'" title="消费对象" :data="forMemberList" :columns="1" v-model="forMember" show-name @on-hide="ifForMemberEmpty"></popup-picker>
-					
+
 					<popup-radio v-if="pageType=='listPay'||pageType=='listCome'" title="帐户" :options="memberList_popupRadio" v-model="member_popupRadio">
 						<p slot="popup-header" class="vux-1px-b mem-title-slot">请选择</p>
 					</popup-radio>
 					<!-- <popup-picker v-if="pageType=='listPay'||pageType=='listCome'" title="帐户" :data="memberList" :columns="1" v-model="member" show-name @on-hide="ifMemberEmpty"></popup-picker> -->
-					
+
 					<x-number v-if="pageType=='listStatistics'" title="每页条数" v-model="pageSize" :min="5" :max="100" :step="5"></x-number>
 					<div v-if="pageType=='listStatistics'" class="vux-1px-t" style="height:1px;margin-bottom:20px;"></div>
 
@@ -84,10 +84,10 @@
 				<div :style="{marginTop:showMoreMoreVis?'20px':0}" class="fix tc">
 					<span class="r caaa" @click="hideAll" style="line-height:1;margin-top:20px;">收起<x-icon v-if="showMoreVisible" type="ios-arrow-up" style="width:20px;"></x-icon></span>
 					<x-button action-type="button" @click.native="reset" mini plain style="width:23%;line-height:2.35;font-size:16px;padding:0;" class="l">重置</x-button>
-					<x-button  mini 
-						type="primary" 
-						action-type="button" 
-						:show-loading="searchBtnLoadingVis" 
+					<x-button  mini
+						type="primary"
+						action-type="button"
+						:show-loading="searchBtnLoadingVis"
 						@click.native="search"
 						style="width:47%;margin-top:0;line-height:2.5;font-size:16px;"
 						class=""
@@ -101,10 +101,22 @@
 <script>
 	import { defaultPageSize } from '@/config';
 	import { Datetime, Group, XInput, PopupPicker, XNumber, XTextarea, XButton, dateFormat, CellBox, Checker, CheckerItem, PopupRadio } from 'vux';
+    /* import Datetime from 'vux/src/components/datetime/index.vue';
+    import XNumber from 'vux/src/components/x-number/index.vue';
+    import CellBox from 'vux/src/components/cell-box/index.vue';
+    import {Checker, CheckerItem} from 'vux/src/components/checker/index.js';
+    import Group from 'vux/src/components/group/index.vue';
+    import XInput from 'vux/src/components/x-input/index.vue';
+    import PopupPicker from 'vux/src/components/popup-picker/index.vue';
+    import PopupRadio from 'vux/src/components/popup-radio/index.vue';
+    import XTextarea from 'vux/src/components/x-textarea/index.vue';
+    import XButton from 'vux/src/components/x-button/index.vue';
+    import dateFormat from 'vux/src/tools/date/format.js'; */
+
 	import { mapActions } from 'vuex';
 	export default {
 		name: "ListForm",
-		components: { 
+		components: {
 			Group, Datetime, XInput, PopupPicker, XNumber, XTextarea, XButton, CellBox, Checker, CheckerItem, PopupRadio
 		},
 		props: ['pageType'],
@@ -128,8 +140,8 @@
 				inTypeList: [],
 				accountsTypeList: [
 					{name: '[全部]', value: 'all'},
-					{name: '转存', value: '100'}, {name: '非转存', value: '-100000'}, 
-					{name: '存根', value: '0'}, 
+					{name: '转存', value: '100'}, {name: '非转存', value: '-100000'},
+					{name: '存根', value: '0'},
 					{name: '借入', value: '1'}, {name: '借出', value: '-1'},
 					{name: '还入', value: '2'}, {name: '还出', value: '-2'},
 					{name: '生意收入', value: '3'}, {name: '生意投资', value: '-3'}
@@ -182,7 +194,7 @@
 				bankTypeKey = this.moneyType.length>0 ? this.moneyType[0] : '';
 				bankKey = this.moneyType.length>1 ? this.moneyType[1] : '';
 				// 如果使用popup-radio，则用member_popupRadio；如果使用popup-picker，则用member，看上面html哪个没注释掉
-				// memberKey = this.member.length>0 ? this.member[0] : ''; 
+				// memberKey = this.member.length>0 ? this.member[0] : '';
 				memberKey = this.member_popupRadio;
 				for_from_memberKey = this.forMember.length>0 ? this.forMember[0] : '';
 				intypeKey = this.inType.length>0 ? this.inType[0] : '';

@@ -47,7 +47,9 @@
 </template>
 
 <script>
-import { Swipeout, SwipeoutItem, SwipeoutButton, CellFormPreview } from 'vux';
+import { Swipeout, SwipeoutItem, SwipeoutButton } from 'vux';
+/* import {Swipeout, SwipeoutItem, SwipeoutButton} from 'vux/src/components/swipeout/index.js';*/
+
 import { local } from "@/config";
 const en = 'notes';
 const cn = local.pgKey2Cn[en];
@@ -56,7 +58,7 @@ import { mapActions } from "vuex";
 
 export default {
 	name: en,
-	components: {Swipeout, SwipeoutItem, SwipeoutButton/* , CellFormPreview */},
+	components: {Swipeout, SwipeoutItem, SwipeoutButton},
 	data(){
 		return {
 			dataList: []

@@ -15,6 +15,9 @@ const en = 'editAccounts';
 const cn = local.pgKey2Cn[en];
 import { mapActions, mapState } from "vuex";
 import { TransferDom, Popup } from 'vux';
+/* import TransferDom from 'vux/src/directives/transfer-dom/index.js';
+import Popup from 'vux/src/components/popup/index.vue'; */
+
 import ActformAccounts from '@/components/ActformAccounts.vue';
 
 export default {

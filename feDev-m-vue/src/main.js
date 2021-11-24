@@ -58,6 +58,50 @@ import Vue2TouchEvents from 'vue2-touch-events';
 /* const FastClick = require('fastclick');
 FastClick.attach(document.body); */
 
+
+////关于组件库vux：
+//使用import { a, b, c, d } from 'vux' :=>a方式，build时据说会把vux全量拉入。
+//因此尝试使用 import XazYce from 'vux/src/components/xaz-yce/index.vue' :=>b方式，以下是这种方式本站各页面所用到的全集合：
+    /*
+        import Group from 'vux/src/components/group/index.vue';
+        import XInput from 'vux/src/components/x-input/index.vue';
+        import PopupPicker from 'vux/src/components/popup-picker/index.vue';
+        import PopupRadio from 'vux/src/components/popup-radio/index.vue';
+        import Calendar from 'vux/src/components/calendar/index.vue';
+        import XTextarea from 'vux/src/components/x-textarea/index.vue';
+        import XButton from 'vux/src/components/x-button/index.vue';
+        import dateFormat from 'vux/src/tools/date/format.js';
+        import Popup from 'vux/src/components/popup/index.vue';
+        import TransferDom from 'vux/src/directives/transfer-dom/index.js';
+        import Cell from 'vux/src/components/cell/index.vue';
+        import CellFormPreview from 'vux/src/components/cell-form-preview/index.vue';
+        import LoadMore from 'vux/src/components/load-more/index.vue';
+        import Datetime from 'vux/src/components/datetime/index.vue';
+        import XNumber from 'vux/src/components/x-number/index.vue';
+        import CellBox from 'vux/src/components/cell-box/index.vue';
+        import {Checker, CheckerItem} from 'vux/src/components/checker/index.js';
+        import {Swipeout, SwipeoutItem, SwipeoutButton} from 'vux/src/components/swipeout/index.js';
+        import CellFormPreview from 'vux/src/components/cell-form-preview/index.vue';
+        import CheckIcon from 'vux/src/components/check-icon/index.vue';
+        import Sticky from 'vux/src/components/sticky/index.vue';
+        import TransferDom from 'vux/src/directives/transfer-dom/index.js';
+        import {Swiper, SwiperItem} from 'vux/src/components/swiper/index.js';
+        import Divider from 'vux/src/components/divider/index.vue';
+        import {Flexbox, FlexboxItem} from 'vux/src/components/flexbox/index.js';
+        import Drawer from 'vux/src/components/drawer/index.vue';
+        import XHeader from 'vux/src/components/x-header/index.vue';
+        import ViewBox from 'vux/src/components/view-box/index.vue';
+        import Loading from 'vux/src/components/loading/index.vue';
+        import Qrcode from 'vux/src/components/qrcode/index.vue';
+        import Card from 'vux/src/components/card/index.vue';
+        import VChart from 'vux/src/components/v-chart/v-chart.vue';
+        import VTooltip from 'vux/src/components/v-chart/v-tooltip.vue';
+        import VLegend from 'vux/src/components/v-chart/v-legend.vue';
+        import VBar from 'vux/src/components/v-chart/v-bar.vue';
+        import VPie from 'vux/src/components/v-chart/v-pie.vue';
+    */
+//此种方式有一些组件没有正常，说明引入的地址及命名及该package内的导出有些是不一致的，还没有细查。大致试了下，好像dev本地时正常，prod时就不正常了，但不确定。
+//经测使用a方式和b方式build出来的文件大小差不多。说明没有全量拉入。因此，又把各页下的引入方式变回成a方式。
 Vue.config.productionTip = false;
 
 

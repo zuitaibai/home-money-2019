@@ -20,6 +20,10 @@ const en = 'addPayCome';
 const cn = local.pgKey2Cn[en];
 import { mapActions, mapState } from "vuex";
 import { TransferDom, Popup, Checker, CheckerItem } from 'vux';
+/* import TransferDom from 'vux/src/directives/transfer-dom/index.js';
+import Popup from 'vux/src/components/popup/index.vue';
+import {Checker, CheckerItem} from 'vux/src/components/checker/index.js'; */
+
 import ActformPayCome from '@/components/ActformPayCome.vue';
 
 export default {

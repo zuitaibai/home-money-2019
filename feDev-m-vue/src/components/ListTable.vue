@@ -112,6 +112,13 @@
 <script>
     import { Http } from '../store/storeVar';
 	import { Swipeout, SwipeoutItem, SwipeoutButton, CellFormPreview, Group, CheckIcon, LoadMore, Sticky } from 'vux';
+    /* import {Swipeout, SwipeoutItem, SwipeoutButton} from 'vux/src/components/swipeout/index.js';
+    import CellFormPreview from 'vux/src/components/cell-form-preview/index.vue';
+    import Group from 'vux/src/components/group/index.vue';
+    import LoadMore from 'vux/src/components/load-more/index.vue';
+    import CheckIcon from 'vux/src/components/check-icon/index.vue';
+    import Sticky from 'vux/src/components/sticky/index.vue'; */
+
 	import { mapActions, mapState } from 'vuex';
 	import PaggingFooter from '@/components/PaggingFooter.vue';
 

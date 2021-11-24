@@ -156,6 +156,10 @@
 
 <script>
 	import { Popup, XButton, TransferDomDirective as TransferDom } from 'vux';
+    /* import Popup from 'vux/src/components/popup/index.vue';
+    import XButton from 'vux/src/components/x-button/index.vue';
+    import TransferDom from 'vux/src/directives/transfer-dom/index.js'; */
+
 	export default {
 		name: "StatisticsPop",
 		directives: { TransferDom },
@@ -198,7 +202,7 @@
 		th{font-size:inherit;font-weight:bold;}
 		th,td{border:1px solid #ccc;height:40px;}
 		.mm-tr-{background:rgba(189, 189, 189, 0.6);}
-		border-right:1px solid #ccc;border-left:1px solid #ccc; 
+		border-right:1px solid #ccc;border-left:1px solid #ccc;
 		th{text-align: left;background:#bdbdbd;}
 		th,td{border-left:none;border-right:none;}
 		.money-td{color: #af4c33;text-align: right;}
@@ -207,6 +211,6 @@
 			th:nth-child(1),td:nth-child(1){padding-left:.8em;}
 			th:last-child,td:last-child{padding-right:.8em;}
 		}
-	}	
+	}
 }
 </style>

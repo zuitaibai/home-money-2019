@@ -131,8 +131,21 @@ const ctrlsInitDefault = {
 import { Http } from '../store/storeVar';
 import { mapActions, mapState } from "vuex";
 import PaggingFooter from '@/components/PaggingFooter.vue';
-// Datetime, XNumber, CellBox, Checker, CheckerItem
+
 import { Group, XInput, PopupPicker, PopupRadio, Calendar, XTextarea, XButton, dateFormat, Popup, TransferDom, Cell, CellFormPreview, LoadMore } from 'vux';
+/* import Group from 'vux/src/components/group/index.vue';
+import XInput from 'vux/src/components/x-input/index.vue';
+import PopupPicker from 'vux/src/components/popup-picker/index.vue';
+import PopupRadio from 'vux/src/components/popup-radio/index.vue';
+import Calendar from 'vux/src/components/calendar/index.vue';
+import XTextarea from 'vux/src/components/x-textarea/index.vue';
+import XButton from 'vux/src/components/x-button/index.vue';
+import dateFormat from 'vux/src/tools/date/format.js';
+import Popup from 'vux/src/components/popup/index.vue';
+import TransferDom from 'vux/src/directives/transfer-dom/index.js';
+import Cell from 'vux/src/components/cell/index.vue';
+import CellFormPreview from 'vux/src/components/cell-form-preview/index.vue';
+import LoadMore from 'vux/src/components/load-more/index.vue'; */
 
 export default {
 	name: 'ActformAccounts',

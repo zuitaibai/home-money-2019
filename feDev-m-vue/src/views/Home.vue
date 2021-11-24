@@ -80,6 +80,15 @@
     import { local } from "@/config";
     import { mapActions, mapState } from 'vuex';
     import { Drawer, XHeader, ViewBox, Divider, Loading, Qrcode, TransferDomDirective as TransferDom } from 'vux';
+    /* import Drawer from 'vux/src/components/drawer/index.vue';
+    import XHeader from 'vux/src/components/x-header/index.vue';
+    import ViewBox from 'vux/src/components/view-box/index.vue';
+    import Divider from 'vux/src/components/divider/index.vue';
+    import Loading from 'vux/src/components/loading/index.vue';
+    import Qrcode from 'vux/src/components/qrcode/index.vue';
+    import TransferDom from 'vux/src/directives/transfer-dom/index.js'; */
+
+
     import pic_male from '../assets/p1.jpg';
     import pic_female from '../assets/p2.jpg';
     import pic_x from '../assets/px.jpg';

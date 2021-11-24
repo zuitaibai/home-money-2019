@@ -54,6 +54,10 @@
 <script>
     import { mapActions, mapState } from 'vuex';
     import { XInput, XButton, Group } from 'vux';
+    /* import Group from 'vux/src/components/group/index.vue';
+    import XInput from 'vux/src/components/x-input/index.vue';
+    import XButton from 'vux/src/components/x-button/index.vue'; */
+
     import { SS_login_code, SS_login_status } from '@/store/storeVar';
     import pic_male from '../assets/p1.jpg';
     import pic_female from '../assets/p2.jpg';

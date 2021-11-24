@@ -1,24 +1,24 @@
 <template>
 	<div style="padding:20px 20px 0;">
-		
-		<x-button 
+
+		<x-button
 			type="default" :plain="true" @click.native="toggleRecrod"
 			:disabled="btnToggleRecrod.disabled" :show-loading="btnToggleRecrod.loading"
 		>{{ifOpen?'停止日志':'开始日志'}}</x-button>
-		
-		<x-button 
-			type="primary" :plain="true" @click.native="backup" 
+
+		<x-button
+			type="primary" :plain="true" @click.native="backup"
 			:disabled="btnBackup.disabled" :show-loading="btnBackup.loading"
 			style="margin-bottom:30px;"
 		>执行备份</x-button>
 
-		<x-button 
-			type="default" :plain="true" @click.native="refresh" 
+		<x-button
+			type="default" :plain="true" @click.native="refresh"
 			:disabled="btnRefresh.disabled" :show-loading="btnRefresh.loading"
 		>物理刷新</x-button>
 
-		<x-button 
-			type="warn" :plain="true" @click.native="restore" 
+		<x-button
+			type="warn" :plain="true" @click.native="restore"
 			:disabled="btnRestore.disabled" :show-loading="btnRestore.loading"
 		>执行还原(选中)</x-button>
 		<div style="height:116px;overflow:auto;margin:0 2px 30px;" ref="scroller">
@@ -45,6 +45,9 @@ const cn = local.pgKey2Cn[en];
 
 import { mapActions } from "vuex";
 import { CheckIcon, Swipeout, SwipeoutItem, SwipeoutButton, XButton } from 'vux';
+/* import CheckIcon from 'vux/src/components/check-icon/index.vue';
+import {Swipeout, SwipeoutItem, SwipeoutButton} from 'vux/src/components/swipeout/index.js';
+import XButton from 'vux/src/components/x-button/index.vue'; */
 
 export default {
 	name: en,
@@ -71,9 +74,9 @@ export default {
 					this.$vux.toast.show({ text: '已刷刷，已刷刷', time: 800});
 					this.$refs.scroller.scrollTop = 0;
 					//因为本地项目不在外网下运行的话，备份、还原、开关日志等请求会很快，在此时它们都已视为完成，所以不用取消上一个请求
-					/* 
+					/*
 					code: 取消上一个请求 (用this.$axios.CancelToken实现) // 而且console.log(this.$axios.CancelToken)的话为undefined，还未细察之
-					this.btnToggleRecrod.disabled = this.btnToggleRecrod.loading 
+					this.btnToggleRecrod.disabled = this.btnToggleRecrod.loading
 					= this.btnBackup.disabled = this.btnBackup.loading
 					= this.btnRestore.disabled = this.btnRestore.loading = false;
 					*/
@@ -175,7 +178,7 @@ export default {
 			});
 		}
 	},
-	
+
 	mounted() {
 		this.setNavigationTitle(cn);
 		this.getList();
