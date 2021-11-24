@@ -56,7 +56,7 @@ import { mapActions } from "vuex";
 
 export default {
 	name: en,
-	components: {Swipeout, SwipeoutItem, SwipeoutButton, CellFormPreview},
+	components: {Swipeout, SwipeoutItem, SwipeoutButton/* , CellFormPreview */},
 	data(){
 		return {
 			dataList: []

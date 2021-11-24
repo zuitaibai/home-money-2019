@@ -7,6 +7,11 @@ const handleError = (er, url, mothed) => {
     //[关联1] 如果以上被ok，也删掉views/Db.vue中的一行注释：//[关联1]...
     const { config, request, response } = er;
     const { status, statusText } = response || {};
+
+    if(status == 401 && location.pathname.indexOf('/login') === -1) {
+        location.href = location.origin + '/apps/login';
+    }
+
     const toast = Vue.$vux.toast;
     if(!toast.isVisible()) toast.show({ text: `请求出错[${status}]: <br>${statusText}`});
     console.log( `AjaxError: ============`);

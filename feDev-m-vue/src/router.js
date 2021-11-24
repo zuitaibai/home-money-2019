@@ -1,11 +1,13 @@
 import Vue from 'vue';
-import VueRouter from 'vue-router';
+import Router from 'vue-router';
+// import VueRouter from 'vue-router';
 import Home from './views/Home.vue';
-import Index from './views/Index.vue';
 
-Vue.use(VueRouter);
+Vue.use(Router);
+// Vue.use(VueRouter);
 
-export default new VueRouter({
+export default new Router({
+// export default new VueRouter({
     mode: 'history',
     base: process.env.BASE_URL,
     routes: [{
@@ -20,7 +22,7 @@ export default new VueRouter({
                 {
                     path: '/index',
                     name: 'index',
-                    component: Index
+                    component: () => import( /* webpackChunkName: "index" */ './views/Index.vue').then(m => m.default),
                 },
                 {
                     path: '/listPay',

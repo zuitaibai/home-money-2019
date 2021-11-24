@@ -1,5 +1,5 @@
 <template>
-	<div style="padding:16px 10px 0;">
+	<div style="padding:16px 10px 0;" class="forCtrlColor">
 
 		<transition name="slide-left">
 			<div v-if="formShow">
@@ -103,7 +103,7 @@ export default {
 	data(){
 		return {
 			/*
-			// pic1List: 
+			// pic1List:
 			{
 				'公共': [
 					{ img: pic_normal, name: '什么', type: '借记卡', num: '5678 5623 8958 4721 0020 325', id: 666, memberKey: 2, cardTypeKey: 3 }
@@ -139,7 +139,7 @@ export default {
 			this.formShow = true;
 			this.form = {...this.form, ...formDataInit, ...this.save};
 		},
-		delCard(){ 
+		delCard(){
 			if(!this.formId) return;
 			this.$vux.confirm.show({
 				title: '确定要么？',
@@ -242,7 +242,7 @@ export default {
 						let arr = [];
 						Object.keys(cardTypesO).forEach(cardTypeKey=>{
 							arr.push(...cardTypesO[cardTypeKey].map(item=>({
-								name: item.sname, type: banktypes[cardTypeKey] || '未知', 
+								name: item.sname, type: banktypes[cardTypeKey] || '未知',
 								num: item.num2, img: serv2local[item.bankKey] || pic_normal,
 								// swiper不使用：
 								id: item.id, memberKey: ''+memberKey, cardTypeKey: cardTypeKey
@@ -303,6 +303,12 @@ export default {
   border: 1px solid #008000;
   background: #fff url(../assets/gou.png) no-repeat right bottom;
 }
-
+.forCtrlColor{
+    & /deep/ .vux-cell-value{color: #a168fd; }
+    & /deep/ .weui-input{color: #a168fd; }
+    & /deep/ .weui-textarea{color: #a168fd;text-align: right;}
+    & /deep/ .weui-cell__ft{color: #a168fd;}
+    & /deep/ .checker-item-selected{border-color: #a168fd;}
+}
 </style>
 

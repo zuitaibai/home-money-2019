@@ -9,24 +9,24 @@
             <x-button action-type="button" @click.native="clickLogout" :show-loading="loginOutBtnLoadingVis">登 出</x-button>
         </div>
         <group label-width="5em" title="登录" v-if="!loginStatus" ref="group">
-            <x-input 
+            <x-input
                 title="用户名"
-                placeholder="必填" 
+                placeholder="必填"
                 :required="true"
                 v-model="userName"
             ></x-input>
-            <x-input 
-                title="密码" 
-                type="password" 
+            <x-input
+                title="密码"
+                type="password"
                 placeholder="必填"
                 :required="true"
                 v-model="userPwd"
             ></x-input>
             <x-input title="验证码" placeholder="必填" :required="true" v-model="userCode" type="number" @keyup.native.enter="clickLogin">
-                <x-button 
-                    slot="right" 
-                    type="default" 
-                    action-type="button" 
+                <x-button
+                    slot="right"
+                    type="default"
+                    action-type="button"
                     :plain="true"
                     :show-loading="getCodeLoadingVis"
                     mini
@@ -35,10 +35,10 @@
             </x-input>
         </group>
         <div style="padding:15px;" v-if="!loginStatus">
-            <x-button 
-                type="primary" 
-                action-type="submit" 
-                :show-loading="loginBtnLoadingVis" 
+            <x-button
+                type="primary"
+                action-type="submit"
+                :show-loading="loginBtnLoadingVis"
                 style="height:50px;"
                 @click.native="clickLogin"
             >登 录</x-button>
@@ -99,13 +99,13 @@
             ]),
             jumpIndex(){
                 // TODO: 采用$router.method 进入首页期间空白时间相当长
-                // this.$router.replace('index');
-                window.location.href = window.location.href.split('login','index');
+                this.$router.replace('/index');
+                // window.location.href = window.location.href.split('login','index');
             },
             resetLoginForm(){
                 this.userName = this.userPwd = this.userCode = '';
                 let inputs = this.$refs.group.$children;
-                this.$nextTick(() => 
+                this.$nextTick(() =>
                     inputs.forEach(child => child.reset())
                 );
                 inputs[0].focus();
@@ -144,7 +144,7 @@
                     }
                 });
             },
-            
+
         },
         created () {
             this.checkLogin(true);

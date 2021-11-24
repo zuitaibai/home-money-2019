@@ -1,4 +1,4 @@
-import { 
+import {
     Http, SS_listAccounts_list, SS_listAccounts_loadMore, SS_listAccounts_formOptions,
     SS_listAccounts_pagging, SS_listAccounts_del, SS_listAccounts_updateList, SS_listAccounts_updateItem } from '../storeVar';
 import { defaultPageSize } from '../../config';
@@ -59,12 +59,14 @@ const getters = {
             let tto = '----';
             if(item.type==100 || item.type==-1 || item.type==-2 || item.type==-3){
                 ffrom=`${item.memberKey_fromName} - ${item.bankTypeKey_fromName} - ${item.bankKey_fromName}`;
+                if(item.type==-2 || item.type==-1) tto = item.otherpartyName;
             }
             if(item.type==100 || item.type==0 || item.type==1 || item.type==2 || item.type==3){
                 tto = `${item.memberKey_toName} - ${item.bankTypeKey_toName} - ${item.bankKey_toName}`;
+                if(item.type==2 || item.type==1) ffrom = item.otherpartyName;
             }
-            listSub.push({label: '由', value: ffrom, order: 6});
-            listSub.push({label: '至', value: tto , order: 7});
+            listSub.push({label: '由哪里', value: ffrom, order: 6});
+            listSub.push({label: '至哪里', value: tto , order: 7});
             listSub.sort((a,b)=>a.order - b.order);
             item.transform1 = listSub.slice(0,8);
             item.transform2 = listSub.slice(8);

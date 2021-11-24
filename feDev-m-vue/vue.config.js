@@ -11,7 +11,7 @@ module.exports = {
 				path: 'src/myless/myless.less'
 			}]
 		});
-		// 分离打包js,用cdn加速，由于本应用目前没有走外网，故先不做
+		/* // 分离打包js,用cdn加速，由于本应用目前没有走外网，故先不做
 		if (isProduction) {
 			config.externals = {
 				'vue': 'Vue',
@@ -19,7 +19,7 @@ module.exports = {
 				'axios': 'axios',
 				'vuex': 'Vuex',
 			}
-		}
+		} */
 		// 开启Gzip, 由于本应用目前没有走外网，故先不做 (Gzip的变小率还是蛮大的)
 		/*
 		// 安装插件
@@ -126,7 +126,7 @@ module.exports = {
 	// lintOnSave: process.env.NODE_ENV !== 'production',
 
 	//是否使用包含运行时编译器的 Vue 构建版本。设置为 true 后你就可以在 Vue 组件中使用 template 选项了，但是这会让你的应用额外增加 10kb 左右。(默认false)
-	// runtimeCompiler: false,
+	runtimeCompiler: true,
 
 	/**
 	 * 如果你不需要生产环境的 source map，可以将其设置为 false 以加速生产环境构建。

@@ -17,11 +17,15 @@ import store from './store/guide';
 import ToastPlugin from 'vux/src/plugins/toast';
 import ConfirmPlugin from 'vux/src/plugins/confirm/index.js';
 
-// import Vue2TouchEvents from 'vue2-touch-events';
+import Vue2TouchEvents from 'vue2-touch-events';
 
+//// 关于x-icon:
 // 码源修改：
-// 关于x-icon:
 // 使用的icon需手动从https://ionicons.com/ 下载svg文件至vux/src/icons/，当前在项目src/addIcons目录中备份了目前所需的ico文件
+
+////关于点击
+    ///现已采用Vue2TouchEvents。故以下css方案和fastclick已弃用。fastclick码源也可以不用改了。added: 2021.11.24
+    ///vue2touchevents已由2.0.0升为3.2.2，目前测试中好使，应该是它自己解决了（之前用的不行，忘了为啥了）added: 2021.11.24
 
 // 码源修改：
 //用css方案 touch-action: manipulation;而不用fastclick,目前还有一些问题：x-input的clear按钮点不上
@@ -50,18 +54,21 @@ import ConfirmPlugin from 'vux/src/plugins/confirm/index.js';
 // 干脆，来这行
 //targetElement.focus();
 
-const FastClick = require('fastclick');
-FastClick.attach(document.body);
+
+/* const FastClick = require('fastclick');
+FastClick.attach(document.body); */
 
 Vue.config.productionTip = false;
 
 
 Vue.use(ConfirmPlugin);
 Vue.use(ToastPlugin, {position: 'middle', width: '12em', type:'text'});
-// Vue.use(Vue2TouchEvents, { /* touchClass: '', tapTolerance: 10, swipeTolerance: 30, longTapTimeInterval: 400 */ });
+Vue.use(Vue2TouchEvents, { /* touchClass: '', tapTolerance: 10, swipeTolerance: 30, longTapTimeInterval: 400 */ });
+
+Vue.prototype.$devicePixelRatio = 2;
 
 new Vue({
-  router,
-  store,
-  render: h => h(App)
+    router,
+    store,
+    render: h => h(App)
 }).$mount('#app');

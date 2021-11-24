@@ -19,10 +19,10 @@
 
 		<divider>收入 · 类别</divider>
 		<div class="tubiao tubiao1" ref="tubiao1">
-			<v-chart :data="srCake.data">
-				<v-tooltip />
-				<v-pie :radius="0.85" series-field="name" />
+			<v-chart :data="srCake.data" v-if="srCake.show">
+				<v-pie :radius="0.85" series-field="name" :tick-count="0" />
 				<v-legend :options="srCake.legendOptions" />
+				<v-tooltip disabled />
 			</v-chart>
 		</div>
 
@@ -52,7 +52,7 @@
 				<v-tooltip :show-x-value="true" />
 			</v-chart>
 		</div>
-		
+
 
 		<divider>支出 · 消费对象</divider>
 		<div class="tubiao">
@@ -121,9 +121,10 @@ export default {
 			srCake: {
 				legendOptions: {
 					position: 'right',
-					itemFormatter: val => val + ' ' + (this.srCake.data.find(item=>item.name==val) || {}).money
+					itemFormatter: val => `${val} ${this.srCake.data.find(v=>v.name==val).money}`
 				},
-				data: [{}]
+				data: [],
+                show: false
 			},
 			zcAcc: {},
 			zcAccSub: {},
@@ -131,20 +132,19 @@ export default {
 			srAccSub: {},
 			yeAcc: {},
 			yeAccSub: {},
-			basic: {},
-		}
+			basic: {}
+        }
 	},
 	methods: {
 		...mapActions(["setNavigationTitle"]),
 	},
 	mounted() {
 		this.setNavigationTitle(cn);
-	},
-	created(){
-		this.http.getZhichu().then(res=>{
+
+        this.http.getZhichu().then(res=>{
 			if(!res) return;
 			this.zcType = res.typeList.map(item=>({
-				name: item.name.length>2 ? item.name.substring(0,1)+item.name.substring(2,3) : item.name, 
+				name: item.name.length>2 ? item.name.substring(0,1)+item.name.substring(2,3) : item.name,
 				money: item.money
 			})).sort((a,b)=>b.money-a.money);
 			this.zcForwho = res.forMemberList.map(item=>({
@@ -152,7 +152,7 @@ export default {
 				money: item.money
 			})).sort((a,b)=>b.money-a.money);
 			// this.$refs.zcType.rerender();
-			
+
 			res.bizhongList.sort((a,b)=> {
 				const c = a.memberKey- b.memberKey;
 				if(c===0) return b.bankTypeKey - a.bankTypeKey;
@@ -177,9 +177,10 @@ export default {
 		this.http.getShouru().then(res=>{
 			if(!res) return;
 			const allMoney = res.typeList.reduce((t, item)=>t+item.money, 0);
-			this.srCake.data = res.typeList.map(item=>({
+			let pieData = res.typeList.map(item=>({
 				name: item.name,
-				percent: (item.money / allMoney).toFixed(2)*1,
+				percent: (item.money / allMoney).toFixed(4)*100,
+				// percent: item.money / allMoney,
 				money: item.money
 			}));
 
@@ -203,8 +204,13 @@ export default {
 			});
 			this.srAcc = o;
 			this.srAccSub = m;
+
+            this.srCake.data = pieData;
+            // this.$set(this.srCake, 'data', pieData);
+            this.srCake.show = true;
+
 			this.$nextTick(()=>{
-				this.$refs.tubiao1.firstElementChild.style.backgroundColor='rgba(255, 255, 255, 0)';
+                this.$refs.tubiao1.firstElementChild.style.backgroundColor='rgba(255, 255, 255, 0)';
 			});
 		});
 		this.http.getYuE().then(res=>{
@@ -240,6 +246,9 @@ export default {
                 this.basic = { ...res.listArr[0] };
             }
 		});
+	},
+	created(){
+
 	},
 };
 </script>

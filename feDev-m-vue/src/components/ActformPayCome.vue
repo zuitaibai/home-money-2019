@@ -1,9 +1,9 @@
 <template>
 	<div>
-		<group gutter="0">
+		<group gutter="0" class="forCtrlColor">
 			<x-input title="名称" v-model="obj.name" required show-clear text-align="right" placeholder-align="right" placeholder="必填" ref="name"></x-input>
 			<x-input title="金额" v-model="obj.money" required show-clear text-align="right" placeholder-align="right" placeholder="必填，只接受整数" type="number" ref="money">
-				<span slot="right" style="margin-left:5px;">元</span>
+				<span slot="right" style="margin-left:5px;color:#888">元</span>
 			</x-input>
 			<popup-picker v-if="payComeStr=='Pay'"   title="[ 支出类别 ]" :data="outTypeList" :columns="2" v-model="obj.outType" show-name @on-change="outTypeChange"></popup-picker>
 			<popup-picker v-if="payComeStr=='Come'"  title="[ 收入类别 ]" :data="inTypeList"  :columns="1" v-model="obj.inType"  show-name></popup-picker>
@@ -255,5 +255,11 @@ export default {
   text-align: center;
   padding: 8px 0;
   color: #888;
+}
+.forCtrlColor{
+    & /deep/ .vux-cell-value{color: #a168fd; }
+    & /deep/ .weui-input{color: #a168fd; }
+    & /deep/ .weui-textarea{color: #a168fd;text-align: right;}
+    & /deep/ .weui-cell__ft{color: #a168fd;}
 }
 </style>

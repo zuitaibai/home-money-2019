@@ -21,7 +21,7 @@
 						<a href="javascript:;" class="color1" @click="goTop">
 							&nbsp;<x-icon type="md-arrow-up" class="mmvuxico"></x-icon>&nbsp;
 						</a>&nbsp;&nbsp;&nbsp;
-						<a href="javascript:;" class="color2" v-if="showChecksBl" @click="btnDelAll">&nbsp;删除&nbsp;</a>&nbsp;
+						<a href="javascript:;" class="color2" v-if="showChecksBl && pageType!='listAccounts'" @click="btnDelAll">&nbsp;删除&nbsp;</a>&nbsp;
 						<a href="javascript:;" class="color3" @click="showChecksBl=!showChecksBl">&nbsp;{{showChecksBl?'隐藏':'批量'}}</a>
 					</span>
 				</div>
@@ -44,7 +44,7 @@
 				<swipeout-item :auto-close-on-button-click="false">
 					<div slot="right-menu">
 						<swipeout-button @click.native.stop="btnEditItem(pageType,item.id)" type="primary">编辑</swipeout-button>
-						<swipeout-button @click.native.stop="btnDelItem(item.id)" type="warn">删除</swipeout-button>
+						<swipeout-button @click.native.stop="btnDelItem(item.id, item)" type="warn">删除</swipeout-button>
 					</div>
 					<ul class="listCol item-top" slot="content" :class="{'show-checks':showChecksBl, 'if-accounts':pageType=='listAccounts'}">
 						<li class="li2"><p>{{item.header['1']}}</p></li>
@@ -68,6 +68,32 @@
 				-->
 				<group gutter="0" v-if="item.vs" style="margin-left:40px;">
 					<cell-form-preview :list="item.transform1" style="font-size:14px;"></cell-form-preview>
+
+
+                    <div v-if="pageType=='listAccounts' && Math.abs(item.type) == 1">
+                        <cell-form-preview :list="[{label: '还款状态', value: {'0': '✘ 未还', '1': '✔ 已还', '2': '◕ 已还部分'}[item.isFinished]||'' }]" style="font-size:14px;"></cell-form-preview>
+                        <div v-if="item.finisheds && item.finisheds.list" class="nfdstable">
+                            <div>还帐历史：</div>
+                            <div>
+                                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>日期</th>
+                                        <th>金额</th>
+                                        <th>名称</th>
+                                    </tr>
+                                    <tr v-for="(histroyItem, histroyIndex) in item.finisheds.list" :key="item.id + '-' + histroyIndex">
+                                        <td>{{histroyItem.id}}</td>
+                                        <td>{{histroyItem.date_sign}}</td>
+                                        <td>{{histroyItem.money}}</td>
+                                        <td>{{histroyItem.name}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
 					<cell-form-preview :list="item.transform2" style="font-size:14px;"></cell-form-preview>
 				</group>
 			</div>
@@ -84,6 +110,7 @@
 </template>
 
 <script>
+    import { Http } from '../store/storeVar';
 	import { Swipeout, SwipeoutItem, SwipeoutButton, CellFormPreview, Group, CheckIcon, LoadMore, Sticky } from 'vux';
 	import { mapActions, mapState } from 'vuex';
 	import PaggingFooter from '@/components/PaggingFooter.vue';
@@ -146,7 +173,16 @@
 				this.getListPush({currentPage: next});
 			},
 			showItemDetail(item,index){
-				item.vs = !item.vs;
+                if(item.vs) item.vs = false;
+                else{
+                    item.vs = true;
+                    if(this.pageType=='listAccounts' && Math.abs(item.type) == 1){
+                        !item.finisheds && Http.getDetailAccounts(item.id).then(res => {
+                            let newItem = {...item, finisheds: res.finisheds};
+                            this.$set(this.dataList_, index, newItem);
+                        });
+                    }
+                }
 				this.$set(this.dataList_, index, item);
 			},
 			itemCheck(item,index){
@@ -163,9 +199,18 @@
 			btnEditItem(pageType, id){
 				this.$router.push(`/${pageType}/edit/${id}`, routerTo=>{});
 			},
-			btnDelItem(id){
+			btnDelItem(id, item){
+                let content = '删除需谨慎，你丫确定？';
+                if(this.pageType=='listAccounts' && Math.abs(item.type) == 1){
+                    let t1 = '入', t2 = '出';
+                    if(item.type == 1){
+                        t1 = '出';
+                        t2 = '入';
+                    }
+                    content = `确定要删？<br><br>！！！！！注意：<br>此借${t2}连带的所有[还${t1}]记录将被同步删除`;
+                }
 				this.$vux.confirm.show({
-                    content: '删除需谨慎，你丫确定？',
+                    content,
                     onConfirm : () => {
 						this.setLoading({ text: '我删，我删删删', show: true });
 						this.del(id).then(res=>{
@@ -251,7 +296,7 @@
 		&.li4{width:49%;}
 		&.li5{width:10.9%;}
 	}
-	&.item-top>li.li2{color:rgb(161, 161, 161);font-size:13px;}
+	&.item-top>li.li2{color:rgb(161, 161, 161); p{font-size:13px;}}
 	&.item-top>li.li3{color:rgb(255, 123, 0);}
 	&.show-checks{
 		&>li.li1{display:inline-block;}
@@ -295,5 +340,15 @@
 		font-size:12px;
 		em{color:rgba(255, 0, 0, 0.6);font-style: normal;}
 	}
+}
+
+.nfdstable{
+    font-size: 13px;color: #999; /* border-bottom:1px solid #ccc; */ margin: 0 13px 10px 15px;line-height:1.4;padding-bottom:6px;
+    // &>div:nth-child(1){}
+    &>div:nth-child(2){
+        table{width:100%;table-layout: fixed;border-collapse:collapse;
+            th,td{border: 1px solid #aaa;padding: 0;padding: 3px 5px;}
+        }
+    }
 }
 </style>
