@@ -14,6 +14,10 @@ router.get('/:id', async (ctx, next) => {
     if(dataItem[0].finishedFormIds){
         let sum = await ctx.db.query(`SELECT SUM(money) as summ FROM zhuan_cun WHERE id in (${dataItem[0].finishedFormIds})`);
         let list = await ctx.db.query(`SELECT * FROM zhuan_cun WHERE id in (${dataItem[0].finishedFormIds})`);
+        list.forEach(v => {
+            v.date_sign = ctx.tool.dateFmt(v.date_sign);
+            v.date_dbCreate = ctx.tool.dateFmt(v.date_dbCreate);
+        });
         finisheds.sum = sum[0].summ;
         finisheds.count = list.length;
         finisheds.list = list;
@@ -27,6 +31,7 @@ router.get('/:id', async (ctx, next) => {
         money: dataItem[0].money,
         type: dataItem[0].type,
         date_sign: ctx.tool.dateFmt(dataItem[0].date_sign),
+        date_dbCreate: ctx.tool.dateFmt(dataItem[0].date_dbCreate),
         bankTypeKey_from: dataItem[0].bankTypeKey_from,
         bankTypeKey_to: dataItem[0].bankTypeKey_to,
         bankKey_from: dataItem[0].bankKey_from,
