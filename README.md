@@ -15,7 +15,7 @@
 
 ### [feDev-pc-ng]: npm install
 
-DEV: 
+DEV:
 
     feDev-pc-ng/src/index.html  base[href]="/"
 
@@ -25,7 +25,7 @@ PROD:
 
     feDev-pc-ng/src/index.html  base[href]="/apps/"
 
-    build: feDev-pc-ng/    bash: ng build --prod
+    build: feDev-pc-ng/    bash: ng build --prod(不带gzip压缩) 或者 npm run buildGzip(带gzip压缩)
 
 	copy files into server/apps/ & sv端跑prod: localhost:8888/apps
 
@@ -36,7 +36,7 @@ PROD-HOT:
     build: feDev-pc-ng/    bash: ng build --prod
 
 	copy files into server/apps/ & sv端跑prod-hot: localhost:8888/apps
-    
+
 ### [feDev-m-vue]: yarn install (install后请搜索feDev-m-vue内的‘码源修改’按说明修改package等)
 
 DEV:
