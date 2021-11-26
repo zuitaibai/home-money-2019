@@ -352,7 +352,7 @@ export default {
             this.chooseListModal.loadMoreVis = true;
             Http.getListAcc({
                 currentPage: this.chooseListModal.pagging.currentPage,
-                pageSize: 3,
+                pageSize: 100,
                 type: {'2': -1, '-2': 1}[this.obj.accType]
             }).then(res => {
                 if(res===undefined) return;

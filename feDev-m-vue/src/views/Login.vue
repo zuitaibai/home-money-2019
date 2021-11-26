@@ -163,7 +163,7 @@
     img { width: 100%; height: 100%; }
 }
 .login{
-    height:100%;background:url('../assets/logo.png') 100% 99% no-repeat;
+    height:100%;background:#fff url('../assets/logo.png') 100% 99% no-repeat;
     animation:loginBg2 4s, loginBg3 2s ease 3s infinite alternate;
 }
 @keyframes loginBg2{

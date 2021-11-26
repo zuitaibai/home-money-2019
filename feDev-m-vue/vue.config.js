@@ -8,7 +8,7 @@ module.exports = {
 			options: {},
 			plugins: ['vux-ui', 'duplicate-style', {
 				name: 'less-theme',
-				path: 'src/myless/myless.less'
+				path: 'src/myless/myless_for_vux.less'
 			}]
 		});
 		/* // 分离打包js,用cdn加速，由于本应用目前没有走外网，故先不做
@@ -58,18 +58,18 @@ module.exports = {
 		}
 
 		// 公共代码抽离
-		if (isProduction) {
+        /* if (isProduction) {
 			config.optimization = {
 				splitChunks: {
 					cacheGroups: {
-						/* vux: {
-							name: 'chunk-vux',
-							test: /[\\/]node_modules[\\/]vux[\\/]/,
-							chunks: 'initial',
-							priority: 3,
-							reuseExistingChunk: true,
-							enforce: true
-						}, */
+						// vux: {
+							// name: 'chunk-vux',
+							// test: /[\\/]node_modules[\\/]vux[\\/]/,
+							// chunks: 'initial',
+							// priority: 3,
+							// reuseExistingChunk: true,
+							// enforce: true
+						// },
 						vendor: {
 							chunks: 'all',
 							test: /node_modules/,
@@ -88,21 +88,20 @@ module.exports = {
 							maxInitialRequests: 5,
 							minSize: 0,
 							priority: 60
-						}/* ,
-						styles: {
-							name: 'styles',
-							test: /\.(sa|sc|c)ss$/,
-							chunks: 'all',
-							enforce: true
-						} */,
+						},
+						// styles: {
+							// name: 'styles',
+							// test: /\.(sa|sc|c)ss$/,
+							// chunks: 'all',
+							// enforce: true
+						// },
 						runtimeChunk: {
 							name: 'manifest'
 						}
 					}
 				}
 			}
-		}
-
+		} */
 	},
 	// 部署生产环境和开发环境下的URL。
 	// 默认情况下，Vue CLI 会假设你的应用是被部署在一个域名的根路径上

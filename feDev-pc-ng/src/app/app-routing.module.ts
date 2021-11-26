@@ -119,7 +119,7 @@ const routes: Routes = [
     ]},
     { path: 'login', component: LoginComponent, data: {title: `${tit}-登录`} },
     // { path: '**', component: PageNotFoundComponent },
-    { path: '**', redirectTo: '/index' } // 注掉for:debug server：当是生产环境下时，注掉这句以检测不存在路由是否404状态，
+    // { path: '**', redirectTo: '/index' } // 注掉for:debug server：当是生产环境下时，注掉这句以检测不存在路由是否404状态，
 ];
 
 @NgModule({

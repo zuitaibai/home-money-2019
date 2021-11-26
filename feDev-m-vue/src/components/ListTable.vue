@@ -57,7 +57,7 @@
 				<!-- 码源修改： -->
 				<!-- 当拖动swipeout-item上下滚动页面时报错：[Intervention] Ignored attempt to cancel a touchmove event with cancelable=false, for example because scrolling is in progress and cannot be interrupted. -->
 				<!-- 原因：在swipeout-item组件里的有ev.preventDefault()事件，然而如果页页处于拖动滚动中时，此时无法中断滚动行为 -->
-				<!-- 解决：在其源码中，vux:swipeout-item.vue，所有ev.preventDefault()均改为：if(ev.cancelable) ev.preventDefault() -->
+				<!-- 解决：在其源码中，vux/src/components/swipeout/swipeout-item.vue，所有ev.preventDefault()均改为：if(ev.cancelable) ev.preventDefault() -->
 
 				<!-- 码源修改： -->
 				<!-- 此处对vux:swipeout-item.vue源码进行修改(方法start体内)，以使swipeout实例下能容纳非swipeout-item元素而不报错 -->
@@ -180,17 +180,17 @@
 				this.getListPush({currentPage: next});
 			},
 			showItemDetail(item,index){
-                if(item.vs) item.vs = false;
+                if(item.vs) this.$set(this.dataList_, index, {...item, vs: false});
                 else{
-                    item.vs = true;
+                    this.$set(this.dataList_, index, {...item, vs: true});
                     if(this.pageType=='listAccounts' && Math.abs(item.type) == 1){
-                        !item.finisheds && Http.getDetailAccounts(item.id).then(res => {
-                            let newItem = {...item, finisheds: res.finisheds};
+                        !item.finisheds &&  Http.getDetailAccounts(item.id).then(res => {
+                            let newItem = {...item, finisheds: res.finisheds, vs: true}; //这个vs:true也必须加，因为其父代码块内的vs或许没有进入nextTick
                             this.$set(this.dataList_, index, newItem);
                         });
                     }
                 }
-				this.$set(this.dataList_, index, item);
+                this.dataList_.forEach( (v,i) => (i !== index) && this.dataList_.splice(i, 1, {...v, vs: false}) );
 			},
 			itemCheck(item,index){
 				item.checked = !item.checked;

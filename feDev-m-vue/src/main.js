@@ -3,10 +3,11 @@ import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
 import store from './store/guide';
+// import FastClick from 'fastclick';
 
-//axios入口：main.js <- store/guide <- store/home <- store/storeVar <- api/service <- plugins/axios
+//1. axios入口：main.js <- store/guide <- store/home <- store/storeVar <- api/service <- plugins/axios
 
-// 引入ConfirmPlugin目前有如下问题：
+//2. 引入ConfirmPlugin目前有如下问题：
 // warn: “VUX: 如果你看到这一行，说明 vux-loader 配置有问题或者代码书写规范的原因导致无法解析成按需引入组件，会导致打包体积过大。请升级到最新版本 vux-loader，建议开启 eslint(standard)。”
 // vux官网：暂未适配 vue-cli@3.x，请知悉。 （writeTime:2019/5/3）
 // 本项目用的是vue-cli3,所以：由于vue-cli3使用的是webpack4而且更新过vue-loader，所以vux使用起来会存在一些兼容的问题
@@ -20,9 +21,11 @@ import ConfirmPlugin from 'vux/src/plugins/confirm/index.js';
 import Vue2TouchEvents from 'vue2-touch-events';
 
 //// 关于x-icon:
-// 码源修改：
+//3. 码源修改：
 // 使用的icon需手动从https://ionicons.com/ 下载svg文件至vux/src/icons/，当前在项目src/addIcons目录中备份了目前所需的ico文件
 
+
+//4.
 ////关于点击
     ///现已采用Vue2TouchEvents。故以下css方案和fastclick已弃用。fastclick码源也可以不用改了。added: 2021.11.24
     ///vue2touchevents已由2.0.0升为3.2.2，目前测试中好使，应该是它自己解决了（之前用的不行，忘了为啥了）added: 2021.11.24
@@ -55,10 +58,14 @@ import Vue2TouchEvents from 'vue2-touch-events';
 //targetElement.focus();
 
 
-/* const FastClick = require('fastclick');
-FastClick.attach(document.body); */
+
+// FastClick.attach(document.body);
 
 
+
+//5. 另见src\components\ListTable.vue中的“码源修改”
+
+//5.
 ////关于组件库vux：
 //使用import { a, b, c, d } from 'vux' :=>a方式，build时据说会把vux全量拉入。
 //因此尝试使用 import XazYce from 'vux/src/components/xaz-yce/index.vue' :=>b方式，以下是这种方式本站各页面所用到的全集合：
@@ -102,6 +109,8 @@ FastClick.attach(document.body); */
     */
 //此种方式有一些组件没有正常，说明引入的地址及命名及该package内的导出有些是不一致的，还没有细查。大致试了下，好像dev本地时正常，prod时就不正常了，但不确定。
 //经测使用a方式和b方式build出来的文件大小差不多。说明没有全量拉入。因此，又把各页下的引入方式变回成a方式。
+
+
 Vue.config.productionTip = false;
 
 
@@ -110,6 +119,8 @@ Vue.use(ToastPlugin, {position: 'middle', width: '12em', type:'text'});
 Vue.use(Vue2TouchEvents, { /* touchClass: '', tapTolerance: 10, swipeTolerance: 30, longTapTimeInterval: 400 */ });
 
 Vue.prototype.$devicePixelRatio = 2;
+
+import './myless/global.less';
 
 new Vue({
     router,
