@@ -146,6 +146,7 @@ export default {
 		...mapActions(["setNavigationTitle"]),
 	},
 	mounted() {
+        // console.timeEnd('Index mounted');console.time('Index beforeUpdate');
 		this.setNavigationTitle(cn);
 
         this.http.getZhichu().then(res=>{
@@ -254,9 +255,15 @@ export default {
             }
 		});
 	},
-	created(){
+    /* beforeCreate(){ console.info(`Index beforeCreate== ${new Date()*1}`);console.time('Index created');},
+    created(){ console.timeEnd('Index created');console.time('Index beforeMount');},
+    beforeMount(){ console.timeEnd('Index beforeMount');console.time('Index mounted');},
 
-	},
+    beforeUpdate(){ console.timeEnd('Index beforeUpdate');console.time('Index updated'); },
+    updated(){ console.timeEnd('Index updated');console.time('Index beforeDestroy'); },
+    beforeDestroy(){ console.timeEnd('Index beforeDestroy');console.time('Index destroyed'); },
+    destroyed(){ console.timeEnd('Index destroyed');console.info(`Index destroyed=@ ${new Date()*1}`); } */
+
 };
 </script>
 

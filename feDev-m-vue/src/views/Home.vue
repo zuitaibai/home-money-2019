@@ -170,6 +170,14 @@
                 }
             });
         },
+        /* beforeCreate(){ console.error(`Home beforeCreate== ${new Date()*1}`);console.time('Home created');},
+        created(){ console.timeEnd('Home created');console.time('Home beforeMount');},
+        beforeMount(){ console.timeEnd('Home beforeMount');console.time('Home mounted');},
+        mounted(){ console.timeEnd('Home mounted');console.time('Home beforeUpdate');},
+        beforeUpdate(){ console.timeEnd('Home beforeUpdate');console.time('Home updated'); },
+        updated(){ console.timeEnd('Home updated');console.time('Home beforeDestroy'); },
+        beforeDestroy(){ console.timeEnd('Home beforeDestroy');console.time('Home destroyed'); },
+        destroyed(){ console.timeEnd('Home destroyed');console.error(`Home destroyed=@ ${new Date()*1}`); } */
     };
 
 </script>

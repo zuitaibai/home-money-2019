@@ -151,8 +151,17 @@
 
         },
         created () {
+            // console.timeEnd('Login created');console.time('Login beforeMount');
             this.checkLogin(true);
-        }
+        },
+        /* beforeCreate(){ console.warn(`Login beforeCreate== ${new Date()*1}`);console.time('Login created');},
+
+        beforeMount(){ console.timeEnd('Login beforeMount');console.time('Login mounted');},
+        mounted(){ console.timeEnd('Login mounted');console.time('Login beforeUpdate');},
+        beforeUpdate(){ console.timeEnd('Login beforeUpdate');console.time('Login updated'); },
+        updated(){ console.timeEnd('Login updated');console.time('Login beforeDestroy'); },
+        beforeDestroy(){ console.timeEnd('Login beforeDestroy');console.time('Login destroyed'); },
+        destroyed(){ console.timeEnd('Login destroyed');console.warn(`Login destroyed=@ ${new Date()*1}`); } */
     };
 
 </script>
