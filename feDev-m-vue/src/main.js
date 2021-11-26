@@ -120,8 +120,6 @@ Vue.use(Vue2TouchEvents, { /* touchClass: '', tapTolerance: 10, swipeTolerance: 
 
 Vue.prototype.$devicePixelRatio = 2;
 
-import './myless/global.less';
-
 new Vue({
     router,
     store,
