@@ -63,7 +63,7 @@ PROD-HOT:
 
 ### {server端}: yarn install
 
-//上线前改端口为80 (server\boot\config.js)
+//上线前改端口为80 (server\boot\config.js) //由于线上现在用nginx了，故不用改端口了
 
 net start mysql &
 
