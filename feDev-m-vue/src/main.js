@@ -65,7 +65,7 @@ import Vue2TouchEvents from 'vue2-touch-events';
 
 //5. 另见src\components\ListTable.vue中的“码源修改”
 
-//5.
+//6.
 ////关于组件库vux：
 //使用import { a, b, c, d } from 'vux' :=>a方式，build时据说会把vux全量拉入。
 //因此尝试使用 import XazYce from 'vux/src/components/xaz-yce/index.vue' :=>b方式，以下是这种方式本站各页面所用到的全集合：
@@ -109,6 +109,41 @@ import Vue2TouchEvents from 'vue2-touch-events';
     */
 //此种方式有一些组件没有正常，说明引入的地址及命名及该package内的导出有些是不一致的，还没有细查。大致试了下，好像dev本地时正常，prod时就不正常了，但不确定。
 //经测使用a方式和b方式build出来的文件大小差不多。说明没有全量拉入。因此，又把各页下的引入方式变回成a方式。
+
+
+////7 码源修改：
+// @表现是：在选择支出类别时，选择 居家物业->居家百货 选完会显示 居家物业->行车交通 致表象错乱，在选择收入币种时也有此类问题。
+// @针对原理：vux的popup-picker组件，如具层级的数据：[
+//      {name:'a1', value:3, parent:0},  //一层数据 id:3
+//      {name:'a2', value:2, parent:0},  //一层数据 id:3
+//      {name:'b1', value:3, parent:2},  //二层数据 id:3, 父id:2 (另一个表中，故id也是从1开始的，所以和一级的id有复合)
+//      {name:'b2', value:2, parent:3},  //二层数据 id:2, 父id:3 (另一个表中，故id也是从1开始的，所以和一级的id有复合)
+// ]，则此组件在找name时，如找第一项的name也许会找到第三项上因value也是3（具体实现是：调用组件内导入的value2name函数）
+// @暴力修改：没有考虑popup-picker组件或说value2name函数的全局通用情况(大体一想应该不太有问题)，直接在node_modules/vux/src/filters/value2name.js中修改：
+// 大约在12行 let rs=map(value, (one, index) => {//这个体内：
+// 由：
+    /*if (list.length && Object.prototype.toString.call(list[0]) === '[object Array]') {
+      return find(list[index], item => {
+        return item.value === one
+      })
+    } else {
+      return find(list, item => {
+        return item.value === one
+      })
+    }*/
+// 改为：
+    /*if (list.length && Object.prototype.toString.call(list[0]) === '[object Array]') {
+        return find(list[index], item => {
+            return item.value === one
+        })
+    } else {
+        return find(list, item => {
+            // return item.value === one /////////更改处：此句注掉，新加下两句
+            if(index === 0) return item.value === one && item.parent == 0;
+            return item.value === one && item.parent != 0;
+        })
+    }*/
+//}
 
 
 Vue.config.productionTip = false;

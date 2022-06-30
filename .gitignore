@@ -2,3 +2,4 @@
 .vscode
 server/data_ser/*.sql
 server/data_ser/writeSql.bak.2021.9.5.txt
+server/data_ser/writeSql.txt

@@ -18,6 +18,7 @@ export class ListPayComponent implements OnInit {
     pageNums: PageNumsType;
     thisPageTotal = '';
     formInits: ObjTpye;
+    doSearchFlag = false;
 
     routerPageType = 'listPay';
 
@@ -108,6 +109,7 @@ export class ListPayComponent implements OnInit {
             });
             this.thisPageTotal = String(pageTotal);
             this.pageNums = resData.page;
+            this.doSearchFlag = !this.doSearchFlag;
         });
     }
 

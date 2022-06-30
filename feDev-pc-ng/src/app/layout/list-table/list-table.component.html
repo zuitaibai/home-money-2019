@@ -3,7 +3,7 @@
     <div style="padding:6px 0;background: #f7f7f7;color:#666;" class="max1300 fix">
         <span class="fix-l" style="color:#ff8201;">&nbsp;&nbsp;☺ {{pageCnName}}列表</span>
         <span class="fix-r">
-            <a (click)="exportTable()" herf="javascript:;" style="color:#6f79ef;margin-right:20px;cursor: pointer;">导出</a>
+            <a (click)="exportTable()" herf="javascript:;" style="color:#6f79ef;margin-right:20px;cursor: pointer;" title="只导出一页数据，因此请多条数查询">导出</a>
             <span style="margin-right:20px;" [hidden]="tempCalcNum.sum===0||tempCalcNum.len<=1">
                 [ 已选求和: <span class="red">{{tempCalcNum.sum}}</span> ]
             </span>
