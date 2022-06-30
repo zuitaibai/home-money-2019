@@ -20,6 +20,11 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <script>
+        let isMobile = /Android|webOS|iPhone|iPad|Windows Phone|iPod|BlackBerry|SymbianOS|Nokia|Mobile|midp|rv:1\.2\.3\.4|ucweb|windows ce/i.test(navigator.userAgent);
+        let isInMbMode = window.location.pathname.indexOf('/mb/') > -1;
+        if(isMobile && !isInMbMode) window.location.href = '/apps/mb/index';
+    </script>
 </head>
 
 <body>

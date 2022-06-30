@@ -28,6 +28,7 @@ export class ListTableComponent implements OnInit, OnChanges {
     @Input() onePageTotal: string;
     @Input() pageNums: PageNumsType;
     @Input() listStatusOpts: ObjTpye = {};
+    @Input() doSearchFlag: boolean;
 
     // tslint:disable-next-line:no-output-on-prefix
     @Output() delSuccess: EventEmitter<string> = new EventEmitter();
@@ -52,6 +53,10 @@ export class ListTableComponent implements OnInit, OnChanges {
             if (changes.pageNums.currentValue.currentPage !== changes.pageNums.previousValue.currentPage) {
                 this.ifSelectAllFlag = false;
             }
+        }
+        if (changes.doSearchFlag && changes.doSearchFlag.currentValue !== changes.doSearchFlag.previousValue) {
+            this.tempCalcNum.sum = 0;
+            this.ifSelectAllFlag = false;
         }
     }
     goToEdit(id: number) {
@@ -287,7 +292,7 @@ export class ListTableComponent implements OnInit, OnChanges {
         if (this.routerPageType === 'listPay') sname = '支出';
         else if (this.routerPageType === 'listCome') sname = '收入';
         else if (this.routerPageType === this.pageEnName) sname = '帐目';
-        this.saveAsExcelFile(excelBuffer, '2019-2020'+sname);
+        this.saveAsExcelFile(excelBuffer, '导出-'+sname);
     }
 
     private saveAsExcelFile(buffer: any, fileName: string) {

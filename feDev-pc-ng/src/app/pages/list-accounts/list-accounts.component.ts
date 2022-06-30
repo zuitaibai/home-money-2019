@@ -18,6 +18,7 @@ export class ListAccountsComponent implements OnInit {
     pageNums: PageNumsType;
     thisPageTotal = '';
     formInits: ObjTpye;
+    doSearchFlag = false;
 
     routerPageType = 'listAccounts';
 
@@ -179,6 +180,7 @@ export class ListAccountsComponent implements OnInit {
             this.dataSource = dataSource;
             this.thisPageTotal = `${pageTotalA} - ${pageTotalB} = ${pageTotalA - pageTotalB}`;
             this.pageNums = resData.page;
+            this.doSearchFlag = !this.doSearchFlag;
         });
 
     }

@@ -40,7 +40,8 @@ const _doPassPaths = [ //可变量统一使用:any代替
     'db',
     'editType',
     'login',
-    'notes'
+    'notes',
+    'index'
 ];
 
 const interfacePre = (() => {

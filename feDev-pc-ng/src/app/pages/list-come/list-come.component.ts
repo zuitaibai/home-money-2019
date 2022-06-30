@@ -18,6 +18,7 @@ export class ListComeComponent implements OnInit {
     pageNums: PageNumsType;
     thisPageTotal = '';
     formInits: ObjTpye;
+    doSearchFlag = false;
 
     routerPageType = 'listCome';
 
@@ -79,6 +80,7 @@ export class ListComeComponent implements OnInit {
             });
             this.thisPageTotal = String(pageTotal);
             this.pageNums = resData.page;
+            this.doSearchFlag = !this.doSearchFlag;
         });
 
     }
